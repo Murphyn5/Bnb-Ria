@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, Booking } = require('../../db/models');
+const { User, Spot, ReviewImage, Review } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -9,13 +9,13 @@ const router = express.Router();
 
 
 
-//Get Current User Bookings
+//Get Current User Reviews
 
 router.get(
   '/current',
   requireAuth,
   async (req, res) => {
-    const bookings = await Booking.findAll({
+    const reviews = await Review.findAll({
         where: {
             userId: req.user.id
         },
@@ -25,14 +25,17 @@ router.get(
             },
             {
                 model: User
+            },
+            {
+                model: ReviewImage
             }
         ]
     })
 
-    console.log(bookings)
+    console.log(reviews)
 
     return res.json(({
-        Bookings: bookings
+        Reviews: reviews
     }))
   }
 
