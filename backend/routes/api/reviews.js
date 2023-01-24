@@ -51,6 +51,8 @@ router.get(
 
         if (spotImage.preview === true) {
             spotPOJO.previewImage = spotImage.url
+        } else{
+            spotPOJO.previewImage = null
         }
 
         reviewPOJO.Spot = spotPOJO
