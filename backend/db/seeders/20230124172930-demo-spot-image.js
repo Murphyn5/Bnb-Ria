@@ -8,27 +8,23 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-     options.tableName = 'Reviews';
+     options.tableName = 'SpotImages';
      return queryInterface.bulkInsert(options, [
-
       {
-        userId: 1,
-        spotId: 1,
-        review: "This was an awesome spot!",
-        stars: 5
+        "spotId": 1,
+        "url": "https://computersciencehero.com/wp-content/uploads/2019/10/51573033_2076486832438827_2048960555678433280_n.jpg",
+        "preview": true
       },
       {
-        userId: 2,
-        spotId: 2,
-        review: "This was a trashy spot!",
-        stars: 1
+        "spotId": 2,
+        "url": "https://variety.com/wp-content/uploads/2022/08/HBO-Max-Sesame-Street.jpg",
+        "preview": true
       },
       {
-        userId: 3,
-        spotId: 3,
-        review: "HEYYY, HE KICKED ME OUT!",
-        stars: 1
-      }
+        "spotId": 3,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": false
+      },
 
     ], {});
   },
@@ -40,7 +36,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     options.tableName = 'Reviews';
+     options.tableName = 'Spots';
      const Op = Sequelize.Op;
      return queryInterface.bulkDelete(options, {
        id: { [Op.in]: [1, 2, 3] }
