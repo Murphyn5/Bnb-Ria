@@ -134,14 +134,14 @@ router.delete(
             let err = {}
             err.status = 404
             err.message = "Spot couldn't be found"
-            next(err)
+            return next(err)
         }
 
         if(spot.ownerId !== req.user.id){
             let err = {}
             err.status = 403
             err.message = "Current User does not have authorization required to complete this action!"
-            next(err)
+            return next(err)
         }
 
         await spot.destroy()

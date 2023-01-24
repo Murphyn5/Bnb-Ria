@@ -65,7 +65,35 @@ router.get(
     })
   }
 
+)
 
+router.delete(
+    '/:id',
+    requireAuth,
+    async (req, res, next) => {
+        const review = await Review.findByPk(req.params.id)
+
+        if(!review){
+            let err = {}
+            err.status = 404
+            err.message = "Review couldn't be found"
+            return next(err)
+        }
+
+        if(review.userId !== req.user.id){
+            let err = {}
+            err.status = 403
+            err.message = "Current User does not have authorization required to complete this action!"
+            return next(err)
+        }
+
+        await review.destroy()
+
+        return res.json({
+            message: "Successfully deleted",
+            satusCode: 200
+        })
+    }
 )
 
 module.exports = router;
