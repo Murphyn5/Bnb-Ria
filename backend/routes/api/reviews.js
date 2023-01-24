@@ -58,11 +58,9 @@ router.get(
         reviewsPOJO.push(reviewPOJO)
     }
 
-    console.log(reviews)
-
-    return res.json(({
+    return res.json({
         Reviews: reviewsPOJO
-    }))
+    })
   }
 
 

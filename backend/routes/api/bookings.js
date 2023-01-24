@@ -50,9 +50,9 @@ router.get(
             bookingsPOJO.push(bookingPOJO)
         }
 
-        return res.json(({
+        return res.json({
             Bookings: bookingsPOJO
-        }))
+        })
     }
 
 

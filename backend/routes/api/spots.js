@@ -42,8 +42,6 @@ router.get(
                 }
             })
 
-            console.log(reviewSum)
-            console.log(reviewCount)
 
             if (reviewCount > 0) {
                 spotPOJO.avgRating = reviewSum / reviewCount
@@ -68,12 +66,61 @@ router.get(
 
 
 
-        return res.json(({
+        return res.json({
             Spots: spotsPOJO
-        }))
+        })
     }
-
-
 )
+
+router.get(
+    '/:id',
+    async (req, res, next) => {
+        const spot = await Spot.scope('showAllInfo').findByPk(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    as: "Owner"
+                },
+                {
+                    model: SpotImage
+                }
+            ]
+        })
+
+        if(!spot){
+            let err = {}
+            err.status = 404
+            err.message = "No spot found with the requested Id!"
+            next(err)
+        }
+
+
+        const spotPOJO = await spot.toJSON()
+
+        //adds the averageStars
+
+        const reviewSum = await Review.sum('stars', {
+            where: {
+                spotId: spotPOJO.id
+            }
+        })
+
+        const reviewCount = await Review.count({
+            where: {
+                spotId: spotPOJO.id
+            }
+        })
+
+
+        if (reviewCount > 0) {
+            spotPOJO.avgRating = reviewSum / reviewCount
+        }
+
+        spotPOJO.numReviews = reviewCount
+
+        return res.json(spotPOJO)
+    }
+)
+
 
 module.exports = router;
