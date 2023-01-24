@@ -55,6 +55,11 @@ module.exports = (sequelize, DataTypes) => {
       attributes: {
         exclude: ["createdAt", "updatedAt"]
       }
+    },
+    scopes: {
+      showAllInfo: {
+        attributes: { exclude: [] }
+      }
     }
   });
   return Spot;
