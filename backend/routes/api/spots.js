@@ -92,7 +92,7 @@ router.get(
         if(!spot){
             let err = {}
             err.status = 404
-            err.message = "No spot found with the requested Id!"
+            err.message = "Spot couldn't be found"
             next(err)
         }
 
@@ -123,6 +123,36 @@ router.get(
         return res.json(spotPOJO)
     }
 )
+
+router.delete(
+    '/:id',
+    requireAuth,
+    async (req, res, next) => {
+        const spot = await Spot.findByPk(req.params.id)
+
+        if(!spot){
+            let err = {}
+            err.status = 404
+            err.message = "Spot couldn't be found"
+            next(err)
+        }
+
+        if(spot.ownerId !== req.user.id){
+            let err = {}
+            err.status = 403
+            err.message = "Current User does not have authorization required to complete this action!"
+            next(err)
+        }
+
+        await spot.destroy()
+
+        return res.json({
+            message: "Successfully deleted",
+            satusCode: 200
+        })
+    }
+)
+
 
 router.get(
     '/',
