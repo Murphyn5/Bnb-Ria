@@ -56,8 +56,47 @@ router.get(
             Bookings: bookingsPOJO
         })
     }
+)
 
 
+router.delete(
+    '/:id',
+    requireAuth,
+    async (req, res, next) => {
+        const booking = await Booking.findByPk(req.params.id)
+
+        if(!booking){
+            let err = {}
+            err.status = 404
+            err.message = "Booking couldn't be found"
+            return next(err)
+        }
+
+        if(booking.userId !== req.user.id){
+            let err = {}
+            err.status = 403
+            err.message = "Current User does not have authorization required to complete this action!"
+            return next(err)
+        }
+
+        console.log(typeof booking.startDate)
+
+        const bookingStartDate = new Date(booking.startDate)
+
+        if(bookingStartDate < Date.now()){
+            let err = {}
+            err.status = 403
+            err.message = "Bookings that have been started can't be deleted"
+            return next(err)
+        }
+
+        await booking.destroy()
+
+        return res.json({
+            message: "Successfully deleted",
+            satusCode: 200
+        })
+    }
 )
 
 module.exports = router;
