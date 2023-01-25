@@ -13,7 +13,7 @@ router.delete(
     '/:id',
     requireAuth,
     async (req, res, next) => {
-        console.log('hi')
+
         const reviewImage = await ReviewImage.scope("showAllInfo").findByPk(req.params.id)
 
         if (!reviewImage) {
