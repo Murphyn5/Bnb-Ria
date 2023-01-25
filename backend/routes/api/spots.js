@@ -492,6 +492,16 @@ router.post(
     '/:id/reviews',
     requireAuth,
     async (req, res, next) => {
+
+        const spot = await Spot.scope('showAllInfo').findByPk(req.params.id)
+
+        if (!spot) {
+            let err = {}
+            err.status = 404
+            err.message = "Spot couldn't be found"
+            next(err)
+        }
+
         const { review, stars } = req.body;
 
         let err = {
@@ -522,6 +532,39 @@ router.post(
 
         return res.json(
             reviewRes
+        );
+    }
+);
+
+router.post(
+    '/:id/spotImages',
+    requireAuth,
+    async (req, res, next) => {
+
+        const spot = await Spot.scope('showAllInfo').findByPk(req.params.id)
+
+        if (!spot) {
+            let err = {}
+            err.status = 404
+            err.message = "Spot couldn't be found"
+            next(err)
+        }
+
+        if (spot.ownerId !== req.user.id) {
+            let err = {}
+            err.status = 403
+            err.message = "Current User does not have authorization required to complete this action!"
+            return next(err)
+        }
+
+        const { url, preview } = req.body;
+
+        const spotImage = await SpotImage.create({ spotId: req.params.id, url, preview });
+
+        const resSpotImage = await SpotImage.findByPk(spotImage.id)
+
+        return res.json(
+            resSpotImage
         );
     }
 );

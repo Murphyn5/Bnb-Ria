@@ -14,7 +14,8 @@ module.exports = {
         references: {
           model: "Spots"
         },
-        onDelete: "CASCADE"
+        onDelete: "CASCADE",
+        allowNull: false
       },
       url: {
         type: Sequelize.TEXT
