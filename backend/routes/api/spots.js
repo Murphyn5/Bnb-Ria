@@ -686,6 +686,13 @@ router.post(
             return next(err)
         }
 
+        if(bookingStartDate <= Date.now()){
+            let err = {}
+            err.status = 403
+            err.message = "Bookings can't be made for past times!"
+            return next(err)
+        }
+
         const bookings = await spot.getBookings()
 
         let err = {

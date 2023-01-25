@@ -99,4 +99,94 @@ router.delete(
     }
 )
 
+router.put(
+    '/:id',
+    requireAuth,
+    async (req, res, next) => {
+
+        const oldBooking = await Booking.findByPk(req.params.id)
+
+        if (!oldBooking) {
+            let err = {}
+            err.status = 404
+            err.message = "Booking couldn't be found"
+            next(err)
+        }
+
+        if (oldBooking.userId !== req.user.id) {
+            let err = {}
+            err.status = 403
+            err.message = "Current User does not have authorization required to complete this action!"
+            return next(err)
+        }
+
+        const { startDate, endDate } = req.body;
+
+        const bookingStartDate = new Date(startDate)
+        const bookingEndDate = new Date(endDate)
+
+        if(bookingEndDate <= bookingStartDate){
+            let err = {}
+            err.status = 403
+            err.message = "endDate cannot be on or before startDate"
+            return next(err)
+        }
+
+        if(oldBooking.endDate <= Date.now()){
+            let err = {}
+            err.status = 403
+            err.message = "Past bookings can't be modified"
+            return next(err)
+        }
+
+        if(bookingStartDate <= Date.now()){
+            let err = {}
+            err.status = 403
+            err.message = "Bookings can't be made for past times!"
+            return next(err)
+        }
+
+        const spot = await await Spot.scope('showAllInfo').findByPk(oldBooking.spotId)
+        let bookings = await spot.getBookings()
+        bookings = bookings.filter(booking => booking.id !== oldBooking.id)
+
+        let err = {
+            errors: []
+        }
+
+        for(let i = 0; i < bookings.length; i++){
+
+            let pastbooking = bookings[i]
+            const pastBookingStartDate = new Date(pastbooking.startDate)
+            const pastBookingEndDate = new Date(pastbooking.endDate)
+
+            if(pastBookingStartDate <= bookingStartDate && bookingStartDate < pastBookingEndDate || pastBookingStartDate === bookingStartDate){
+                if(!err.errors.toString().includes("Start")){
+                    err.errors.push("Start date conflicts with an existing booking")
+                }
+            }
+
+            if(pastBookingStartDate < bookingEndDate && bookingEndDate <= pastBookingEndDate || pastBookingEndDate === bookingEndDate){
+                if(!err.errors.toString().includes("End")){
+                    err.errors.push("End date conflicts with an existing booking")
+                }
+            }
+
+        }
+
+        if (err.errors.length > 0) {
+            err.status = 403
+            err.message = "Sorry, this spot is already booked for the specified dates"
+            return next(err)
+        }
+
+        const newBooking = await oldBooking.update({ userId: req.user.id, spotId: req.params.id, startDate, endDate });
+
+        return res.json(
+            newBooking
+        );
+    }
+);
+
+
 module.exports = router;
