@@ -569,5 +569,78 @@ router.post(
     }
 );
 
+router.post(
+    '/:id/bookings',
+    requireAuth,
+    async (req, res, next) => {
+
+        const spot = await Spot.scope('showAllInfo').findByPk(req.params.id)
+
+        if (!spot) {
+            let err = {}
+            err.status = 404
+            err.message = "Spot couldn't be found"
+            next(err)
+        }
+
+        if (spot.ownerId === req.user.id) {
+            let err = {}
+            err.status = 403
+            err.message = "Owners aren't allowed to book their own spots!"
+            return next(err)
+        }
+
+        const { startDate, endDate } = req.body;
+
+        const bookingStartDate = new Date(startDate)
+        const bookingEndDate = new Date(endDate)
+
+        if(bookingEndDate <= bookingStartDate){
+            let err = {}
+            err.status = 403
+            err.message = "endDate cannot be on or before startDate"
+            return next(err)
+        }
+
+        const bookings = await spot.getBookings()
+
+        let err = {
+            errors: []
+        }
+
+        for(let i = 0; i < bookings.length; i++){
+
+            let pastbooking = bookings[i]
+            const pastBookingStartDate = new Date(pastbooking.startDate)
+            const pastBookingEndDate = new Date(pastbooking.endDate)
+
+            if(pastBookingStartDate <= bookingStartDate && bookingStartDate < pastBookingEndDate || pastBookingStartDate === bookingStartDate){
+                if(!err.errors.toString().includes("Start")){
+                    err.errors.push("Start date conflicts with an existing booking")
+                }
+            }
+
+            if(pastBookingStartDate < bookingEndDate && bookingEndDate <= pastBookingEndDate || pastBookingEndDate === bookingEndDate){
+                if(!err.errors.toString().includes("End")){
+                    err.errors.push("End date conflicts with an existing booking")
+                }
+            }
+
+        }
+
+        if (err.errors.length > 0) {
+            err.status = 403
+            err.message = "Sorry, this spot is already booked for the specified dates"
+            return next(err)
+        }
+
+        const booking = await Booking.create({ userId: req.user.id, spotId: req.params.id, startDate, endDate });
+
+        return res.json(
+            booking
+        );
+    }
+);
+
 
 module.exports = router;
