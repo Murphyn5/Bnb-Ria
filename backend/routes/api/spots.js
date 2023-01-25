@@ -307,8 +307,6 @@ router.get(
 
 
         if (req.query.minPrice) {
-            console.log(req.query.minPrice)
-            console.log(parseFloat(req.query.minPrice))
             const minPrice = parseFloat(req.query.minPrice)
             if (minPrice < 0) {
                 err.errors.push("Minimum price must be greater than or equal to 0")

@@ -79,8 +79,6 @@ router.delete(
             return next(err)
         }
 
-        console.log(typeof booking.startDate)
-
         const bookingStartDate = new Date(booking.startDate)
 
         if(bookingStartDate < Date.now()){

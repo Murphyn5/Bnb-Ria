@@ -31,8 +31,6 @@ router.delete(
             return next(err)
         }
 
-        console.log('hi')
-
         await spotImage.destroy()
 
         return res.json({
