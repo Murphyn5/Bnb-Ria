@@ -58,7 +58,7 @@ router.get(
 
             if (spotImage.preview === true) {
                 spotPOJO.previewImage = spotImage.url
-            } else{
+            } else {
                 spotPOJO.previewImage = null
             }
 
@@ -89,7 +89,7 @@ router.get(
             ]
         })
 
-        if(!spot){
+        if (!spot) {
             let err = {}
             err.status = 404
             err.message = "Spot couldn't be found"
@@ -130,14 +130,14 @@ router.delete(
     async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.id)
 
-        if(!spot){
+        if (!spot) {
             let err = {}
             err.status = 404
             err.message = "Spot couldn't be found"
             return next(err)
         }
 
-        if(spot.ownerId !== req.user.id){
+        if (spot.ownerId !== req.user.id) {
             let err = {}
             err.status = 403
             err.message = "Current User does not have authorization required to complete this action!"
@@ -196,7 +196,7 @@ router.get(
 
             if (spotImage.preview === true) {
                 spotPOJO.previewImage = spotImage.url
-            } else{
+            } else {
                 spotPOJO.previewImage = null
             }
 
@@ -212,5 +212,40 @@ router.get(
     }
 )
 
+router.get(
+    '/:id/reviews',
+    async (req, res, next) => {
+
+        const spot = await Spot.scope('showAllInfo').findByPk(req.params.id)
+
+        if (!spot) {
+            let err = {}
+            err.status = 404
+            err.message = "Spot couldn't be found"
+            next(err)
+        }
+
+
+        const reviews = await Review.findAll({
+            where: {
+                spotId: req.params.id
+            },
+            include: [
+                {
+                    model: User
+                },
+                {
+                    model: ReviewImage
+                }
+            ]
+        })
+
+
+        return res.json({
+            Reviews: reviews
+        })
+    }
+
+)
 
 module.exports = router;
