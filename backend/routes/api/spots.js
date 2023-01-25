@@ -480,10 +480,51 @@ router.post(
 
         const spot = await Spot.create({ ownerId: req.user.id, address, city, state, country, lat, lng, name, description, price });
 
-        return res.json({
+        res.status(201)
+
+        return res.json(
             spot
-        });
+        );
     }
 );
+
+router.post(
+    '/:id/reviews',
+    requireAuth,
+    async (req, res, next) => {
+        const { review, stars } = req.body;
+
+        let err = {
+            errors: []
+        }
+
+        if (!review) {
+            err.errors.push("Review text is required")
+        }
+
+        if (stars) {
+            if (isNaN(parseInt(stars)) || stars < 1 || stars > 5) {
+                err.errors.push("Stars must be an integer from 1 to 5")
+            }
+        }
+
+
+        if (err.errors.length > 0) {
+            err.status = 400
+            err.message = "Validation error"
+            return next(err)
+        }
+
+
+        const reviewRes = await Review.create({ userId: req.user.id, spotId: req.params.id, review, stars: parseInt(stars) });
+
+        res.status(201)
+
+        return res.json(
+            reviewRes
+        );
+    }
+);
+
 
 module.exports = router;
