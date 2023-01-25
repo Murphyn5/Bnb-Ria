@@ -67,6 +67,48 @@ router.get(
 
 )
 
+router.post(
+    '/:id/reviewimages',
+    requireAuth,
+    async (req, res, next) => {
+
+        const review = await Review.findByPk(req.params.id)
+
+        if (!review) {
+            let err = {}
+            err.status = 404
+            err.message = "Review couldn't be found"
+            next(err)
+        }
+
+        if (review.userId !== req.user.id) {
+            let err = {}
+            err.status = 403
+            err.message = "Current User does not have authorization required to complete this action!"
+            return next(err)
+        }
+
+        const reviewImages = await review.getReviewImages()
+
+        if(reviewImages.length === 10){
+            let err = {}
+            err.status = 403
+            err.message = "Maximum number of images for this resource was reached"
+            return next(err)
+        }
+
+        const { url } = req.body;
+
+        const reviewImage = await ReviewImage.create({ reviewId: req.params.id, url });
+
+        const resReviewImage = await ReviewImage.findByPk(reviewImage.id)
+
+        return res.json(
+            resReviewImage
+        );
+    }
+);
+
 router.delete(
     '/:id',
     requireAuth,
