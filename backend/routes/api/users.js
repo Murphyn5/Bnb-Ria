@@ -1,4 +1,7 @@
 const express = require('express')
+const {
+  Validator
+} = require('sequelize');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User } = require('../../db/models');
@@ -24,6 +27,12 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage('Password must be 6 characters or more.'),
+  check('firstName')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a first name.'),
+  check('lastName')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a last name.'),
   handleValidationErrors
 ];
 
@@ -31,15 +40,50 @@ const validateSignup = [
 router.post(
   '/',
   validateSignup,
-  async (req, res) => {
+  async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
+
+
+    const otherUser1 = await User.scope("currentUser").findOne({
+      where: {
+        email: email
+      }
+    })
+
+    const otherUser2 = await User.scope("currentUser").findOne({
+      where: {
+        username: username
+      }
+    })
+
+    let err = {
+      errors: []
+    }
+
+    if (otherUser1) {
+      err.errors.push("User with that email already exists")
+    }
+
+    if (otherUser2) {
+      err.errors.push("User with that username already exists")
+    }
+
+    if (err.errors.length > 0) {
+      err.status = 403
+      err.message = "User already exists"
+      return next(err)
+    }
 
     const user = await User.signup({ email, username, password, firstName, lastName });
 
-    await setTokenCookie(res, user);
+    const token = await setTokenCookie(res, user);
+
+    const userPOJO = await user.toJSON()
+
+    userPOJO.token = token
 
     return res.json({
-      user: user
+      user: userPOJO
     });
   }
 );
