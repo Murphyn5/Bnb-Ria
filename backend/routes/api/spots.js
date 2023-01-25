@@ -4,6 +4,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, SpotImage, ReviewImage, Review, Booking } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -156,8 +157,132 @@ router.delete(
 
 router.get(
     '/',
-    async (req, res) => {
-        const spots = await Spot.scope('showAllInfo').findAll()
+
+    async (req, res, next) => {
+
+        let queryMinPrice = 0
+        let queryMaxPrice = 10000000000
+        let queryMinLng = -1000
+        let queryMaxLng = 1000
+        let queryMinLat = -1000
+        let queryMaxLat = 1000
+
+
+        let err = {
+            errors: []
+        }
+
+
+
+        if (req.query.minLat) {
+            const minLat = parseFloat(req.query.minLat)
+
+            if (isNaN(minLat)) {
+                err.errors.push("Minimum latitude is invalid")
+            }
+            else {
+                queryMinLat = minLat
+            }
+        }
+
+
+        if (req.query.maxLat) {
+            const maxLat = parseFloat(req.query.maxLat)
+
+            if (isNaN(maxLat)) {
+                err.errors.push("Maximum latitude is invalid")
+            }
+            else {
+                queryMaxLat = maxLat
+            }
+        }
+
+
+        if (req.query.minLng) {
+            const minLng = parseFloat(req.query.minLng)
+
+            if (isNaN(minLng)) {
+                err.errors.push("Minimum longitude is invalid")
+            }
+            else {
+                queryMinLng = minLng
+            }
+        }
+
+
+        if (req.query.maxLng) {
+            const maxLng = parseFloat(req.query.maxLng)
+
+            if (isNaN(maxLng)) {
+                err.errors.push("Maximum longitude is invalid")
+            }
+            else {
+                queryMaxLng = maxLng
+            }
+        }
+
+
+        if(req.query.minPrice){
+            console.log(req.query.minPrice)
+            console.log(parseFloat(req.query.minPrice))
+            const minPrice = parseFloat(req.query.minPrice)
+            if (minPrice < 0) {
+                err.errors.push("Minimum price must be greater than or equal to 0")
+            } else if (!isNaN(minPrice)) {
+                queryMinPrice = minPrice
+            }
+        }
+
+
+        if(req.query.maxPrice){
+            const maxPrice = parseFloat(req.query.maxPrice)
+            if (maxPrice < 0) {
+                err.errors.push("Minimum price must be greater than or equal to 0")
+            } else if (!isNaN(maxPrice)) {
+                queryMaxPrice = maxPrice
+            }
+        }
+
+        let query = {
+            where: {
+                lat: {
+                    [Op.gte]: queryMinLat,
+                    [Op.lte]: queryMaxLat,
+                },
+                lng: {
+                    [Op.gte]: queryMinLng,
+                    [Op.lte]: queryMaxLng,
+                },
+                price: {
+                    [Op.gte]: queryMinPrice,
+                    [Op.lte]: queryMaxPrice,
+                }
+            }
+        };
+
+        const page = req.query.page === undefined ? 0 : parseInt(req.query.page);
+        const size = req.query.size === undefined ? 5 : parseInt(req.query.size);
+
+        if (page < 0) err.errors.push("Page must be greater than or equal to 0")
+        if (size < 0) err.errors.push("Size must be greater than or equal to 0")
+
+        if (page > 10) page = 10
+        if (size > 10) size = 20
+
+        if (page >= 1 && size >= 1) {
+            query.limit = size;
+            query.offset = size * (page - 1);
+        }
+
+
+        if (err.errors.length > 0) {
+            err.status = 400
+            err.message = "Validation error"
+            return next(err)
+        }
+
+
+        const spots = await Spot.scope('showAllInfo').findAll(query)
 
         const spotsPOJO = []
 
@@ -207,7 +332,9 @@ router.get(
 
 
         return res.json({
-            Spots: spotsPOJO
+            Spots: spotsPOJO,
+            page,
+            size
         })
     }
 )
@@ -263,7 +390,7 @@ router.get(
 
         let bookings
 
-        if(req.user.id === spot.ownerId){
+        if (req.user.id === spot.ownerId) {
             bookings = await Booking.findAll({
                 where: {
                     spotId: req.params.id
@@ -275,7 +402,7 @@ router.get(
                 ]
             })
 
-        } else{
+        } else {
             bookings = await Booking.scope("nonOwnerInfo").findAll({
                 where: {
                     spotId: req.params.id
