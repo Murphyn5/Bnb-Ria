@@ -222,7 +222,7 @@ router.get(
         }
 
 
-        if(req.query.minPrice){
+        if (req.query.minPrice) {
             console.log(req.query.minPrice)
             console.log(parseFloat(req.query.minPrice))
             const minPrice = parseFloat(req.query.minPrice)
@@ -234,7 +234,7 @@ router.get(
         }
 
 
-        if(req.query.maxPrice){
+        if (req.query.maxPrice) {
             const maxPrice = parseFloat(req.query.maxPrice)
             if (maxPrice < 0) {
                 err.errors.push("Minimum price must be greater than or equal to 0")
@@ -418,5 +418,72 @@ router.get(
         })
     }
 )
+
+router.post(
+    '/',
+    requireAuth,
+    async (req, res, next) => {
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+        let err = {
+            errors: []
+        }
+
+        if (!address) {
+            err.errors.push("Street address is required")
+        }
+
+        if (!city) {
+            err.errors.push("City is required")
+        }
+
+        if (!state) {
+            err.errors.push("State is required")
+        }
+
+        if (!country) {
+            err.errors.push("Country is required")
+        }
+
+        if (lat) {
+            if (isNaN(parseFloat(lat))) {
+                err.errors.push("Latitude is not valid")
+            }
+        }
+
+        if (lng) {
+            if (isNaN(parseFloat(lng))) {
+                err.errors.push("Longitude is not valid")
+            }
+        }
+
+        if (name) {
+            if (name.length >= 50) {
+                err.errors.push("Name must be less than 50 characters")
+            }
+        }
+
+        if (!description) {
+            err.errors.push("Description is required")
+        }
+
+        if (!price) {
+            err.errors.push("Price per day is required")
+        }
+
+        if (err.errors.length > 0) {
+            err.status = 400
+            err.message = "Validation error"
+            return next(err)
+        }
+
+
+        const spot = await Spot.create({ ownerId: req.user.id, address, city, state, country, lat, lng, name, description, price });
+
+        return res.json({
+            spot
+        });
+    }
+);
 
 module.exports = router;
