@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, SpotImage, ReviewImage, Review } = require('../../db/models');
+const { User, Spot, SpotImage, ReviewImage, Review, Booking } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -245,7 +245,51 @@ router.get(
             Reviews: reviews
         })
     }
+)
 
+router.get(
+    '/:id/bookings',
+    requireAuth,
+    async (req, res, next) => {
+
+        const spot = await Spot.scope('showAllInfo').findByPk(req.params.id)
+
+        if (!spot) {
+            let err = {}
+            err.status = 404
+            err.message = "Spot couldn't be found"
+            next(err)
+        }
+
+        let bookings
+
+        if(req.user.id === spot.ownerId){
+            bookings = await Booking.findAll({
+                where: {
+                    spotId: req.params.id
+                },
+                include: [
+                    {
+                        model: User
+                    }
+                ]
+            })
+
+        } else{
+            bookings = await Booking.scope("nonOwnerInfo").findAll({
+                where: {
+                    spotId: req.params.id
+                },
+            })
+        }
+
+
+
+
+        return res.json({
+            Bookings: bookings
+        })
+    }
 )
 
 module.exports = router;
