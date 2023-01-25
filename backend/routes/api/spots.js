@@ -125,6 +125,90 @@ router.get(
     }
 )
 
+router.put(
+    '/:id',
+    requireAuth,
+    async (req, res, next) => {
+
+        const spot = await Spot.scope('showAllInfo').findByPk(req.params.id)
+
+        if (!spot) {
+            let err = {}
+            err.status = 404
+            err.message = "Spot couldn't be found"
+            next(err)
+        }
+
+        if (spot.ownerId !== req.user.id) {
+            let err = {}
+            err.status = 403
+            err.message = "Current User does not have authorization required to complete this action!"
+            return next(err)
+        }
+
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+        let err = {
+            errors: []
+        }
+
+        if (!address) {
+            err.errors.push("Street address is required")
+        }
+
+        if (!city) {
+            err.errors.push("City is required")
+        }
+
+        if (!state) {
+            err.errors.push("State is required")
+        }
+
+        if (!country) {
+            err.errors.push("Country is required")
+        }
+
+        if (lat !== undefined ) {
+            if (isNaN(parseFloat(lat))) {
+                err.errors.push("Latitude is not valid")
+            }
+        }
+
+        if (lng !== undefined) {
+            if (isNaN(parseFloat(lng))) {
+                err.errors.push("Longitude is not valid")
+            }
+        }
+
+        if (name) {
+            if (name.length >= 50) {
+                err.errors.push("Name must be less than 50 characters")
+            }
+        }
+
+        if (!description) {
+            err.errors.push("Description is required")
+        }
+
+        if (!price) {
+            err.errors.push("Price per day is required")
+        }
+
+        if (err.errors.length > 0) {
+            err.status = 400
+            err.message = "Validation error"
+            return next(err)
+        }
+
+        const newSpot = await spot.update({ ownerId: req.user.id, address, city, state, country, lat, lng, name, description, price });
+
+        return res.json(
+            newSpot
+        );
+    }
+);
+
+
 router.delete(
     '/:id',
     requireAuth,
@@ -445,13 +529,13 @@ router.post(
             err.errors.push("Country is required")
         }
 
-        if (lat) {
+        if (lat !== undefined ) {
             if (isNaN(parseFloat(lat))) {
                 err.errors.push("Latitude is not valid")
             }
         }
 
-        if (lng) {
+        if (lng !== undefined) {
             if (isNaN(parseFloat(lng))) {
                 err.errors.push("Longitude is not valid")
             }
