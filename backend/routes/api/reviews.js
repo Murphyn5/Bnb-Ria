@@ -138,4 +138,59 @@ router.delete(
     }
 )
 
+router.put(
+    '/:id',
+    requireAuth,
+    async (req, res, next) => {
+
+        const oldReview = await Review.findByPk(req.params.id)
+
+        if (!oldReview) {
+            let err = {}
+            err.status = 404
+            err.message = "Review couldn't be found"
+            next(err)
+        }
+
+        if (oldReview.userId !== req.user.id) {
+            let err = {}
+            err.status = 403
+            err.message = "Current User does not have authorization required to complete this action!"
+            return next(err)
+        }
+
+
+        const { review, stars } = req.body;
+
+        let err = {
+            errors: []
+        }
+
+        if (!review) {
+            err.errors.push("Review text is required")
+        }
+
+        if (stars) {
+            if (isNaN(parseInt(stars)) || stars < 1 || stars > 5) {
+                err.errors.push("Stars must be an integer from 1 to 5")
+            }
+        }
+
+
+        if (err.errors.length > 0) {
+            err.status = 400
+            err.message = "Validation error"
+            return next(err)
+        }
+
+
+        const updatedReview = await oldReview.update({ userId: req.user.id, spotId: req.params.id, review, stars: parseInt(stars) });
+
+        return res.json(
+            updatedReview
+        );
+    }
+);
+
+
 module.exports = router;
