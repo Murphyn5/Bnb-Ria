@@ -1,5 +1,7 @@
 'use strict';
 const bcrypt = require("bcryptjs");
+const seedUsers = require('/Users/nicholasmurphy/aa-projects/practice-for-sprint-12-authenticate-me-for-render-deployment/authenticate-me/backend/utils/fakerSeed.js')
+
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -8,26 +10,34 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    let users = seedUsers(5)
     options.tableName = 'Users';
-    return queryInterface.bulkInsert(options, [
-      {
-        email: 'demo@user.io',
-        username: 'Demo-lition',
-        firstName: null,
-        lastName: null,
-        hashedPassword: bcrypt.hashSync('password')
-      },
-      {
-        email: 'user1@user.io',
-        username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2')
-      },
-      {
-        email: 'user2@user.io',
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3')
-      }
-    ], {});
+    return queryInterface.bulkInsert(options,
+    //   [
+    //   {
+    //     email: 'demo@user.io',
+    //     username: 'Demo-lition',
+    //     firstName: 'Bill',
+    //     lastName: 'Ding',
+    //     hashedPassword: bcrypt.hashSync('password')
+    //   },
+    //   {
+    //     email: 'user1@user.io',
+    //     username: 'FakeUser1',
+    //     firstName: 'Chet',
+    //     lastName: 'Faker',
+    //     hashedPassword: bcrypt.hashSync('password2')
+    //   },
+    //   {
+    //     email: 'user2@user.io',
+    //     username: 'FakeUser2',
+    //     firstName: 'Nick',
+    //     lastName: 'Murphy',
+    //     hashedPassword: bcrypt.hashSync('password3')
+    //   }
+    // ]
+    users
+    , {});
   },
 
   down: async (queryInterface, Sequelize) => {
