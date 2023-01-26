@@ -319,7 +319,7 @@ router.get(
         if (req.query.maxPrice) {
             const maxPrice = parseFloat(req.query.maxPrice)
             if (maxPrice < 0) {
-                err.errors.push("Minimum price must be greater than or equal to 0")
+                err.errors.push("Maximum price must be greater than or equal to 0")
             } else if (!isNaN(maxPrice)) {
                 queryMaxPrice = maxPrice
             }
