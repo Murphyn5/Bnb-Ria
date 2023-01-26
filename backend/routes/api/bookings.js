@@ -178,7 +178,7 @@ router.put(
             return next(err)
         }
 
-        const newBooking = await oldBooking.update({ userId: req.user.id, spotId: req.params.id, startDate, endDate });
+        const newBooking = await oldBooking.update({ userId: req.user.id, spotId: spot.id, startDate, endDate });
 
         return res.json(
             newBooking

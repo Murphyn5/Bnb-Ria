@@ -184,7 +184,7 @@ router.put(
         }
 
 
-        const updatedReview = await oldReview.update({ userId: req.user.id, spotId: req.params.id, review, stars: parseInt(stars) });
+        const updatedReview = await oldReview.update({ userId: req.user.id, spotId: oldReview.spotId , review, stars: parseInt(stars) });
 
         return res.json(
             updatedReview
