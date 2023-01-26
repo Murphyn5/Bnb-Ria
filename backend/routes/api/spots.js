@@ -48,6 +48,10 @@ router.get(
                 spotPOJO.avgRating = reviewSum / reviewCount
             }
 
+            if(reviewCount === 0){
+                spotPOJO.avgRating = null
+            }
+
             //adds to previewImage
 
             const spotImage = await SpotImage.findOne({
@@ -117,6 +121,10 @@ router.get(
 
         if (reviewCount > 0) {
             spotPOJO.avgRating = reviewSum / reviewCount
+        }
+
+        if(reviewCount === 0){
+            spotPOJO.avgRating = null
         }
 
         spotPOJO.numReviews = reviewCount
@@ -390,6 +398,10 @@ router.get(
 
             if (reviewCount > 0) {
                 spotPOJO.avgRating = reviewSum / reviewCount
+            }
+
+            if(reviewCount === 0){
+                spotPOJO.avgRating = null
             }
 
             //adds to previewImage
