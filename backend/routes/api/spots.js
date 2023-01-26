@@ -343,13 +343,13 @@ router.get(
         };
 
         const page = req.query.page === undefined ? 0 : parseInt(req.query.page);
-        const size = req.query.size === undefined ? 5 : parseInt(req.query.size);
+        const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
 
         if (page < 0) err.errors.push("Page must be greater than or equal to 0")
         if (size < 0) err.errors.push("Size must be greater than or equal to 0")
 
         if (page > 10) page = 10
-        if (size > 10) size = 20
+        if (size > 20) size = 20
 
         if (page >= 1 && size >= 1) {
             query.limit = size;
