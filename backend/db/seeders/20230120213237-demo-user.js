@@ -1,6 +1,6 @@
 'use strict';
 const bcrypt = require("bcryptjs");
-const seedUsers = require('/Users/nicholasmurphy/aa-projects/practice-for-sprint-12-authenticate-me-for-render-deployment/authenticate-me/backend/utils/fakerSeed.js')
+const seedUsers = require('../../utils/fakerSeed.js')
 
 
 let options = {};
