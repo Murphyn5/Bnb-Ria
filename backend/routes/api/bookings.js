@@ -122,8 +122,11 @@ router.put(
 
         const bookingStartDate = new Date(startDate)
         const bookingEndDate = new Date(endDate)
+        const oldBookingStartDate = new Date(oldBooking.startDate)
+        const oldBookingEndDate = new Date(oldBooking.endDate)
 
-        if(bookingEndDate <= bookingStartDate){
+
+        if(bookingEndDate <= bookingStartDate || oldBookingEndDate <= bookingStartDate){
             let err = {}
             err.status = 403
             err.message = "endDate cannot be on or before startDate"
