@@ -68,7 +68,7 @@ router.get(
 )
 
 router.post(
-    '/:id/reviewimages',
+    '/:id/images',
     requireAuth,
     async (req, res, next) => {
 
