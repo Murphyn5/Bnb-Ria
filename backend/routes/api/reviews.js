@@ -170,7 +170,7 @@ router.put(
             err.errors.push("Review text is required")
         }
 
-        if (stars) {
+        if (stars !== undefined) {
             if (isNaN(parseInt(stars)) || stars < 1 || stars > 5) {
                 err.errors.push("Stars must be an integer from 1 to 5")
             }
