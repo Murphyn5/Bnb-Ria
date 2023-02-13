@@ -43,37 +43,6 @@ router.post(
   async (req, res, next) => {
     const { email, password, username, firstName, lastName } = req.body;
 
-
-    const otherUser1 = await User.scope("currentUser").findOne({
-      where: {
-        email: email
-      }
-    })
-
-    const otherUser2 = await User.scope("currentUser").findOne({
-      where: {
-        username: username
-      }
-    })
-
-    let err = {
-      errors: []
-    }
-
-    if (otherUser1) {
-      err.errors.push("User with that email already exists")
-    }
-
-    if (otherUser2) {
-      err.errors.push("User with that username already exists")
-    }
-
-    if (err.errors.length > 0) {
-      err.status = 403
-      err.message = "User already exists"
-      return next(err)
-    }
-
     const user = await User.signup({ email, username, password, firstName, lastName });
 
     const token = await setTokenCookie(res, user);

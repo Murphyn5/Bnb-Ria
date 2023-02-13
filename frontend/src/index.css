@@ -1,1 +1,53 @@
 /* TODO Add site wide styles */
+* {
+    font-family: 'Comic Neue', cursive;
+    font-size: 14pt;
+    font-weight: normal;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+}
+
+
+.page-content {
+    position: relative;
+    top: 70px;
+    height: 100%;
+}
+
+section {
+    height: 100%;
+}
+
+a {
+    color: #00525E;
+}
+
+button {
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 18pt;
+    font-weight: normal;
+}
+
+input {
+    width: 100%;
+    background-color: #E8F0FE;
+}
