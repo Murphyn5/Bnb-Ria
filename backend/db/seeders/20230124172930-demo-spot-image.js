@@ -23,9 +23,93 @@ module.exports = {
       {
         "spotId": 3,
         "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
-        "preview": false
+        "preview": true
       },
-
+      {
+        "spotId": 4,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 5,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 6,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 7,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 8,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 9,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 10,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 11,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 12,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 13,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 14,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 15,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 16,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 17,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 18,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 19,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      },
+      {
+        "spotId": 20,
+        "url": "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954",
+        "preview": true
+      }
     ], {});
   },
 
