@@ -362,6 +362,9 @@ router.get(
         if (page >= 1 && size >= 1) {
             query.limit = size;
             query.offset = size * (page - 1);
+            query.order = [
+                ["createdAt", "DESC"]
+            ]
         }
 
 

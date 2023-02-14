@@ -44,6 +44,10 @@
 }
 
 .spot-details-information-text {
+    width: 90%;
+}
+
+.spot-details-information-text {
     padding: 0 10px;
 }
 
@@ -69,6 +73,8 @@
     grid-template-rows: 1fr;
     grid-template-columns: 45% 10% 45%;
 }
+
+
 
 .spot-details-information-button-price {
     display: flex;

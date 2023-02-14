@@ -16,13 +16,18 @@ const SpotDetail = () => {
     let spot = useSelector(state => state.spots.singleSpot)
     const sessionUser = useSelector(state => state.session.user);
 
-    // useEffect(() => {
-    //     const dispatchGetOneSpot = async () => {
-    //         await dispatch(getOneSpot(spotId))
-    //     }
-    //     dispatchGetOneSpot()
-    //     console.log(spot)
-    // }, [])
+    useEffect(() => {
+        const spotRestore = async () => {
+            await dispatch(getOneSpot(spotId))
+        }
+        spotRestore()
+        console.log(spot)
+    }, [])
+
+    if(!spot.country) {
+        return
+    }
+
     let reviewType
     let reviewCount = spot.numReviews
 
@@ -282,7 +287,7 @@ const SpotDetail = () => {
                         <h2>
                             Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
                         </h2>
-                        <p>
+                        <p className="spot-details-information-description">
                             {spot.description}
                         </p>
                     </div>

@@ -6,11 +6,12 @@ import './SpotIndex.css'
 const SpotIndex = () => {
   const dispatch = useDispatch()
   const spots = useSelector(getAllSpots);
+  let sortedSpots = spots.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
   return (
     <section>
       <ul className='spots-grid'>
         {
-          spots.map(spot => (
+          sortedSpots.map(spot => (
             <SpotIndexItem
               spot={spot}
               key={spot.id}

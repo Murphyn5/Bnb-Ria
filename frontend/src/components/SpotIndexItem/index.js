@@ -92,13 +92,10 @@ const SpotIndexItem = ({ spot }) => {
     </span>
   }
 
-  const handleClick = async () => {
-    await dispatch(getOneSpot(spot.id))
-    sessionStorage.setItem('singleSpotId', spot.id)
-  }
+
 
   return (
-    <Link to={`/spots/${spot.id}`} onClick={handleClick} className='spot-index-item-container' >
+    <Link to={`/spots/${spot.id}`} className='spot-index-item-container' >
 
       <img src={spot.previewImage} className="spot-preview-image" alt="spot-preview"/>
 
