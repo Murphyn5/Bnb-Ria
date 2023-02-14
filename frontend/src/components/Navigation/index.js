@@ -19,7 +19,7 @@ function Navigation({ isLoaded }) {
                 </li>
                 <span className='profile-links'>
                     {isLoaded && sessionUser && (
-                        <NavLink to={`/users/${sessionUser.id}/spots/new`} className={"create-spot-link"}>
+                        <NavLink to={`/spots/new`} className={"create-spot-link"}>
                             Create a New Spot
                         </NavLink>
                     )}

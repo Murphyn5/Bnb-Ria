@@ -5,6 +5,7 @@ import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { Redirect, useHistory } from "react-router-dom";
+import ColoredLine from "../ColoredLine";
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -53,9 +54,9 @@ function ProfileButton({ user }) {
                 {user ? (
                     <>
                         <li className="dropdown-li">Hello, {user.firstName}</li>
-
+                        <ColoredLine />
                         <li className="dropdown-li">{user.email}</li>
-
+                        <ColoredLine />
                         <li className="log-out-button-container">
                             <button onClick={logout} className="log-out-button">Log Out</button>
                         </li>
@@ -67,6 +68,7 @@ function ProfileButton({ user }) {
                             onItemClick={closeMenu}
                             modalComponent={<LoginFormModal />}
                         />
+                        <ColoredLine />
                         <OpenModalMenuItem
                             itemText="Sign Up"
                             onItemClick={closeMenu}

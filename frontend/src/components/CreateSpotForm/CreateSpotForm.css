@@ -1,0 +1,85 @@
+.create-spot-form {
+    width: 40%;
+    min-width: 650px;
+    max-width: 1000px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: auto;
+}
+
+.create-spot-form-label-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.create-spot-form-label-error {
+    position: relative;
+    left: 10px;
+    color: #FF5A5F
+}
+
+.create-spot-form-input-error {
+    position: relative;
+    top: 5px;
+    color: #FF5A5F
+}
+
+.create-spot-form-image-error {
+    color: #FF5A5F
+}
+
+
+.city-state-container {
+    display: grid;
+    grid-template-columns: 60% 4% 36%;
+    width: 100%;
+}
+
+.city-state-input{
+    width: 100%;
+}
+
+.long-lat-container {
+    display: grid;
+    grid-template-columns: 48% 4% 48%;
+    width: 100%;
+}
+
+.long-lat-input{
+    width: 100%;
+}
+
+.style-comma {
+    position: relative;
+    left: 50%;
+    top: 45%;
+    font-size: 20pt
+}
+.create-spot-form-description {
+    height: 150px;
+    align-items: flex-start;
+    display: flex;
+    width: 100%;
+    resize: none;
+}
+
+.create-spot-form-priceset-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+}
+
+.create-spot-form-priceset-input {
+    position: relative;
+    left: 6px;
+}
+
+.create-spot-form-submitbutton {
+    width: 25%;
+    height: 30pt;
+    margin: auto;
+}

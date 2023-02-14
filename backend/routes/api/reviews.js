@@ -99,6 +99,13 @@ router.post(
 
         const { url } = req.body;
 
+        if(!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) {
+            let err = {}
+            err.status = 403
+            err.message = "Url must end with .png, .jpg, or .jpeg!"
+            return next(err)
+        }
+
         const reviewImage = await ReviewImage.create({ reviewId: req.params.id, url });
 
         const resReviewImage = await ReviewImage.findByPk(reviewImage.id)
