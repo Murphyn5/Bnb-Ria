@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import { render } from "react-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 import { getOneSpot } from "../../store/spots"
@@ -13,7 +14,7 @@ const SpotDetail = () => {
     const { spotId } = useParams()
 
     let spot = useSelector(state => state.spots.singleSpot)
-
+    const sessionUser = useSelector(state => state.session.user);
 
     // useEffect(() => {
     //     const dispatchGetOneSpot = async () => {
@@ -22,6 +23,20 @@ const SpotDetail = () => {
     //     dispatchGetOneSpot()
     //     console.log(spot)
     // }, [])
+    let reviewType
+    let reviewCount = spot.numReviews
+
+
+    if (spot.numReviews === 1) {
+        reviewType = "review"
+    } else if (spot.numReviews === 0) {
+        reviewType = "New"
+        reviewCount = ''
+    }
+    else {
+        reviewType = ' reviews'
+    }
+
 
     let previewImageArray = spot.SpotImages.filter((image) => {
         if (image.preview === true) {
@@ -40,19 +55,21 @@ const SpotDetail = () => {
     const nonPreviewImage = (index) => {
         if (!nonPreviewImages[index]) {
             return (
-                <img src= "https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954" className={"spot-details-nonpreview-image"} alt={`${index}`}/>
+                <img src="https://static.wikia.nocookie.net/dexterslab/images/9/93/Dexter%27s_House.png/revision/latest?cb=20150503084954" className={"spot-details-nonpreview-image"} alt={`${index}`} />
             )
         }
         else {
             return (
-                <img src={nonPreviewImages[index].url} className={"spot-details-nonpreview-image"} alt={`${index}`}/>
+                <img src={nonPreviewImages[index].url} className={"spot-details-nonpreview-image"} alt={`${index}`} />
             )
         }
     }
 
     let rating
 
-    if (spot.avgRating === 1) {
+
+
+    if (spot.avgRating === 1 || spot.avgRating === null) {
         rating =
             <span>
                 <i className="fas fa-star"></i>
@@ -136,7 +153,9 @@ const SpotDetail = () => {
 
     let ratingTitle
 
-    if (spot.avgRating === 1) {
+    console.log(spot.avgRating)
+
+    if (spot.avgRating === 1 || spot.avgRating === null) {
         ratingTitle =
             <span>
                 <i className="fas fa-star enlarge"></i>
@@ -222,14 +241,33 @@ const SpotDetail = () => {
         window.alert('Feature coming soon!')
     }
 
-    return (
+    const renderReviewAction = () => {
+        if(reviewType === 'New' && sessionUser) {
+            return (
+                <span>Be the first to post a review!</span>
+            )
+        }
+    }
 
+    const renderReviewButton = () => {
+        if (sessionUser) {
+            return (
+                <div>
+                    <button type="submit" className={'post-review-button accent'}>Post Your Review</button>
+                </div>
+            )
+        }
+    }
+
+
+
+    return (
         <section>
             <div className="spot-details-container">
                 <h1>{spot.name}</h1>
-                <h2>{spot.city}, {spot.state}, {spot.country}, {spot.price}</h2>
+                <h2>{spot.city}, {spot.state}, {spot.country}</h2>
                 <div className="spot-details-image-container">
-                    <img src={previewImage.url} className={"spot-details-preview-image"} alt={`preview`}/>
+                    <img src={previewImage.url} className={"spot-details-preview-image"} alt={`preview`} />
                     <div>
                     </div>
                     <div className="spot-details-nonPreview-image-container">
@@ -252,14 +290,14 @@ const SpotDetail = () => {
                         <div className="spot-details-information-button-container">
                             <div className="spot-details-information-button-information">
                                 <div className="spot-details-information-button-price">
-                                    <h2>$123.45</h2>
+                                    <h2>${spot.price}</h2>
                                     <span>/night</span>
                                 </div>
                                 <div>
                                 </div>
                                 <div className="spot-details-information-button-reviews">
                                     {rating}
-                                    <span>{spot.numReviews} reviews</span>
+                                    <span>&nbsp; {reviewCount} {reviewType}</span>
                                 </div>
                             </div>
 
@@ -273,8 +311,13 @@ const SpotDetail = () => {
                     <span>
                         {ratingTitle}
                     </span>
-                    <span className="spot-details-reviews-summary-info">{spot.numReviews} reviews</span>
+
+                    <span className="spot-details-reviews-summary-info">&nbsp; {reviewCount} {reviewType}</span>
                 </div>
+                <br></br>
+                {renderReviewButton()}
+                <br></br>
+                {renderReviewAction()}
 
             </div>
         </section>

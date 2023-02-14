@@ -93,3 +93,9 @@
 .enlarge {
     font-size: 18pt;
 }
+
+.post-review-button {
+    height: 24pt;
+    width: 160px;
+    margin: auto;
+}

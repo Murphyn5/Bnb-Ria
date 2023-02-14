@@ -48,7 +48,7 @@ router.get(
                 spotPOJO.avgRating = reviewSum / reviewCount
             }
 
-            if(reviewCount === 0){
+            if (reviewCount === 0) {
                 spotPOJO.avgRating = null
             }
 
@@ -123,7 +123,7 @@ router.get(
             spotPOJO.avgRating = reviewSum / reviewCount
         }
 
-        if(reviewCount === 0){
+        if (reviewCount === 0) {
             spotPOJO.avgRating = null
         }
 
@@ -176,7 +176,7 @@ router.put(
             err.errors.push("Country is required")
         }
 
-        if (lat !== undefined ) {
+        if (lat !== undefined) {
             if (isNaN(parseFloat(lat))) {
                 err.errors.push("Latitude is not valid")
             }
@@ -346,8 +346,8 @@ router.get(
                 price: {
                     [Op.gte]: queryMinPrice,
                     [Op.lte]: queryMaxPrice,
-                }
-            }
+}
+            },
         };
 
         let page = req.query.page === undefined ? 1 : parseInt(req.query.page);
@@ -400,7 +400,7 @@ router.get(
                 spotPOJO.avgRating = reviewSum / reviewCount
             }
 
-            if(reviewCount === 0){
+            if (reviewCount === 0) {
                 spotPOJO.avgRating = null
             }
 
@@ -657,7 +657,7 @@ router.post(
 
         const { url, preview } = req.body;
 
-        if(!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) {
+        if (!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) {
             let err = {}
             err.status = 403
             err.message = "Url must end with .png, .jpg, or .jpeg!"
@@ -700,14 +700,14 @@ router.post(
         const bookingStartDate = new Date(startDate)
         const bookingEndDate = new Date(endDate)
 
-        if(bookingEndDate <= bookingStartDate){
+        if (bookingEndDate <= bookingStartDate) {
             let err = {}
             err.status = 403
             err.message = "endDate cannot be on or before startDate"
             return next(err)
         }
 
-        if(bookingStartDate <= Date.now()){
+        if (bookingStartDate <= Date.now()) {
             let err = {}
             err.status = 403
             err.message = "Bookings can't be made for past times!"
@@ -720,20 +720,20 @@ router.post(
             errors: []
         }
 
-        for(let i = 0; i < bookings.length; i++){
+        for (let i = 0; i < bookings.length; i++) {
 
             let pastbooking = bookings[i]
             const pastBookingStartDate = new Date(pastbooking.startDate)
             const pastBookingEndDate = new Date(pastbooking.endDate)
 
-            if(pastBookingStartDate <= bookingStartDate && bookingStartDate < pastBookingEndDate || pastBookingStartDate === bookingStartDate){
-                if(!err.errors.toString().includes("Start")){
+            if (pastBookingStartDate <= bookingStartDate && bookingStartDate < pastBookingEndDate || pastBookingStartDate === bookingStartDate) {
+                if (!err.errors.toString().includes("Start")) {
                     err.errors.push("Start date conflicts with an existing booking")
                 }
             }
 
-            if(pastBookingStartDate < bookingEndDate && bookingEndDate <= pastBookingEndDate || pastBookingEndDate === bookingEndDate){
-                if(!err.errors.toString().includes("End")){
+            if (pastBookingStartDate < bookingEndDate && bookingEndDate <= pastBookingEndDate || pastBookingEndDate === bookingEndDate) {
+                if (!err.errors.toString().includes("End")) {
                     err.errors.push("End date conflicts with an existing booking")
                 }
             }
