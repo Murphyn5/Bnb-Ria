@@ -350,8 +350,8 @@ router.get(
             }
         };
 
-        const page = req.query.page === undefined ? 0 : parseInt(req.query.page);
-        const size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+        let page = req.query.page === undefined ? 1 : parseInt(req.query.page);
+        let size = req.query.size === undefined ? 20 : parseInt(req.query.size);
 
         if (page < 0) err.errors.push("Page must be greater than or equal to 0")
         if (size < 0) err.errors.push("Size must be greater than or equal to 0")
@@ -539,13 +539,13 @@ router.post(
             err.errors.push("Country is required")
         }
 
-        if (lat !== undefined ) {
+        if (lat !== undefined || lat !== '') {
             if (isNaN(parseFloat(lat))) {
                 err.errors.push("Latitude is not valid")
             }
         }
 
-        if (lng !== undefined) {
+        if (lng !== undefined || lng !== '') {
             if (isNaN(parseFloat(lng))) {
                 err.errors.push("Longitude is not valid")
             }
@@ -559,6 +559,10 @@ router.post(
 
         if (!description) {
             err.errors.push("Description is required")
+        }
+
+        if (description.length < 30) {
+            err.errors.push("Description must be at least 30 characters")
         }
 
         if (!price) {
@@ -652,6 +656,13 @@ router.post(
         }
 
         const { url, preview } = req.body;
+
+        if(!url.endsWith('.png') && !url.endsWith('.jpg') && !url.endsWith('.jpeg')) {
+            let err = {}
+            err.status = 403
+            err.message = "Url must end with .png, .jpg, or .jpeg!"
+            return next(err)
+        }
 
         const spotImage = await SpotImage.create({ spotId: req.params.id, url, preview });
 

@@ -6,10 +6,12 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import { getSpots } from "./store/spots";
 import SpotIndex from "./components/SpotIndex";
+import CreateSpotForm from "./components/CreateSpotForm"
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const sessionUser = useSelector(state => state.session.user);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     dispatch(getSpots())
@@ -21,8 +23,16 @@ function App() {
       <div className="page-content">
         {isLoaded && (
           <Switch>
-            <Route path='/'>
+            <Route exact path='/'>
               <SpotIndex />
+            </Route>
+            {sessionUser && (
+              <Route path='/spots/new'>
+                <CreateSpotForm />
+              </Route>
+            )}
+            <Route path='/spots/:spotId'>
+              
             </Route>
           </Switch>
         )}

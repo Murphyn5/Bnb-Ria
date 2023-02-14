@@ -124,28 +124,6 @@
     color: #FF5A5F;
 }
 
-.disabled {
-    width: 101.5%;
-    height: 50px;
-    border-style: solid;
-    background-color: white;
-    border-color: #999999;
-    box-shadow: 3px 3px #999999;
-    color: #CCCCCC;
-    cursor: default;
-}
-
-.enabled {
-    width: 101.5%;
-    height: 50px;
-    border-style: solid;
-    background-color: #FF5A5F;
-    color: white;
-    border-color: black;
-    box-shadow: 3px 3px black;
-    cursor: pointer;
-}
-
 .hidden {
     display: none
 }

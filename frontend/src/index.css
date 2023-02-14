@@ -44,10 +44,45 @@ h1 {
 
 h2 {
     font-size: 18pt;
-    font-weight: normal;
+    font-weight: bold;
 }
 
 input {
     width: 100%;
     background-color: #E8F0FE;
+    border: solid 1px black;
+    border-radius: 3px;
+}
+
+label{
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+    background-color: #E8F0FE;
+    border: solid 1px black;
+    border-radius: 3px;
+}
+
+.disabled {
+    width: 101.5%;
+    height: 50px;
+    border-style: solid;
+    background-color: white;
+    border-color: #999999;
+    box-shadow: 3px 3px #999999;
+    color: #CCCCCC;
+    cursor: default;
+}
+
+.enabled {
+    width: 101.5%;
+    height: 50px;
+    border-style: solid;
+    background-color: #FF5A5F;
+    color: white;
+    border-color: black;
+    box-shadow: 3px 3px black;
+    cursor: pointer;
 }
