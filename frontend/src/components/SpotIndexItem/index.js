@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -6,6 +7,7 @@ import { getOneSpot } from '../../store/spots';
 
 const SpotIndexItem = ({ spot }) => {
   const dispatch = useDispatch()
+
   let rating
 
   if(spot.avgRating === 1){
@@ -90,10 +92,10 @@ const SpotIndexItem = ({ spot }) => {
     </span>
   }
 
-  const handleClick = () => {
-    dispatch(getOneSpot(spot.id))
+  const handleClick = async () => {
+    await dispatch(getOneSpot(spot.id))
+    sessionStorage.setItem('singleSpotId', spot.id)
   }
-
 
   return (
     <Link to={`/spots/${spot.id}`} onClick={handleClick} className='spot-index-item-container' >

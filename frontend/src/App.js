@@ -4,14 +4,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import { getSpots } from "./store/spots";
+import { getOneSpot, getSpots } from "./store/spots";
 import SpotIndex from "./components/SpotIndex";
 import CreateSpotForm from "./components/CreateSpotForm"
+import SpotDetail from "./components/SpotDetail";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const sessionUser = useSelector(state => state.session.user);
+  if(sessionStorage.getItem('singleSpotId')){
+    const spotRestore = async () =>{
+      await dispatch(getOneSpot(sessionStorage.getItem('singleSpotId')))
+    }
+    spotRestore()
+  }
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     dispatch(getSpots())
@@ -32,7 +39,7 @@ function App() {
               </Route>
             )}
             <Route path='/spots/:spotId'>
-              
+              <SpotDetail />
             </Route>
           </Switch>
         )}

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import './CreateSpotForm.css'
 import ColoredLine from '../ColoredLine';
-import { createSpot, createSpotImage } from '../../store/spots';
+import { createSpot, createSpotImage, getOneSpot} from '../../store/spots';
 
 
 const CreateSpotForm = () => {
@@ -242,8 +242,10 @@ const CreateSpotForm = () => {
         }
 
         if (createdSpot && createdPrevImg) {
-            history.push(`/users/${sessionUser.id}/spots/new`);
-            //Redirect to spot details page
+            await dispatch(getOneSpot(createdSpot.id))
+            sessionStorage.setItem('singleSpotId', createdSpot.id)
+            history.push(`/spots/${createdSpot.id}`);
+            <Redirect to={`/spots/${createdSpot.id}`} />
         }
 
     };
