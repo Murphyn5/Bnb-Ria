@@ -117,7 +117,7 @@ const SpotManageIndexItem = ({ spot }) => {
                 </Link>
                 <OpenModalButton
                     buttonText={"Delete"}
-                    modalComponent={<DeleteSpotFormModal />}
+                    modalComponent={<DeleteSpotFormModal id={spot.id}/>}
                 >
                     Delete
                 </OpenModalButton>
