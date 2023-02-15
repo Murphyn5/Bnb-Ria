@@ -6,6 +6,7 @@ const LOAD_ALL = 'spots/LOAD_ALL';
 const LOAD_ONE = 'spots/LOAD_ONE';
 const ADD_ONE = 'spots/ADD_ONE';
 const ADD_ONE_PREVIEW_IMAGE = 'spots/ADD_ONE_PREVIEW_IMAGE'
+const DELETE_ONE = 'spots/DELETE_ONE'
 
 const loadAllSpots = spots => ({
     type: LOAD_ALL,
@@ -21,6 +22,11 @@ const loadSingleSpot = spot => ({
 const addOneSpot = spot => ({
     type: ADD_ONE,
     spot
+});
+
+const deleteOneSpot = id => ({
+    type: DELETE_ONE,
+    id
 });
 
 const addOneSpotPreviewImage = image => ({
@@ -85,6 +91,19 @@ export const editSpot = (payload) => async dispatch => {
     }
 }
 
+export const deleteSpot = (payload) => async dispatch => {
+    const response = await fetch(`/api/spots/${payload.id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "XSRF-token": Cookies.get('XSRF-TOKEN')
+        }
+    })
+    if (response.ok) {
+        dispatch(deleteOneSpot(payload.id))
+    }
+}
+
 export const createSpotImage = (payload) => async dispatch => {
     const response = await fetch(`/api/spots/${payload.spotId}/images`, {
         method: "POST",
@@ -133,6 +152,9 @@ const spotsReducer = (state = initialState, action) => {
             newState = { ...state }
             newState.allSpots[action.image.spotId].previewImage = action.image.url
             return newState
+        case DELETE_ONE:
+            newState = {...state}
+            delete newState.allSpots[action.id]
         default:
             return state;
     }
