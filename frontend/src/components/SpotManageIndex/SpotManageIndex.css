@@ -1,0 +1,35 @@
+.manage-spots-create-new-spot-button {
+    width: 200px;
+    height: 40px;
+}
+
+.manage-spots-header-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.manage-spots-header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (min-width: 901px) and (max-width: 1200px) {
+    .manage-spots-header-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 586px) and (max-width: 900px) {
+    .manage-spots-header-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 585px) {
+    .manage-spots-header-grid {
+        grid-template-columns: 1fr;
+    }
+}

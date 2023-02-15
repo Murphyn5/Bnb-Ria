@@ -54,15 +54,29 @@ router.get(
 
             //adds to previewImage
 
-            const spotImage = await SpotImage.findOne({
+            const spotImages = await SpotImage.findAll({
                 where: {
                     spotId: spotPOJO.id
                 }
             })
 
+            let previewImage
 
-            if (spotImage.preview === true) {
-                spotPOJO.previewImage = spotImage.url
+            if(spotImages && spotImages.length > 0){
+
+                let previewImageArray = spotImages.filter((image) => {
+                    if (image.preview === true) {
+                        return image
+                    }
+                })
+
+
+                if(previewImageArray) {
+                    previewImage = previewImageArray[0]
+                    spotPOJO.previewImage = previewImage.url
+                } else {
+                    spotPOJO.previewImage = null
+                }
             } else {
                 spotPOJO.previewImage = null
             }
@@ -409,15 +423,29 @@ router.get(
 
             //adds to previewImage
 
-            const spotImage = await SpotImage.findOne({
+            const spotImages = await SpotImage.findAll({
                 where: {
                     spotId: spotPOJO.id
                 }
             })
 
+            let previewImage
 
-            if (spotImage.preview === true) {
-                spotPOJO.previewImage = spotImage.url
+            if(spotImages && spotImages.length > 0){
+
+                let previewImageArray = spotImages.filter((image) => {
+                    if (image.preview === true) {
+                        return image
+                    }
+                })
+
+
+                if(previewImageArray) {
+                    previewImage = previewImageArray[0]
+                    spotPOJO.previewImage = previewImage.url
+                } else {
+                    spotPOJO.previewImage = null
+                }
             } else {
                 spotPOJO.previewImage = null
             }

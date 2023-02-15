@@ -10,107 +10,110 @@ const SpotIndexItem = ({ spot }) => {
 
   let rating
 
-  if(spot.avgRating === 1){
+  if (spot.avgRating === 1) {
     rating =
-    <span>
-    <i className="fas fa-star"></i>
-    </span>
+      <span>
+        <i className="fas fa-star"></i>
+      </span>
   }
 
-  if(spot.avgRating === 1.5){
+  if (spot.avgRating === 1.5) {
     rating =
-    <span>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star-half"></i>
-    </span>
+      <span>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star-half"></i>
+      </span>
   }
 
-  if(spot.avgRating === 2){
+  if (spot.avgRating === 2) {
     rating =
-    <span>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    </span>
+      <span>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+      </span>
   }
 
-  if(spot.avgRating === 2.5){
+  if (spot.avgRating === 2.5) {
     rating =
-    <span>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star-half"></i>
-    </span>
+      <span>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star-half"></i>
+      </span>
   }
 
-  if(spot.avgRating === 3){
+  if (spot.avgRating === 3) {
     rating =
-    <span>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    </span>
+      <span>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+      </span>
   }
 
-  if(spot.avgRating === 3.5){
+  if (spot.avgRating === 3.5) {
     rating =
-    <span>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star-half"></i>
-    </span>
+      <span>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star-half"></i>
+      </span>
   }
 
-  if(spot.avgRating === 4){
+  if (spot.avgRating === 4) {
     rating =
-    <span>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    </span>
+      <span>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+      </span>
   }
 
-  if(spot.avgRating === 4.5){
+  if (spot.avgRating === 4.5) {
     rating =
-    <span>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star-half"></i>
-    </span>
+      <span>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star-half"></i>
+      </span>
   }
-  if(spot.avgRating === 5){
+  if (spot.avgRating === 5) {
     rating =
-    <span>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    <i className="fas fa-star"></i>
-    </span>
+      <span>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+        <i className="fas fa-star"></i>
+      </span>
   }
 
 
 
   return (
-    <Link to={`/spots/${spot.id}`} className='spot-index-item-container' >
+    <div>
+      <Link to={`/spots/${spot.id}`} className='spot-index-item-container' >
 
-      <img src={spot.previewImage} className="spot-preview-image" alt="spot-preview"/>
+        <img src={spot.previewImage} className="spot-preview-image" alt="spot-preview" />
 
-      <div className='spot-index-item-description-container'>
-        <div>
-          {spot.city}, {spot.state}
+        <div className='spot-index-item-description-container'>
+          <div>
+            {spot.city}, {spot.state}
+          </div>
+          <div>
+            {rating}
+          </div>
         </div>
-        <div>
-          {rating}
+        <div className='spot-index-item-price-container'>
+          ${spot.price}/night
         </div>
-      </div>
-      <div className='spot-index-item-price-container'>
-        ${spot.price}/night
-      </div>
-    </Link>
+      </Link>
+    </div>
+
   );
 };
 

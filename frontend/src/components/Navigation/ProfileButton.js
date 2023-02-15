@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory, Link } from "react-router-dom";
 import ColoredLine from "../ColoredLine";
 
 function ProfileButton({ user }) {
@@ -54,8 +54,11 @@ function ProfileButton({ user }) {
                 {user ? (
                     <>
                         <li className="dropdown-li">Hello, {user.firstName}</li>
-                        <ColoredLine />
                         <li className="dropdown-li">{user.email}</li>
+                        <ColoredLine />
+                        <Link className="manage-spots-link" to="/spots/manage">
+                            Manage Spots
+                        </Link>
                         <ColoredLine />
                         <li className="log-out-button-container">
                             <button onClick={logout} className="log-out-button">Log Out</button>

@@ -42,14 +42,26 @@ const SpotDetail = () => {
         reviewType = ' reviews'
     }
 
+    let previewImageArray
 
-    let previewImageArray = spot.SpotImages.filter((image) => {
-        if (image.preview === true) {
-            return image
+    if(spot.SpotImages.length > 0){
+        previewImageArray = spot.SpotImages.filter((image) => {
+            if (image.preview === true) {
+                return image
+            }
+        })
+    }
+
+    let previewImage
+
+    if(previewImageArray){
+         previewImage = previewImageArray[0]
+    } else{
+        previewImage = {
+            url: null
         }
-    })
+    }
 
-    let previewImage = previewImageArray[0]
 
     let nonPreviewImages = spot.SpotImages.filter((image) => {
         if (image.preview === false) {
@@ -283,13 +295,13 @@ const SpotDetail = () => {
                     </div>
                 </div >
                 <div className="spot-details-information-container">
-                    <div className="spot-details-information-text">
+                    <div className="spot-details-information-text hyphenate">
                         <h2>
                             Hosted by {spot.Owner.firstName} {spot.Owner.lastName}
                         </h2>
-                        <p className="spot-details-information-description">
+                        <h3 className="spot-details-information-description">
                             {spot.description}
-                        </p>
+                        </h3>
                     </div>
                     <div className="spot-details-information-button-container-wrapper">
                         <div className="spot-details-information-button-container">

@@ -51,8 +51,21 @@
     padding: 0 10px;
 }
 
+.spot-details-information-description {
+    height: 100%;
+}
+
 .spot-details-information-button-container-wrapper {
     width: 100%;
+}
+
+.hyphenate {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
 }
 
 .spot-details-information-button-container {

@@ -8,6 +8,8 @@ import { getOneSpot, getSpots } from "./store/spots";
 import SpotIndex from "./components/SpotIndex";
 import CreateSpotForm from "./components/CreateSpotForm"
 import SpotDetail from "./components/SpotDetail";
+import SpotManageIndex from "./components/SpotManageIndex";
+import EditSpotForm from "./components/EditSpotForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,7 +18,6 @@ function App() {
   const { spotId } = useParams()
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-    dispatch(getSpots())
   }, [dispatch]);
 
   return (
@@ -33,6 +34,12 @@ function App() {
                 <CreateSpotForm />
               </Route>
             )}
+            <Route path='/spots/manage'>
+              <SpotManageIndex />
+            </Route>
+            <Route path='/spots/:spotId/edit'>
+              <EditSpotForm />
+            </Route>
             <Route path='/spots/:spotId'>
               <SpotDetail />
             </Route>

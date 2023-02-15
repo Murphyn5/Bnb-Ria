@@ -97,3 +97,7 @@ textarea {
     box-shadow: 3px 3px black;
     cursor: pointer;
 }
+
+p {
+    width: 100%;
+}
