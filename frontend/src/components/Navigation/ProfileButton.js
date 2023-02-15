@@ -56,7 +56,7 @@ function ProfileButton({ user }) {
                         <li className="dropdown-li">Hello, {user.firstName}</li>
                         <li className="dropdown-li">{user.email}</li>
                         <ColoredLine />
-                        <Link className="manage-spots-link" onClick={closeMenu} to="/spots/manage">
+                        <Link className="manage-spots-link" onClick={closeMenu} to="/spots/current">
                             Manage Spots
                         </Link>
                         <ColoredLine />

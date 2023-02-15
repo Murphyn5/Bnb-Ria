@@ -12,8 +12,7 @@ const EditSpotForm = () => {
     const { spotId } = useParams()
 
     let spot = useSelector(state => state.spots.singleSpot)
-    let spots = useSelector(state => state.spots.allSpots)
-    let storePreviewImage = spots[spotId].previewImage
+
     console.log(spot)
     console.log(spot.state)
 
@@ -24,7 +23,7 @@ const EditSpotForm = () => {
     useEffect(() => {
         const spotRestore = async () => {
             await dispatch(getOneSpot(spotId))
-            await dispatch(getSpots)
+
         }
         spotRestore()
     }, [dispatch, spotId])
@@ -64,6 +63,7 @@ const EditSpotForm = () => {
     const updatePreviewImageUrl = (e) => setPreviewImageUrl(e.target.value)
 
     useEffect(() => {
+        console.log('???????', spot)
         setCountry(spot.country)
         setState(spot.state)
         setStreetAddress(spot.address)
@@ -73,7 +73,20 @@ const EditSpotForm = () => {
         setDescription(spot.description)
         setSpotName(spot.name)
         setPrice(spot.price)
-        setPreviewImageUrl(storePreviewImage)
+        if(spot.country){
+            if(spot.SpotImages.length > 0) {
+                let spotImages = spot.SpotImages
+                let previewImageArray = spotImages.filter((image) => {
+                    if (image.preview === true) {
+                        return image
+                    }
+                })
+                if (previewImageArray) {
+                    let previewImage = previewImageArray[previewImageArray.length - 1]
+                    setPreviewImageUrl(previewImage.url)
+                }
+            }
+        }
     }, [spot])
 
     const handleSubmit = async (e) => {

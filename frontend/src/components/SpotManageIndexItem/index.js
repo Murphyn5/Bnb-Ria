@@ -2,7 +2,10 @@ import { useSelector } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import OpenModalButton from '../OpenModalButton';
+import DeleteSpotFormModal from '../DeleteSpotFormModal';
 import './SpotManageIndexItem.css'
+
 import { getOneSpot } from '../../store/spots';
 
 const SpotManageIndexItem = ({ spot }) => {
@@ -110,9 +113,14 @@ const SpotManageIndexItem = ({ spot }) => {
             <div className='spot-manage-index-item-price-container'>
                 ${spot.price}/night
                 <Link to={`/spots/${spot.id}/edit`}>
-                <button className='spot-manage-index-item-button'>Update</button>
+                    <button className='spot-manage-index-item-button'>Update</button>
                 </Link>
-                <button className='spot-manage-index-item-button'>Delete</button>
+                <OpenModalButton
+                    buttonText={"Delete"}
+                    modalComponent={<DeleteSpotFormModal />}
+                >
+                    Delete
+                </OpenModalButton>
             </div>
         </div>
 
