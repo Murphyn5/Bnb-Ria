@@ -34,7 +34,7 @@ function App() {
                 <CreateSpotForm />
               </Route>
             )}
-            <Route path='/spots/manage'>
+            <Route path='/spots/current'>
               <SpotManageIndex />
             </Route>
             <Route path='/spots/:spotId/edit'>
