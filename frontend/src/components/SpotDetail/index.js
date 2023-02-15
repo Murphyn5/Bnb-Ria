@@ -55,7 +55,7 @@ const SpotDetail = () => {
     let previewImage
 
     if(previewImageArray){
-         previewImage = previewImageArray[0]
+         previewImage = previewImageArray[previewImageArray.length - 1]
     } else{
         previewImage = {
             url: null

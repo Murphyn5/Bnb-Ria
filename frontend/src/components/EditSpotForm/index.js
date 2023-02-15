@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import './EditSpotForm.css'
 import ColoredLine from '../ColoredLine';
-import { editSpot, getOneSpot} from '../../store/spots';
+import { createSpotImage, editSpot, getOneSpot, getSpots} from '../../store/spots';
 
 
 const EditSpotForm = () => {
@@ -12,6 +12,8 @@ const EditSpotForm = () => {
     const { spotId } = useParams()
 
     let spot = useSelector(state => state.spots.singleSpot)
+    let spots = useSelector(state => state.spots.allSpots)
+    let storePreviewImage = spots[spotId].previewImage
     console.log(spot)
     console.log(spot.state)
 
@@ -22,6 +24,7 @@ const EditSpotForm = () => {
     useEffect(() => {
         const spotRestore = async () => {
             await dispatch(getOneSpot(spotId))
+            await dispatch(getSpots)
         }
         spotRestore()
     }, [dispatch, spotId])
@@ -36,6 +39,7 @@ const EditSpotForm = () => {
     const [description, setDescription] = useState('');
     const [spotName, setSpotName] = useState('');
     const [price, setPrice] = useState('')
+    const [previewImageUrl, setPreviewImageUrl] = useState('');
     const [showCountryError, setShowCountryError] = useState(false)
     const [showAddressError, setShowAddressError] = useState(false)
     const [showCityError, setShowCityError] = useState(false)
@@ -45,6 +49,8 @@ const EditSpotForm = () => {
     const [showDescError, setShowDescError] = useState(false)
     const [showNameError, setShowNameError] = useState(false)
     const [showPriceError, setShowPriceError] = useState(false)
+    const [showPreviewImageError1, setShowPreviewImageError1] = useState(false)
+    const [showPreviewImageError2, setShowPreviewImageError2] = useState(false)
     const [errors, setErrors] = useState([])
     const updateCountry = (e) => setCountry(e.target.value);
     const updateStreetAddress = (e) => setStreetAddress(e.target.value);
@@ -55,6 +61,7 @@ const EditSpotForm = () => {
     const updateDescription = (e) => setDescription(e.target.value);
     const updateSpotName = (e) => setSpotName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
+    const updatePreviewImageUrl = (e) => setPreviewImageUrl(e.target.value)
 
     useEffect(() => {
         setCountry(spot.country)
@@ -66,6 +73,7 @@ const EditSpotForm = () => {
         setDescription(spot.description)
         setSpotName(spot.name)
         setPrice(spot.price)
+        setPreviewImageUrl(storePreviewImage)
     }, [spot])
 
     const handleSubmit = async (e) => {
@@ -80,6 +88,8 @@ const EditSpotForm = () => {
         setShowDescError(false)
         setShowNameError(false)
         setShowPriceError(false)
+        setShowPreviewImageError1(false)
+        setShowPreviewImageError2(false)
 
 
         if (country.length === 0) {
@@ -131,6 +141,18 @@ const EditSpotForm = () => {
             setShowPriceError(true)
         }
 
+        if (previewImageUrl.length === 0) {
+            errors.push('previewImage required error')
+            setShowPreviewImageError1(true)
+        }
+
+        if (previewImageUrl.length !== 0) {
+            if (!previewImageUrl.endsWith('.png') && !previewImageUrl.endsWith('.jpg') && !previewImageUrl.endsWith('.jpeg')) {
+                errors.push('previewImage type error')
+                setShowPreviewImageError2(true)
+            }
+        }
+
 
         if (errors.length > 0) {
             return
@@ -161,9 +183,18 @@ const EditSpotForm = () => {
             editedSpot = await dispatch(editSpot(spotPayload));
         }
 
+        const prevImagePayload = {
+            url: previewImageUrl,
+            preview: true,
+            spotId: editedSpot.id
+        }
+
+        if (errors.length === 0) {
+            await dispatch(createSpotImage(prevImagePayload))
+        }
+
         if (editedSpot) {
             await dispatch(getOneSpot(editedSpot.id))
-            sessionStorage.setItem('singleSpotId', editedSpot.id)
             history.push(`/spots/${editedSpot.id}`);
             <Redirect to={`/spots/${editedSpot.id}`} />
         }
@@ -211,8 +242,15 @@ const EditSpotForm = () => {
         }
     }
 
+    const fillerBreakPrevImg = () => {
+        if (!showPreviewImageError1 && !showPreviewImageError2) {
+            return <br></br>
+        }
+    }
+
     let labelErrorClassName = 'edit-spot-form-label-error'
     let inputErrorClassName = 'edit-spot-form-input-error'
+    let imageErrorClassName = 'create-spot-form-image-error'
 
     return (
         <section className="new-form-holder">
@@ -360,6 +398,21 @@ const EditSpotForm = () => {
                 <span className={inputErrorClassName + (showPriceError ? '' : ' hidden')}>Price is required</span>
                 {fillerBreakPrice()}
                 <ColoredLine />
+                <h2>Liven up your spot with photos</h2>
+                <div>Submit a link to at least one photo to publish your spot.
+                </div>
+                <br></br>
+                <input
+                    type="text"
+                    placeholder="Preview Image Url"
+                    required
+                    value={previewImageUrl}
+                    onChange={updatePreviewImageUrl} />
+                <span >
+                    <span className={imageErrorClassName + (showPreviewImageError1 ? '' : ' hidden')}>Preview image is required.</span>
+                    <span className={imageErrorClassName + (showPreviewImageError2 ? '' : ' hidden')}>Image Url must end in .png, .jpg, or .jpeg</span>
+                </span>
+                {fillerBreakPrevImg()}
                 <br></br>
                 <button type="submit" onClick={handleSubmit} className={'edit-spot-form-submitbutton enabled'}>Update Spot</button>
                 <br></br>
