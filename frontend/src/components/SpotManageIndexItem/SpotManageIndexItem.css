@@ -14,3 +14,9 @@
     cursor: pointer;
 
 }
+
+.spot-preview-image {
+    width: 270px;
+    height: 250px;
+    border-radius: 10px;
+}

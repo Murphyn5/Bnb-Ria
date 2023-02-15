@@ -62,7 +62,7 @@ router.get(
 
             let previewImage
 
-            if(spotImages && spotImages.length > 0){
+            if (spotImages && spotImages.length > 0) {
 
                 let previewImageArray = spotImages.filter((image) => {
                     if (image.preview === true) {
@@ -71,8 +71,8 @@ router.get(
                 })
 
 
-                if(previewImageArray) {
-                    previewImage = previewImageArray[0]
+                if (previewImageArray) {
+                    previewImage = previewImageArray[previewImageArray.length - 1]
                     spotPOJO.previewImage = previewImage.url
                 } else {
                     spotPOJO.previewImage = null
@@ -360,7 +360,7 @@ router.get(
                 price: {
                     [Op.gte]: queryMinPrice,
                     [Op.lte]: queryMaxPrice,
-}
+                }
             },
         };
 
@@ -431,7 +431,7 @@ router.get(
 
             let previewImage
 
-            if(spotImages && spotImages.length > 0){
+            if (spotImages && spotImages.length > 0) {
 
                 let previewImageArray = spotImages.filter((image) => {
                     if (image.preview === true) {
@@ -440,8 +440,8 @@ router.get(
                 })
 
 
-                if(previewImageArray) {
-                    previewImage = previewImageArray[0]
+                if (previewImageArray) {
+                    previewImage = previewImageArray[previewImageArray.length - 1]
                     spotPOJO.previewImage = previewImage.url
                 } else {
                     spotPOJO.previewImage = null

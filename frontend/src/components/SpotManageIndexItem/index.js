@@ -96,7 +96,7 @@ const SpotManageIndexItem = ({ spot }) => {
 
     return (
         <div className='spot-index-item-container'>
-            <Link to={`/spots/${spot.id}`} >
+            <Link to={`/spots/${spot.id}`} className={'spot-preview-image'}>
                 <img src={spot.previewImage} className="spot-preview-image" alt="spot-preview" />
             </Link>
             <div className='spot-index-item-description-container'>
