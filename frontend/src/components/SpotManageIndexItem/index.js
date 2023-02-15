@@ -1,15 +1,10 @@
-import { useSelector } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import OpenModalButton from '../OpenModalButton';
 import DeleteSpotFormModal from '../DeleteSpotFormModal';
 import './SpotManageIndexItem.css'
 
-import { getOneSpot } from '../../store/spots';
-
 const SpotManageIndexItem = ({ spot }) => {
-    const dispatch = useDispatch()
 
     let rating
 

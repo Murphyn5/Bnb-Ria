@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import './EditSpotForm.css'
 import ColoredLine from '../ColoredLine';
-import { createSpotImage, editSpot, getOneSpot, getSpots} from '../../store/spots';
+import { createSpotImage, editSpot, getOneSpot} from '../../store/spots';
 
 
 const EditSpotForm = () => {
