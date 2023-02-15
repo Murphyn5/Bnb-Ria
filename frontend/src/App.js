@@ -1,10 +1,9 @@
 // frontend/src/App.js
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch, useParams } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import { getOneSpot, getSpots } from "./store/spots";
 import SpotIndex from "./components/SpotIndex";
 import CreateSpotForm from "./components/CreateSpotForm"
 import SpotDetail from "./components/SpotDetail";
@@ -15,7 +14,6 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const sessionUser = useSelector(state => state.session.user);
-  const { spotId } = useParams()
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);

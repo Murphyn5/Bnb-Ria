@@ -1,5 +1,4 @@
 import { useEffect } from "react"
-import { render } from "react-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 import { getOneSpot } from "../../store/spots"
@@ -21,8 +20,7 @@ const SpotDetail = () => {
             await dispatch(getOneSpot(spotId))
         }
         spotRestore()
-        console.log(spot)
-    }, [])
+    }, [dispatch, spotId])
 
     if(!spot.country) {
         return
