@@ -518,6 +518,8 @@ const CreateSpotForm = () => {
                 <ColoredLine />
                 <br></br>
                 <button type="submit" onClick={handleSubmit} className={'create-spot-form-submitbutton enabled'}>Create Spot</button>
+                <br></br>
+                <br></br>
             </form>
         </section>
     );

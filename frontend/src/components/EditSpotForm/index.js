@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import './EditSpotForm.css'
 import ColoredLine from '../ColoredLine';
-import { editSpot, createSpotImage, getOneSpot} from '../../store/spots';
+import { editSpot, getOneSpot} from '../../store/spots';
 
 
 const EditSpotForm = () => {
@@ -17,16 +17,16 @@ const EditSpotForm = () => {
 
     const sessionUser = useSelector(state => state.session.user);
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         const spotRestore = async () => {
             await dispatch(getOneSpot(spotId))
         }
         spotRestore()
-    }, [])
+    }, [dispatch, spotId])
 
-    const dispatch = useDispatch();
     const history = useHistory();
-    const [id, setId] = useState('')
     const [country, setCountry] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
     const [city, setCity] = useState('');
@@ -36,11 +36,6 @@ const EditSpotForm = () => {
     const [description, setDescription] = useState('');
     const [spotName, setSpotName] = useState('');
     const [price, setPrice] = useState('')
-    const [previewImageUrl, setPreviewImageUrl] = useState('');
-    const [imageUrl1, setImageUrl1] = useState('');
-    const [imageUrl2, setImageUrl2] = useState('');
-    const [imageUrl3, setImageUrl3] = useState('');
-    const [imageUrl4, setImageUrl4] = useState('');
     const [showCountryError, setShowCountryError] = useState(false)
     const [showAddressError, setShowAddressError] = useState(false)
     const [showCityError, setShowCityError] = useState(false)
@@ -50,12 +45,6 @@ const EditSpotForm = () => {
     const [showDescError, setShowDescError] = useState(false)
     const [showNameError, setShowNameError] = useState(false)
     const [showPriceError, setShowPriceError] = useState(false)
-    const [showPreviewImageError1, setShowPreviewImageError1] = useState(false)
-    const [showPreviewImageError2, setShowPreviewImageError2] = useState(false)
-    const [showImageError1, setShowImageError1] = useState(false)
-    const [showImageError2, setShowImageError2] = useState(false)
-    const [showImageError3, setShowImageError3] = useState(false)
-    const [showImageError4, setShowImageError4] = useState(false)
     const [errors, setErrors] = useState([])
     const updateCountry = (e) => setCountry(e.target.value);
     const updateStreetAddress = (e) => setStreetAddress(e.target.value);
@@ -66,16 +55,8 @@ const EditSpotForm = () => {
     const updateDescription = (e) => setDescription(e.target.value);
     const updateSpotName = (e) => setSpotName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
-    const updatePreviewImageUrl = (e) => setPreviewImageUrl(e.target.value)
-    const updateImageUrl1 = (e) => setImageUrl1(e.target.value);
-    const updateImageUrl2 = (e) => setImageUrl2(e.target.value);
-    const updateImageUrl3 = (e) => setImageUrl3(e.target.value);
-    const updateImageUrl4 = (e) => setImageUrl4(e.target.value);
-
-
 
     useEffect(() => {
-        setId(spot.id)
         setCountry(spot.country)
         setState(spot.state)
         setStreetAddress(spot.address)
@@ -99,12 +80,7 @@ const EditSpotForm = () => {
         setShowDescError(false)
         setShowNameError(false)
         setShowPriceError(false)
-        setShowPreviewImageError1(false)
-        setShowPreviewImageError2(false)
-        setShowImageError1(false)
-        setShowImageError2(false)
-        setShowImageError3(false)
-        setShowImageError4(false)
+
 
         if (country.length === 0) {
             errors.push('country input error')
@@ -235,39 +211,8 @@ const EditSpotForm = () => {
         }
     }
 
-    const fillerBreakPrevImg = () => {
-        if (!showPreviewImageError1 && !showPreviewImageError2) {
-            return <br></br>
-        }
-    }
-
-    const fillerBreakImg1 = () => {
-        if (!showImageError1) {
-            return <br></br>
-        }
-    }
-
-    const fillerBreakImg2 = () => {
-        if (!showImageError2) {
-            return <br></br>
-        }
-    }
-
-    const fillerBreakImg3 = () => {
-        if (!showImageError3) {
-            return <br></br>
-        }
-    }
-
-    const fillerBreakImg4 = () => {
-        if (!showImageError4) {
-            return <br></br>
-        }
-    }
-
     let labelErrorClassName = 'edit-spot-form-label-error'
     let inputErrorClassName = 'edit-spot-form-input-error'
-    let imageErrorClassName = 'edit-spot-form-image-error'
 
     return (
         <section className="new-form-holder">
@@ -417,6 +362,8 @@ const EditSpotForm = () => {
                 <ColoredLine />
                 <br></br>
                 <button type="submit" onClick={handleSubmit} className={'edit-spot-form-submitbutton enabled'}>Update Spot</button>
+                <br></br>
+                <br></br>
             </form>
         </section>
     );

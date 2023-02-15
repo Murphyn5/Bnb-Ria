@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
@@ -56,7 +56,7 @@ function ProfileButton({ user }) {
                         <li className="dropdown-li">Hello, {user.firstName}</li>
                         <li className="dropdown-li">{user.email}</li>
                         <ColoredLine />
-                        <Link className="manage-spots-link" to="/spots/manage">
+                        <Link className="manage-spots-link" onClick={closeMenu} to="/spots/manage">
                             Manage Spots
                         </Link>
                         <ColoredLine />
