@@ -19,6 +19,11 @@
     right: 60px;
 }
 
+.manage-spots-link {
+    text-decoration: none;
+    color: black;
+}
+
 .nav-bar-wrapper {
     height: 70px;
     position: absolute;

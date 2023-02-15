@@ -1,0 +1,16 @@
+.spot-manage-index-item-price-container {
+    width: 270px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.spot-manage-index-item-button {
+    border-style: solid;
+    background-color: #999999;
+    color: white;
+    border-color: black;
+    box-shadow: 3px 3px black;
+    cursor: pointer;
+
+}

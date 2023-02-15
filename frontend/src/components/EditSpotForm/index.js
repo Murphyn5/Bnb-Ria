@@ -1,17 +1,32 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
-import './CreateSpotForm.css'
+import { Redirect, useHistory, useParams } from 'react-router-dom';
+import './EditSpotForm.css'
 import ColoredLine from '../ColoredLine';
-import { createSpot, createSpotImage, getOneSpot} from '../../store/spots';
+import { editSpot, createSpotImage, getOneSpot} from '../../store/spots';
 
 
-const CreateSpotForm = () => {
+const EditSpotForm = () => {
+
+
+    const { spotId } = useParams()
+
+    let spot = useSelector(state => state.spots.singleSpot)
+    console.log(spot)
+    console.log(spot.state)
 
     const sessionUser = useSelector(state => state.session.user);
 
+    useEffect(() => {
+        const spotRestore = async () => {
+            await dispatch(getOneSpot(spotId))
+        }
+        spotRestore()
+    }, [])
+
     const dispatch = useDispatch();
     const history = useHistory();
+    const [id, setId] = useState('')
     const [country, setCountry] = useState('');
     const [streetAddress, setStreetAddress] = useState('');
     const [city, setCity] = useState('');
@@ -57,6 +72,21 @@ const CreateSpotForm = () => {
     const updateImageUrl3 = (e) => setImageUrl3(e.target.value);
     const updateImageUrl4 = (e) => setImageUrl4(e.target.value);
 
+
+
+    useEffect(() => {
+        setId(spot.id)
+        setCountry(spot.country)
+        setState(spot.state)
+        setStreetAddress(spot.address)
+        setCity(spot.city)
+        setLatitude(spot.lat)
+        setLongitude(spot.lng)
+        setDescription(spot.description)
+        setSpotName(spot.name)
+        setPrice(spot.price)
+    }, [spot])
+
     const handleSubmit = async (e) => {
         setErrors([])
         e.preventDefault();
@@ -97,13 +127,12 @@ const CreateSpotForm = () => {
         }
 
 
-        if (latitude === '') {
+        if (typeof latitude === 'string') {
             errors.push('latitude input error')
             setShowLatError(true)
         }
 
-
-        if (longitude === '') {
+        if (typeof longitude === 'string') {
             errors.push('longitude input error')
             setShowLongError(true)
         }
@@ -127,52 +156,15 @@ const CreateSpotForm = () => {
         }
 
 
-        if (previewImageUrl.length === 0) {
-            errors.push('previewImage required error')
-            setShowPreviewImageError1(true)
-        }
-
-        if (previewImageUrl.length !== 0) {
-            if (!previewImageUrl.endsWith('.png') && !previewImageUrl.endsWith('.jpg') && !previewImageUrl.endsWith('.jpeg')) {
-                errors.push('previewImage type error')
-                setShowPreviewImageError2(true)
-            }
-        }
-
-        if (imageUrl1 !== '') {
-            if (!imageUrl1.endsWith('.png') && !imageUrl1.endsWith('.jpg') && !imageUrl1.endsWith('.jpeg')) {
-                errors.push('image1 type error')
-                setShowImageError1(true)
-            }
-        }
-
-        if (imageUrl2 !== '') {
-            if (!imageUrl2.endsWith('.png') && !imageUrl2.endsWith('.jpg') && !imageUrl2.endsWith('.jpeg')) {
-                errors.push('image2 type error')
-                setShowImageError2(true)
-            }
-        }
-
-        if (imageUrl3 !== '') {
-            if (!imageUrl3.endsWith('.png') && !imageUrl3.endsWith('.jpg') && !imageUrl3.endsWith('.jpeg')) {
-                errors.push('image3 type error')
-                setShowImageError3(true)
-            }
-        }
-
-        if (imageUrl4 !== '') {
-            if (!imageUrl4.endsWith('.png') && !imageUrl4.endsWith('.jpg') && !imageUrl4.endsWith('.jpeg')) {
-                errors.push('image4 type error')
-                setShowImageError4(true)
-            }
-        }
-
         if (errors.length > 0) {
             return
         }
 
 
+
+
         const spotPayload = {
+            id: spotId,
             user: sessionUser,
             address: streetAddress,
             city,
@@ -185,68 +177,19 @@ const CreateSpotForm = () => {
             name: spotName
         };
 
-        let createdSpot
-        let createdPrevImg
+        console.log('????s??', spotPayload)
+
+        let editedSpot
 
         if (errors.length === 0) {
-            createdSpot = await dispatch(createSpot(spotPayload));
+            editedSpot = await dispatch(editSpot(spotPayload));
         }
 
-        const prevImagePayload = {
-            url: previewImageUrl,
-            preview: true,
-            spotId: createdSpot.id
-        }
-
-        const image1Payload = {
-            url: imageUrl1,
-            preview: false,
-            spotId: createdSpot.id
-        }
-
-        const image2Payload = {
-            url: imageUrl2,
-            preview: false,
-            spotId: createdSpot.id
-        }
-
-        const image3Payload = {
-            url: imageUrl3,
-            preview: false,
-            spotId: createdSpot.id
-        }
-
-        const image4Payload = {
-            url: imageUrl4,
-            preview: false,
-            spotId: createdSpot.id
-        }
-
-        if (errors.length === 0) {
-            createdPrevImg = await dispatch(createSpotImage(prevImagePayload))
-        }
-
-        if (imageUrl1 !== '') {
-            await dispatch(createSpotImage(image1Payload))
-        }
-
-        if (imageUrl2 !== '') {
-            await dispatch(createSpotImage(image2Payload))
-        }
-
-        if (imageUrl3 !== '') {
-            await dispatch(createSpotImage(image3Payload))
-        }
-
-        if (imageUrl4 !== '') {
-            await dispatch(createSpotImage(image4Payload))
-        }
-
-        if (createdSpot && createdPrevImg) {
-            await dispatch(getOneSpot(createdSpot.id))
-            sessionStorage.setItem('singleSpotId', createdSpot.id)
-            history.push(`/spots/${createdSpot.id}`);
-            <Redirect to={`/spots/${createdSpot.id}`} />
+        if (editedSpot) {
+            await dispatch(getOneSpot(editedSpot.id))
+            sessionStorage.setItem('singleSpotId', editedSpot.id)
+            history.push(`/spots/${editedSpot.id}`);
+            <Redirect to={`/spots/${editedSpot.id}`} />
         }
 
     };
@@ -272,7 +215,7 @@ const CreateSpotForm = () => {
             setLongitude(180)
         }
 
-    }, [price, latitude, longitude, country, streetAddress, city, state, description, spotName, previewImageUrl, errors])
+    }, [price, latitude, longitude])
 
     const fillerBreakDesc = () => {
         if (!showDescError) {
@@ -322,32 +265,32 @@ const CreateSpotForm = () => {
         }
     }
 
-    let labelErrorClassName = 'create-spot-form-label-error'
-    let inputErrorClassName = 'create-spot-form-input-error'
-    let imageErrorClassName = 'create-spot-form-image-error'
+    let labelErrorClassName = 'edit-spot-form-label-error'
+    let inputErrorClassName = 'edit-spot-form-input-error'
+    let imageErrorClassName = 'edit-spot-form-image-error'
 
     return (
         <section className="new-form-holder">
-            <form className="create-spot-form" >
-                <h1>Create a new Spot</h1>
+            <form className="edit-spot-form" >
+                <h1>Update your Spot</h1>
                 <h2>Where's your place located?</h2>
                 <div>Guests will only get your exact address once they booked a reservation.</div>
                 <br></br>
                 <label>
-                    <span className='create-spot-form-label-container'>
+                    <span className='edit-spot-form-label-container'>
                         <span>Country</span>
                         <span className={labelErrorClassName + (showCountryError ? '' : ' hidden')}>Country is required</span>
                     </span>
                     <input
                         type="text"
                         required
-                        placeholder='Country'
+                        placeholder={'Country'}
                         value={country}
                         onChange={updateCountry} />
                 </label>
                 <br></br>
                 <label>
-                    <span className='create-spot-form-label-container'>
+                    <span className='edit-spot-form-label-container'>
                         <span>Street Address</span>
                         <span className={labelErrorClassName + (showAddressError ? '' : ' hidden')}>Address is required</span>
                     </span>
@@ -361,7 +304,7 @@ const CreateSpotForm = () => {
                 <br></br>
                 <div className='city-state-container'>
                     <label>
-                        <span className='create-spot-form-label-container'>
+                        <span className='edit-spot-form-label-container'>
                             <span>City</span>
                             <span className={labelErrorClassName + (showCityError ? '' : ' hidden')}>City is required</span>
                         </span>
@@ -377,7 +320,7 @@ const CreateSpotForm = () => {
                     </label>
                     <span className='style-comma'>,</span>
                     <label>
-                        <span className='create-spot-form-label-container'>
+                        <span className='edit-spot-form-label-container'>
                             <span>State</span>
                             <span className={labelErrorClassName + (showStateError ? '' : ' hidden')}>State is required</span>
                         </span>
@@ -395,7 +338,7 @@ const CreateSpotForm = () => {
                 <br></br>
                 <div className='long-lat-container'>
                     <label>
-                        <span className='create-spot-form-label-container'>
+                        <span className='edit-spot-form-label-container'>
                             <span>Latitude</span>
                             <span className={labelErrorClassName + (showLatError ? '' : ' hidden')}>Latitude must be a number</span>
                         </span>
@@ -411,7 +354,7 @@ const CreateSpotForm = () => {
                     </label>
                     <span className='style-comma'>,</span>
                     <label>
-                        <span className='create-spot-form-label-container'>
+                        <span className='edit-spot-form-label-container'>
                             <span>Longitude</span>
                             <span className={labelErrorClassName + (showLongError ? '' : ' hidden')}>Longitude must be a number</span>
                         </span>
@@ -433,7 +376,7 @@ const CreateSpotForm = () => {
                     wifi or parking, and what you love about the neighborhood.
                 </div>
                 <br></br>
-                <textarea className='create-spot-form-description'
+                <textarea className='edit-spot-form-description'
                     type="text"
                     required
                     placeholder='Description'
@@ -442,7 +385,7 @@ const CreateSpotForm = () => {
                 <span className={inputErrorClassName + (showDescError ? '' : ' hidden')}>Description needs a minimum of 30 characters</span>
                 {fillerBreakDesc()}
                 <ColoredLine />
-                <h2>Create a title for your spot</h2>
+                <h2>edit a title for your spot</h2>
                 <div>Catch guest's attention with a spot title that highlights what makes your
                     place special.
                 </div>
@@ -459,11 +402,11 @@ const CreateSpotForm = () => {
                 <div>Competitive pricing can help your listing stand out and rank higher in search results.
                 </div>
                 <br></br>
-                <div className='create-spot-form-priceset-container'>
+                <div className='edit-spot-form-priceset-container'>
                     <span>{"$"}</span>
                     <input
                         type="number"
-                        className='create-spot-form-priceset-input'
+                        className='edit-spot-form-priceset-input'
                         placeholder="Price per night (USD)"
                         value={price}
                         min={0}
@@ -472,55 +415,11 @@ const CreateSpotForm = () => {
                 <span className={inputErrorClassName + (showPriceError ? '' : ' hidden')}>Price is required</span>
                 {fillerBreakPrice()}
                 <ColoredLine />
-                <h2>Liven up your spot with photos</h2>
-                <div>Submit a link to at least one photo to publish your spot.
-                </div>
                 <br></br>
-                <input
-                    type="text"
-                    placeholder="Preview Image Url"
-                    required
-                    value={previewImageUrl}
-                    onChange={updatePreviewImageUrl} />
-                <span >
-                    <span className={imageErrorClassName + (showPreviewImageError1 ? '' : ' hidden')}>Preview image is required.</span>
-                    <span className={imageErrorClassName + (showPreviewImageError2 ? '' : ' hidden')}>Image Url must end in .png, .jpg, or .jpeg</span>
-                </span>
-                {fillerBreakPrevImg()}
-                <input
-                    type="text"
-                    placeholder="Image Url"
-                    value={imageUrl1}
-                    onChange={updateImageUrl1} />
-                <span className={imageErrorClassName + (showImageError1 ? '' : ' hidden')}>Image Url must end in .png, .jpg, or .jpeg</span>
-                {fillerBreakImg1()}
-                <input
-                    type="text"
-                    placeholder="Image Url"
-                    value={imageUrl2}
-                    onChange={updateImageUrl2} />
-                <span className={imageErrorClassName + (showImageError2 ? '' : ' hidden')}>Image Url must end in .png, .jpg, or .jpeg</span>
-                {fillerBreakImg2()}
-                <input
-                    type="text"
-                    placeholder="Image Url"
-                    value={imageUrl3}
-                    onChange={updateImageUrl3} />
-                <span className={imageErrorClassName + (showImageError3 ? '' : ' hidden')}>Image Url must end in .png, .jpg, or .jpeg</span>
-                {fillerBreakImg3()}
-                <input
-                    type="text"
-                    placeholder="Image Url"
-                    value={imageUrl4}
-                    onChange={updateImageUrl4} />
-                <span className={imageErrorClassName + (showImageError4 ? '' : ' hidden')}>Image Url must end in .png, .jpg, or .jpeg</span>
-                {fillerBreakImg4()}
-                <ColoredLine />
-                <br></br>
-                <button type="submit" onClick={handleSubmit} className={'create-spot-form-submitbutton enabled'}>Create Spot</button>
+                <button type="submit" onClick={handleSubmit} className={'edit-spot-form-submitbutton enabled'}>Update Spot</button>
             </form>
         </section>
     );
 };
 
-export default CreateSpotForm;
+export default EditSpotForm;

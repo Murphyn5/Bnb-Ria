@@ -36,6 +36,14 @@ export const getSpots = () => async dispatch => {
     }
 };
 
+export const getCurrentSpots = () => async dispatch => {
+    const response = await fetch(`/api/spots/current`);
+    if (response.ok) {
+        const spotsObj = await response.json();
+        dispatch(loadAllSpots(spotsObj.Spots));
+    }
+};
+
 export const getOneSpot = (id) => async dispatch => {
     const response = await fetch(`/api/spots/${id}`);
     if (response.ok) {
@@ -48,6 +56,22 @@ export const getOneSpot = (id) => async dispatch => {
 export const createSpot = (payload) => async dispatch => {
     const response = await fetch(`/api/spots`, {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "XSRF-token": Cookies.get('XSRF-TOKEN')
+        },
+        body: JSON.stringify(payload)
+    })
+    if (response.ok) {
+        const spot = await response.json()
+        dispatch(addOneSpot(spot))
+        return spot
+    }
+}
+
+export const editSpot = (payload) => async dispatch => {
+    const response = await fetch(`/api/spots/${payload.id}`, {
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
             "XSRF-token": Cookies.get('XSRF-TOKEN')

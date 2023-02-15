@@ -86,3 +86,18 @@ textarea {
     box-shadow: 3px 3px black;
     cursor: pointer;
 }
+
+.accent {
+    width: 101.5%;
+    height: 50px;
+    border-style: solid;
+    background-color: #999999;
+    color: white;
+    border-color: black;
+    box-shadow: 3px 3px black;
+    cursor: pointer;
+}
+
+p {
+    width: 100%;
+}

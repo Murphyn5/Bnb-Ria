@@ -1,4 +1,4 @@
-.create-spot-form {
+.edit-spot-form {
     width: 40%;
     min-width: 650px;
     max-width: 1000px;
@@ -9,25 +9,25 @@
     margin: auto;
 }
 
-.create-spot-form-label-container {
+.edit-spot-form-label-container {
     display: flex;
     width: 100%;
     justify-content: flex-start;
 }
 
-.create-spot-form-label-error {
+.edit-spot-form-label-error {
     position: relative;
     left: 10px;
     color: #FF5A5F
 }
 
-.create-spot-form-input-error {
+.edit-spot-form-input-error {
     position: relative;
     top: 5px;
     color: #FF5A5F
 }
 
-.create-spot-form-image-error {
+.edit-spot-form-image-error {
     color: #FF5A5F
 }
 
@@ -58,7 +58,7 @@
     top: 45%;
     font-size: 20pt
 }
-.create-spot-form-description {
+.edit-spot-form-description {
     height: 150px;
     align-items: flex-start;
     display: flex;
@@ -66,19 +66,19 @@
     resize: none;
 }
 
-.create-spot-form-priceset-container {
+.edit-spot-form-priceset-container {
     display: flex;
     justify-content: space-between;
     width: 100%;
     position: relative;
 }
 
-.create-spot-form-priceset-input {
+.edit-spot-form-priceset-input {
     position: relative;
     left: 6px;
 }
 
-.create-spot-form-submitbutton {
+.edit-spot-form-submitbutton {
     width: 25%;
     height: 30pt;
     margin: auto;
