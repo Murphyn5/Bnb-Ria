@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./DeleteReviewForm.css";
 import { deleteReview } from "../../store/reviews";
+import { getOneSpot } from "../../store/spots";
 
 function DeleteReviewFormModal({spotId, reviewId}) {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function DeleteReviewFormModal({spotId, reviewId}) {
         reviewId
     }
     await dispatch(deleteReview(payload))
+    await dispatch(getOneSpot(spotId))
     closeModal()
   };
 
