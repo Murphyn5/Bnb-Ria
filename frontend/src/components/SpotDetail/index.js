@@ -298,7 +298,7 @@ const SpotDetail = () => {
 
                 let reviewRating
 
-                if (review.stars === 1 ) {
+                if (review.stars === 1) {
                     reviewRating =
                         <span>
                             <i className="fas fa-star"></i>
@@ -437,7 +437,10 @@ const SpotDetail = () => {
 
                 {renderReviewAction()}
 
-                {renderReviews()}
+                <div>
+                    {renderReviews()}
+                </div>
+
 
             </div>
         </section>

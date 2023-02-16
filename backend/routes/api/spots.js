@@ -645,6 +645,8 @@ router.post(
             if (isNaN(parseInt(stars)) || stars < 1 || stars > 5) {
                 err.errors.push("Stars must be an integer from 1 to 5")
             }
+        } else{
+            err.errors.push("Stars must be an integer from 1 to 5")
         }
 
 

@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 // export const getAllReviews = (state) => Object.values(state.spots.??????)
 export const getAllReviews = (state) => Object.values(state.reviews.spot)
 
-const ADD_ONE = 'reviews/ADD_ONE';
 const LOAD_ALL = 'reviews/LOAD_ALL';
 
 const loadReviews = reviews => ({
@@ -11,16 +10,11 @@ const loadReviews = reviews => ({
     reviews
 });
 
-const addReview = review => ({
-    type: ADD_ONE,
-    review
-});
-
 export const getReviews = (id) => async dispatch => {
     const response = await fetch(`/api/spots/${id}/reviews`);
     if (response.ok) {
         const reviewsObj = await response.json();
-        dispatch(loadReviews(reviewsObj.Reviews));
+        await dispatch(loadReviews(reviewsObj.Reviews));
     }
 };
 
@@ -35,7 +29,7 @@ export const createReview = (payload) => async dispatch => {
     })
     if (response.ok) {
         const review = await response.json()
-        dispatch(addReview(review))
+        await dispatch(getReviews(payload.id))
         return review
     }
 }
@@ -57,10 +51,6 @@ const reviewsReducer = (state = initialState, action) => {
                 spot: spotReviews,
                 user: {...state.user}
             }
-        case ADD_ONE:
-            newState = {...state}
-            newState.spot[action.review.id] = action.review
-            return newState
         default:
             return state;
     }
