@@ -71,7 +71,6 @@ const initialState = {
 };
 
 const reviewsReducer = (state = initialState, action) => {
-    let newState = {}
     switch (action.type) {
         case LOAD_ALL:
             const spotReviews = {};

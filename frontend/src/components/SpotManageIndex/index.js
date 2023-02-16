@@ -17,7 +17,7 @@ const SpotManageIndex = () => {
             await dispatch(getCurrentSpots())
         }
         spotRestore()
-    }, [])
+    }, [dispatch])
 
     if (!user) {
         history.push(`/`);
@@ -29,6 +29,9 @@ const SpotManageIndex = () => {
     if (!spots[0]) {
         return
     }
+
+
+
     return (
         <section >
             <div className='manage-spots-header-grid'>
