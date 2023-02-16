@@ -18,6 +18,23 @@ export const getReviews = (id) => async dispatch => {
     }
 };
 
+export const deleteReview = (payload) => async dispatch => {
+    const response = await fetch(`/api/reviews/${payload.reviewId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "XSRF-token": Cookies.get('XSRF-TOKEN')
+        },
+        body: JSON.stringify(payload)
+    })
+    if (response.ok) {
+        const review = await response.json()
+        await dispatch(getReviews(payload.spotId))
+        return review
+    }
+}
+
+
 export const createReview = (payload) => async dispatch => {
     const response = await fetch(`/api/spots/${payload.id}/reviews`, {
         method: "POST",

@@ -5,6 +5,7 @@ import { getOneSpot } from "../../store/spots"
 import OpenModalButton from "../OpenModalButton"
 import ColoredLine from "../ColoredLine"
 import CreateReviewFormModal from "../CreateReviewFormModal"
+import DeleteReviewFormModal from "../DeleteReviewFormModal"
 import './SpotDetail.css'
 import { getReviews, getAllReviews } from "../../store/reviews"
 
@@ -351,6 +352,24 @@ const SpotDetail = () => {
 
                 let formattedDate = year + "-" + month + "-" + day;
 
+                const renderDeleteButton = () => {
+                    if(sessionUser.id === review.User.id){
+                        return (
+                            <>
+                                <br></br>
+                                <div>
+                                    <OpenModalButton
+                                        buttonText={"Delete"}
+                                        modalComponent={<DeleteReviewFormModal spotId={spotId} reviewId={review.id}/>}
+                                    >
+                                        {/* <button type="submit" className={'post-review-button accent'}>Post Your Review</button> */}
+                                    </OpenModalButton>
+                                </div>
+                            </>
+                        )
+                    }
+                }
+
                 return (
                     <>
                         <br>
@@ -367,6 +386,7 @@ const SpotDetail = () => {
                             <div>
                                 {review.review}
                             </div>
+                            {renderDeleteButton()}
                         </div>
                         <br>
                         </br>
