@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
 import DeleteSpotFormModal from '../DeleteSpotFormModal';
 import './SpotManageIndexItem.css'
+import { getOneSpot } from '../../store/spots';
+import { getReviews } from '../../store/reviews';
+import { useDispatch } from 'react-redux';
 
 const SpotManageIndexItem = ({ spot }) => {
+    const dispatch = useDispatch()
 
     let rating
 
@@ -90,11 +94,15 @@ const SpotManageIndexItem = ({ spot }) => {
             </span>
     }
 
+    const handleClick = async () => {
+        await dispatch(getOneSpot(spot.id))
+        await dispatch(getReviews(spot.id))
+      }
 
 
     return (
         <div className='spot-index-item-container'>
-            <Link to={`/spots/${spot.id}`} className={'spot-preview-image'}>
+            <Link to={`/spots/${spot.id}`} onMouseEnter={handleClick} className={'spot-preview-image'}>
                 <img src={spot.previewImage} className="spot-preview-image" alt="spot-preview" />
             </Link>
             <div className='spot-index-item-description-container'>
