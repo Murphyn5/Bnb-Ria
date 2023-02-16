@@ -244,6 +244,7 @@ const CreateSpotForm = () => {
 
         if (createdSpot && createdPrevImg) {
             await dispatch(getOneSpot(createdSpot.id))
+
             history.push(`/spots/${createdSpot.id}`);
             <Redirect to={`/spots/${createdSpot.id}`} />
         }

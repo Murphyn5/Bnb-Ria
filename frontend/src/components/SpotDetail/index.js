@@ -2,8 +2,11 @@ import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 import { getOneSpot } from "../../store/spots"
+import OpenModalButton from "../OpenModalButton"
 import ColoredLine from "../ColoredLine"
+import CreateReviewFormModal from "../CreateReviewFormModal"
 import './SpotDetail.css'
+import { getReviews, getAllReviews } from "../../store/reviews"
 
 
 
@@ -13,16 +16,18 @@ const SpotDetail = () => {
     const { spotId } = useParams()
 
     let spot = useSelector(state => state.spots.singleSpot)
+    const reviews = useSelector(getAllReviews)
     const sessionUser = useSelector(state => state.session.user);
 
     useEffect(() => {
         const spotRestore = async () => {
             await dispatch(getOneSpot(spotId))
+            await dispatch(getReviews(spotId))
         }
         spotRestore()
     }, [dispatch, spotId])
 
-    if(!spot.country) {
+    if (!spot.country) {
         return
     }
 
@@ -42,7 +47,7 @@ const SpotDetail = () => {
 
     let previewImageArray
 
-    if(spot.SpotImages.length > 0){
+    if (spot.SpotImages.length > 0) {
         previewImageArray = spot.SpotImages.filter((image) => {
             if (image.preview === true) {
                 return image
@@ -52,9 +57,9 @@ const SpotDetail = () => {
 
     let previewImage
 
-    if(previewImageArray){
-         previewImage = previewImageArray[previewImageArray.length - 1]
-    } else{
+    if (previewImageArray) {
+        previewImage = previewImageArray[previewImageArray.length - 1]
+    } else {
         previewImage = {
             url: null
         }
@@ -257,9 +262,13 @@ const SpotDetail = () => {
     }
 
     const renderReviewAction = () => {
-        if(reviewType === 'New' && sessionUser) {
+        if (reviewType === 'New' && sessionUser) {
             return (
-                <span>Be the first to post a review!</span>
+                <>
+                    <br></br>
+                    <span>Be the first to post a review!</span>
+                </>
+
             )
         }
     }
@@ -267,10 +276,104 @@ const SpotDetail = () => {
     const renderReviewButton = () => {
         if (sessionUser) {
             return (
-                <div>
-                    <button type="submit" className={'post-review-button accent'}>Post Your Review</button>
-                </div>
+                <>
+                    <br></br>
+                    <div>
+                        <OpenModalButton
+                            buttonText={"Post Your Review"}
+                            modalComponent={<CreateReviewFormModal id={spotId} />}
+                        >
+                            {/* <button type="submit" className={'post-review-button accent'}>Post Your Review</button> */}
+                        </OpenModalButton>
+                    </div>
+                </>
             )
+        }
+    }
+
+    const renderReviews = () => {
+        if (reviews) {
+            console.log('hiya', reviews)
+            return reviews.map((review) => {
+
+                let reviewRating
+
+                if (review.stars === 1 ) {
+                    reviewRating =
+                        <span>
+                            <i className="fas fa-star"></i>
+                        </span>
+                }
+
+                if (review.stars === 2) {
+                    reviewRating =
+                        <span>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                        </span>
+                }
+
+                if (review.stars === 3) {
+                    reviewRating =
+                        <span>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                        </span>
+                }
+
+                if (review.stars === 4) {
+                    reviewRating =
+                        <span>
+                            <i className="fas fa-star" ></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                        </span>
+                }
+
+                if (review.stars === 5) {
+                    reviewRating =
+                        <span>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                            <i className="fas fa-star"></i>
+                        </span>
+                }
+
+                let date = new Date(review.createdAt);
+
+                let year = date.toLocaleString("default", { year: "numeric" });
+                let month = date.toLocaleString("default", { month: "2-digit" });
+                let day = date.toLocaleString("default", { day: "2-digit" });
+
+                let formattedDate = year + "-" + month + "-" + day;
+
+                return (
+                    <>
+                        <br>
+                        </br>
+                        <div>
+                            <div>
+                                {review.User.firstName} &nbsp;
+                                {reviewRating}
+                            </div>
+                            <div className="text-color-gray">
+                                {formattedDate}
+
+                            </div>
+                            <div>
+                                {review.review}
+                            </div>
+                        </div>
+                        <br>
+                        </br>
+                    </>
+
+                )
+            })
         }
     }
 
@@ -329,10 +432,12 @@ const SpotDetail = () => {
 
                     <span className="spot-details-reviews-summary-info">&nbsp; {reviewCount} {reviewType}</span>
                 </div>
-                <br></br>
+
                 {renderReviewButton()}
-                <br></br>
+
                 {renderReviewAction()}
+
+                {renderReviews()}
 
             </div>
         </section>

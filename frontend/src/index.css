@@ -18,6 +18,9 @@ html {
     height: 100%;
 }
 
+.text-color-gray {
+    color: #999999;
+}
 
 .page-content {
     position: relative;
@@ -27,6 +30,7 @@ html {
 
 section {
     height: 100%;
+    padding: 30px;
 }
 
 a {
@@ -40,6 +44,7 @@ button {
 h1 {
     font-size: 24pt;
     font-weight: bold;
+    margin-top: 0;
 }
 
 h2 {
