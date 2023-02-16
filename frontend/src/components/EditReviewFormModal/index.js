@@ -2,16 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import StarRating from "../StarRating";
-import "./CreateReviewForm.css";
-import { createReview } from "../../store/reviews";
+import "./EditReviewForm.css";
+import { editReview } from "../../store/reviews";
 import { getOneSpot } from "../../store/spots";
 
-function CreateReviewFormModal({id}) {
+function EditReviewFormModal({reviews, spotId, reviewId, name}) {
+    console.log('SPOT', name)
+    console.log(reviewId)
+    const stateReview = reviews.find((review) => {
+        if(review.id === reviewId){
+            return review
+        }
+    })
     const dispatch = useDispatch();
-    const [review, setReview] = useState('')
+    const [review, setReview] = useState(stateReview.review)
     const updateReview = (e) => setReview(e.target.value);
-    const [rating, setRating] = useState(0);
-    const [hover, setHover] = useState(0);
+    const [rating, setRating] = useState(stateReview.stars);
+    const [hover, setHover] = useState(stateReview.stars);
     const [errors, setErrors] = useState([])
     const [disabled, setDisabled] = useState(true)
     const [showReviewError, setShowReviewError] = useState(false)
@@ -52,13 +59,14 @@ function CreateReviewFormModal({id}) {
         }
 
         const payload = {
-            id,
+            reviewId,
             stars: rating,
+            spotId,
             review
         }
 
-        await dispatch(createReview(payload));
-        await dispatch(getOneSpot(id))
+        await dispatch(editReview(payload));
+        await dispatch(getOneSpot(spotId))
         closeModal()
     };
 
@@ -74,17 +82,17 @@ function CreateReviewFormModal({id}) {
         }
     }
 
-    let inputErrorClassName = 'create-spot-form-image-error'
+    let inputErrorClassName = 'edit-spot-form-image-error'
 
     return (
         <>
-            <div className="create-review-form-container">
-                <form className={"create-review-form"} onSubmit={handleSubmit}>
-                    <h2 className="create-review-form-title">How was your stay?</h2>
+            <div className="edit-review-form-container">
+                <form className={"edit-review-form"} onSubmit={handleSubmit}>
+                    <h2 className="edit-review-form-title">How was your stay at {name}?</h2>
                     <br></br>
                     <textarea
                         type="text"
-                        className="create-review-form-textarea"
+                        className="edit-review-form-textarea"
                         required
                         placeholder='Leave your review here...'
                         value={review}
@@ -104,4 +112,4 @@ function CreateReviewFormModal({id}) {
     );
 }
 
-export default CreateReviewFormModal;
+export default EditReviewFormModal;

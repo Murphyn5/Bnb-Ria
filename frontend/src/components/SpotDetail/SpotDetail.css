@@ -59,15 +59,6 @@
     width: 100%;
 }
 
-.hyphenate {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    hyphens: auto;
-}
-
 .spot-details-information-button-container {
     height: 150px;
     border: solid 3px black;
@@ -88,7 +79,7 @@
 }
 
 .spot-details-reviews-summary-avgRating {
-    font-size: 18;
+    font-size: 18pt;
 }
 
 
@@ -98,11 +89,24 @@
     align-items: center;
 }
 
+
+
 .spot-details-information-button-reviews {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    width: 100%;
 }
+
+@media screen and (max-width: 1415px) {
+    .spot-details-information-button-reviews {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
 
 .spot-details-information-button {
     margin: auto;

@@ -5,6 +5,8 @@ import { getOneSpot } from "../../store/spots"
 import OpenModalButton from "../OpenModalButton"
 import ColoredLine from "../ColoredLine"
 import CreateReviewFormModal from "../CreateReviewFormModal"
+import DeleteReviewFormModal from "../DeleteReviewFormModal"
+import EditReviewFormModal from "../EditReviewFormModal"
 import './SpotDetail.css'
 import { getReviews, getAllReviews } from "../../store/reviews"
 
@@ -16,6 +18,7 @@ const SpotDetail = () => {
     const { spotId } = useParams()
 
     let spot = useSelector(state => state.spots.singleSpot)
+
     const reviews = useSelector(getAllReviews)
     const sessionUser = useSelector(state => state.session.user);
 
@@ -86,176 +89,179 @@ const SpotDetail = () => {
     }
 
     let rating
-
-
-
-    if (spot.avgRating === 1 || spot.avgRating === null) {
-        rating =
-            <span>
-                <i className="fas fa-star"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 1.5) {
-        rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star-half"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 2) {
-        rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 2.5) {
-        rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star-half"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 3) {
-        rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 3.5) {
-        rating =
-            <span >
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star-half"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 4) {
-        rating =
-            <span>
-                <i className="fas fa-star" ></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 4.5) {
-        rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star-half"></i>
-            </span>
-    }
-    if (spot.avgRating === 5) {
-        rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-            </span>
-    }
-
     let ratingTitle
 
     console.log(spot.avgRating)
 
-    if (spot.avgRating === 1 || spot.avgRating === null) {
-        ratingTitle =
-            <span>
-                <i className="fas fa-star enlarge"></i>
-            </span>
+    if(spot.avgRating !== null) {
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.0' || spot.avgRating === null) {
+            rating =
+                <span>
+                    <i className="fas fa-star"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.5') {
+            rating =
+                <span>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star-half"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.0') {
+            rating =
+                <span>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.5') {
+            rating =
+                <span>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star-half"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.0') {
+            rating =
+                <span>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.5') {
+            rating =
+                <span >
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star-half"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.0') {
+            rating =
+                <span>
+                    <i className="fas fa-star" ></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.5') {
+            rating =
+                <span>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star-half"></i>
+                </span>
+        }
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '5.0') {
+            rating =
+                <span>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                    <i className="fas fa-star"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.0' || spot.avgRating === null) {
+            ratingTitle =
+                <span>
+                    <i className="fas fa-star enlarge"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.5') {
+            ratingTitle =
+                <span>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star-half enlarge"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.0') {
+            ratingTitle =
+                <span>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.5') {
+            ratingTitle =
+                <span>
+                    <i className="fas fa-star enlarge" ></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star-half enlarge"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.0') {
+            ratingTitle =
+                <span>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.5') {
+            ratingTitle =
+                <span >
+                    <i className="fas fa-star enlarge" ></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star-half enlarge"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.0') {
+            ratingTitle =
+                <span>
+                    <i className="fas fa-star enlarge" ></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                </span>
+        }
+
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.5') {
+            ratingTitle =
+                <span>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star-half enlarge"></i>
+                </span>
+        }
+        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '5.0') {
+            ratingTitle =
+                <span>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                    <i className="fas fa-star enlarge"></i>
+                </span>
+        }
+
     }
 
-    if (spot.avgRating === 1.5) {
-        ratingTitle =
-            <span>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star-half enlarge"></i>
-            </span>
-    }
 
-    if (spot.avgRating === 2) {
-        ratingTitle =
-            <span>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 2.5) {
-        ratingTitle =
-            <span>
-                <i className="fas fa-star enlarge" ></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star-half enlarge"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 3) {
-        ratingTitle =
-            <span>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 3.5) {
-        ratingTitle =
-            <span >
-                <i className="fas fa-star enlarge" ></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star-half enlarge"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 4) {
-        ratingTitle =
-            <span>
-                <i className="fas fa-star enlarge" ></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-            </span>
-    }
-
-    if (spot.avgRating === 4.5) {
-        ratingTitle =
-            <span>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star-half enlarge"></i>
-            </span>
-    }
-    if (spot.avgRating === 5) {
-        ratingTitle =
-            <span>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-                <i className="fas fa-star enlarge"></i>
-            </span>
-    }
 
     const handleSubmit = () => {
         window.alert('Feature coming soon!')
@@ -290,10 +296,22 @@ const SpotDetail = () => {
             )
         }
     }
+    const spotAvgRatingRounded = () => {
+        if(spot.avgRating !== null){
+            return  spot.avgRating.toFixed(1)
+        }
+        return spot.avgRating
+    }
+
 
     const renderReviews = () => {
-        if (reviews) {
-            console.log('hiya', reviews)
+        if(reviews.length === 0){
+            return (
+                <>
+                </>
+            )
+        } else{
+            let name = spot.name
             return reviews.map((review) => {
 
                 let reviewRating
@@ -351,6 +369,31 @@ const SpotDetail = () => {
 
                 let formattedDate = year + "-" + month + "-" + day;
 
+                const renderDeleteButton = () => {
+                    if(sessionUser && sessionUser.id === review.userId){
+                        return (
+                            <>
+                                <br></br>
+                                <div>
+                                    <OpenModalButton
+                                        buttonText={"Delete"}
+                                        modalComponent={<DeleteReviewFormModal spotId={spotId} reviewId={review.id}/>}
+                                    >
+                                        {/* <button type="submit" className={'post-review-button accent'}>Post Your Review</button> */}
+                                    </OpenModalButton>
+                                    &nbsp; &nbsp;
+                                    <OpenModalButton
+                                        buttonText={"Update"}
+                                        modalComponent={<EditReviewFormModal name={name} reviews={reviews} spotId={spotId} reviewId={review.id}/>}
+                                    >
+                                        {/* <button type="submit" className={'post-review-button accent'}>Post Your Review</button> */}
+                                    </OpenModalButton>
+                                </div>
+                            </>
+                        )
+                    }
+                }
+
                 return (
                     <>
                         <br>
@@ -367,6 +410,7 @@ const SpotDetail = () => {
                             <div>
                                 {review.review}
                             </div>
+                            {renderDeleteButton()}
                         </div>
                         <br>
                         </br>
@@ -439,7 +483,7 @@ const SpotDetail = () => {
                     <span>
                         <span className="spot-details-reviews-summary-avgRating">
                             {ratingTitle} {fillerSpace()}
-                            {spot.avgRating.toFixed(1)}
+                            {spotAvgRatingRounded()}
                         </span>
                     </span>
 
