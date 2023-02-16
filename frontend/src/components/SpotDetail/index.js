@@ -377,7 +377,17 @@ const SpotDetail = () => {
         }
     }
 
-
+    const fillerSpace = () => {
+        if (spot.avgRating === 1.5 || spot.avgRating === 2.5 || spot.avgRating === 3.5 || spot.avgRating === 4.5) {
+            return
+        } else {
+            return (
+                <>
+                    &nbsp;
+                </>
+            )
+        }
+    }
 
     return (
         <section>
@@ -427,7 +437,10 @@ const SpotDetail = () => {
                 <ColoredLine />
                 <div className="spot-details-reviews-summary-info">
                     <span>
-                        {ratingTitle}
+                        <span className="spot-details-reviews-summary-avgRating">
+                            {ratingTitle} {fillerSpace()}
+                            {spot.avgRating.toFixed(1)}
+                        </span>
                     </span>
 
                     <span className="spot-details-reviews-summary-info">&nbsp; {reviewCount} {reviewType}</span>
