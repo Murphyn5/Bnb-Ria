@@ -91,10 +91,8 @@ const SpotDetail = () => {
     let rating
     let ratingTitle
 
-    console.log(spot.avgRating)
 
     if (spot.avgRating || spot.avgRating === null) {
-        console.log(spot.avgRating === null)
         if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.0' || spot.avgRating === null) {
             rating =
                 <span>
