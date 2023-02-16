@@ -65,6 +65,13 @@ input {
     border-radius: 3px;
 }
 
+select {
+    width: 100%;
+    background-color: #E8F0FE;
+    border: solid 1px black;
+    border-radius: 3px;
+}
+
 label{
     width: 100%;
 }

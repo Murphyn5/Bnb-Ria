@@ -170,6 +170,8 @@ router.put(
 
         const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
+
+
         let err = {
             errors: []
         }
@@ -190,13 +192,13 @@ router.put(
             err.errors.push("Country is required")
         }
 
-        if (lat !== undefined) {
+        if (lat !== undefined && lat !== '') {
             if (isNaN(parseFloat(lat))) {
                 err.errors.push("Latitude is not valid")
             }
         }
 
-        if (lng !== undefined) {
+        if (lng !== undefined && lng !== '') {
             if (isNaN(parseFloat(lng))) {
                 err.errors.push("Longitude is not valid")
             }
@@ -570,13 +572,13 @@ router.post(
             err.errors.push("Country is required")
         }
 
-        if (lat !== undefined || lat !== '') {
+        if (lat !== undefined && lat !== '') {
             if (isNaN(parseFloat(lat))) {
                 err.errors.push("Latitude is not valid")
             }
         }
 
-        if (lng !== undefined || lng !== '') {
+        if (lng !== undefined && lng !== '') {
             if (isNaN(parseFloat(lng))) {
                 err.errors.push("Longitude is not valid")
             }
