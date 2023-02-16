@@ -87,6 +87,10 @@
     grid-template-columns: 45% 10% 45%;
 }
 
+.spot-details-reviews-summary-avgRating {
+    font-size: 18;
+}
+
 
 
 .spot-details-information-button-price {
