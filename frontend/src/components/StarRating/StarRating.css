@@ -1,0 +1,16 @@
+.rating-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    right: 10px;
+}
+
+.on {
+    color: #000;
+}
+
+.off {
+    color: #ccc;
+}

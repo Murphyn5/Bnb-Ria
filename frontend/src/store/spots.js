@@ -134,7 +134,6 @@ const spotsReducer = (state = initialState, action) => {
             const allSpots = {};
             action.spots.forEach(spot => {
                 allSpots[spot.id] = spot;
-                allSpots[spot.id].name = 'testSpot'
             });
             return {
                 allSpots,

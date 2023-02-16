@@ -8,10 +8,6 @@
     padding: 0;
 }
 
-section {
-    padding: 30px;
-}
-
 @media screen and (min-width: 901px) and (max-width: 1200px) {
     .spots-grid {
         grid-template-columns: 1fr 1fr 1fr;
