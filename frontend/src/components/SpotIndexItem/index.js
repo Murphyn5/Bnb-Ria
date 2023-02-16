@@ -92,14 +92,9 @@ const SpotIndexItem = ({ spot }) => {
       </span>
   }
 
-  const handleClick = async () => {
-    await dispatch(getOneSpot(spot.id))
-    await dispatch(getReviews(spot.id))
-  }
-
   return (
     <div>
-      <Link to={`/spots/${spot.id}`} onMouseEnter={handleClick} className='spot-index-item-container' >
+      <Link to={`/spots/${spot.id}`} className='spot-index-item-container' >
 
         <img src={spot.previewImage} className="spot-preview-image" alt="spot-preview" />
 
