@@ -7,17 +7,9 @@ import { createSpotImage, editSpot, getOneSpot} from '../../store/spots';
 
 
 const EditSpotForm = () => {
-
-
     const { spotId } = useParams()
-
     let spot = useSelector(state => state.spots.singleSpot)
-
-    console.log(spot)
-    console.log(spot.state)
-
     const sessionUser = useSelector(state => state.session.user);
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -63,7 +55,6 @@ const EditSpotForm = () => {
     const updatePreviewImageUrl = (e) => setPreviewImageUrl(e.target.value)
 
     useEffect(() => {
-        console.log('???????', spot)
         setCountry(spot.country)
         setState(spot.state)
         setStreetAddress(spot.address)
@@ -171,9 +162,6 @@ const EditSpotForm = () => {
             return
         }
 
-
-
-
         const spotPayload = {
             id: spotId,
             user: sessionUser,
@@ -187,8 +175,6 @@ const EditSpotForm = () => {
             price,
             name: spotName
         };
-
-        console.log('????s??', spotPayload)
 
         let editedSpot
 

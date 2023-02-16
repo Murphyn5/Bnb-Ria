@@ -91,10 +91,8 @@ const SpotDetail = () => {
     let rating
     let ratingTitle
 
-    console.log(spot.avgRating)
 
-    if(spot.avgRating !== null) {
-
+    if (spot.avgRating || spot.avgRating === null) {
         if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.0' || spot.avgRating === null) {
             rating =
                 <span>
@@ -297,20 +295,20 @@ const SpotDetail = () => {
         }
     }
     const spotAvgRatingRounded = () => {
-        if(spot.avgRating !== null){
-            return  spot.avgRating.toFixed(1)
+        if (spot.avgRating !== null) {
+            return spot.avgRating.toFixed(1)
         }
         return spot.avgRating
     }
 
 
     const renderReviews = () => {
-        if(reviews.length === 0){
+        if (reviews.length === 0) {
             return (
                 <>
                 </>
             )
-        } else{
+        } else {
             let name = spot.name
             return reviews.map((review) => {
 
@@ -370,21 +368,21 @@ const SpotDetail = () => {
                 let formattedDate = year + "-" + month + "-" + day;
 
                 const renderDeleteButton = () => {
-                    if(sessionUser && sessionUser.id === review.userId){
+                    if (sessionUser && sessionUser.id === review.userId) {
                         return (
                             <>
                                 <br></br>
                                 <div>
                                     <OpenModalButton
                                         buttonText={"Delete"}
-                                        modalComponent={<DeleteReviewFormModal spotId={spotId} reviewId={review.id}/>}
+                                        modalComponent={<DeleteReviewFormModal spotId={spotId} reviewId={review.id} />}
                                     >
                                         {/* <button type="submit" className={'post-review-button accent'}>Post Your Review</button> */}
                                     </OpenModalButton>
                                     &nbsp; &nbsp;
                                     <OpenModalButton
                                         buttonText={"Update"}
-                                        modalComponent={<EditReviewFormModal name={name} reviews={reviews} spotId={spotId} reviewId={review.id}/>}
+                                        modalComponent={<EditReviewFormModal name={name} reviews={reviews} spotId={spotId} reviewId={review.id} />}
                                     >
                                         {/* <button type="submit" className={'post-review-button accent'}>Post Your Review</button> */}
                                     </OpenModalButton>
@@ -432,6 +430,20 @@ const SpotDetail = () => {
             )
         }
     }
+
+    const isNewChecker = () => {
+        if (reviewType === 'New') {
+            return (
+                <span className="spot-details-reviews-summary-info">{reviewType}</span>
+            )
+        } else {
+            return (
+                <span className="spot-details-reviews-summary-info">&nbsp; {reviewCount} {reviewType}</span>
+            )
+        }
+    }
+
+
 
     return (
         <section>
@@ -484,10 +496,10 @@ const SpotDetail = () => {
                         <span className="spot-details-reviews-summary-avgRating">
                             {ratingTitle} {fillerSpace()}
                             {spotAvgRatingRounded()}
+
                         </span>
                     </span>
-
-                    <span className="spot-details-reviews-summary-info">&nbsp; {reviewCount} {reviewType}</span>
+                    {isNewChecker()}
                 </div>
 
                 {renderReviewButton()}

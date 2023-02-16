@@ -7,8 +7,6 @@ import { editReview } from "../../store/reviews";
 import { getOneSpot } from "../../store/spots";
 
 function EditReviewFormModal({reviews, spotId, reviewId, name}) {
-    console.log('SPOT', name)
-    console.log(reviewId)
     const stateReview = reviews.find((review) => {
         if(review.id === reviewId){
             return review
