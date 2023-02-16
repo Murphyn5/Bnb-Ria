@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import './CreateSpotForm.css'
 import ColoredLine from '../ColoredLine';
-import { createSpot, createSpotImage, getOneSpot} from '../../store/spots';
+import { createSpot, createSpotImage, getOneSpot } from '../../store/spots';
 
 
 const CreateSpotForm = () => {
@@ -96,18 +96,10 @@ const CreateSpotForm = () => {
             setShowStateError(true)
         }
 
-
-        if (latitude === '') {
+        if(longitude !== '' && latitude === '' || longitude === '' && latitude !== '') {
             errors.push('latitude input error')
-            setShowLatError(true)
-        }
-
-
-        if (longitude === '') {
-            errors.push('longitude input error')
             setShowLongError(true)
         }
-
 
         if (description.length < 30) {
             errors.push('description input error')
@@ -168,6 +160,7 @@ const CreateSpotForm = () => {
         }
 
         if (errors.length > 0) {
+            console.log(errors)
             return
         }
 
@@ -244,7 +237,6 @@ const CreateSpotForm = () => {
 
         if (createdSpot && createdPrevImg) {
             await dispatch(getOneSpot(createdSpot.id))
-
             history.push(`/spots/${createdSpot.id}`);
             <Redirect to={`/spots/${createdSpot.id}`} />
         }
@@ -254,6 +246,10 @@ const CreateSpotForm = () => {
     useEffect(() => {
         if (price < 0) {
             setPrice('')
+        }
+
+        if (price > 10000) {
+            setPrice(10000)
         }
 
         if (latitude < -90) {
@@ -368,8 +364,6 @@ const CreateSpotForm = () => {
                         <input
                             className='city-state-input'
                             type="text"
-                            min="0"
-                            max="100"
                             required
                             placeholder='City'
                             value={city}
@@ -381,23 +375,72 @@ const CreateSpotForm = () => {
                             <span>State</span>
                             <span className={labelErrorClassName + (showStateError ? '' : ' hidden')}>State is required</span>
                         </span>
-                        <input
+                        <select
                             className='city-state-input'
-                            type="text"
-                            min="0"
-                            max="100"
-                            required
-                            placeholder='State'
                             value={state}
-                            onChange={updateState} />
+                            required
+                            onChange={updateState}>
+                            <option value="" disabled={true}>--</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="DC">District Of Columbia</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
                     </label>
                 </div>
                 <br></br>
                 <div className='long-lat-container'>
                     <label>
                         <span className='create-spot-form-label-container'>
-                            <span>Latitude</span>
-                            <span className={labelErrorClassName + (showLatError ? '' : ' hidden')}>Latitude must be a number</span>
+                            <span>Latitude (optional)</span>
+                            <span className={labelErrorClassName + (showLatError ? '' : ' hidden')}>Latitude required</span>
                         </span>
                         <input
                             className='long-lat-input'
@@ -412,8 +455,8 @@ const CreateSpotForm = () => {
                     <span className='style-comma'>,</span>
                     <label>
                         <span className='create-spot-form-label-container'>
-                            <span>Longitude</span>
-                            <span className={labelErrorClassName + (showLongError ? '' : ' hidden')}>Longitude must be a number</span>
+                            <span>Longitude (optional) </span>
+                            <span className={labelErrorClassName + (showLongError ? '' : ' hidden')}>Longitude required</span>
                         </span>
                         <input
                             className='long-lat-input'

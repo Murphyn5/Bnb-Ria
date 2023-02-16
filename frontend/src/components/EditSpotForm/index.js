@@ -116,17 +116,19 @@ const EditSpotForm = () => {
             setShowStateError(true)
         }
 
+        console.log('lat', typeof parseFloat(latitude), parseFloat(latitude))
 
-        if (typeof latitude === 'string') {
+        console.log('lng', typeof parseFloat(longitude), parseFloat(longitude))
+
+        if(longitude !== '' && latitude === '') {
             errors.push('latitude input error')
             setShowLatError(true)
         }
 
-        if (typeof longitude === 'string') {
-            errors.push('longitude input error')
+        if(longitude === '' && latitude !== '') {
+            errors.push('latitude input error')
             setShowLongError(true)
         }
-
 
         if (description.length < 30) {
             errors.push('description input error')
@@ -321,8 +323,8 @@ const EditSpotForm = () => {
                 <div className='long-lat-container'>
                     <label>
                         <span className='edit-spot-form-label-container'>
-                            <span>Latitude</span>
-                            <span className={labelErrorClassName + (showLatError ? '' : ' hidden')}>Latitude must be a number</span>
+                            <span>Latitude (optional)</span>
+                            <span className={labelErrorClassName + (showLatError ? '' : ' hidden')}>Latitude required</span>
                         </span>
                         <input
                             className='long-lat-input'
@@ -337,8 +339,8 @@ const EditSpotForm = () => {
                     <span className='style-comma'>,</span>
                     <label>
                         <span className='edit-spot-form-label-container'>
-                            <span>Longitude</span>
-                            <span className={labelErrorClassName + (showLongError ? '' : ' hidden')}>Longitude must be a number</span>
+                            <span>Longitude (optional)</span>
+                            <span className={labelErrorClassName + (showLongError ? '' : ' hidden')}>Longitude required</span>
                         </span>
                         <input
                             className='long-lat-input'
