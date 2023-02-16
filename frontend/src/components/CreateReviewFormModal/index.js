@@ -1,9 +1,9 @@
-// frontend/src/components/deleteFormModal/index.js
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import StarRating from "../StarRating";
 import "./CreateReviewForm.css";
+import { createReview } from "../../store/reviews";
 
 function CreateReviewFormModal({id}) {
     const dispatch = useDispatch();
@@ -50,9 +50,13 @@ function CreateReviewFormModal({id}) {
             return
         }
 
+        const payload = {
+            id,
+            stars: rating,
+            review
+        }
 
-        let createdReview = await dispatch();
-
+        let createdReview = await dispatch(createReview(payload));
 
         // if (createdReview) {
         //     await dispatch(getOneSpot(createdSpot.id))
@@ -60,11 +64,7 @@ function CreateReviewFormModal({id}) {
         //     <Redirect to={`/spots/${createdSpot.id}`} />
         // }
 
-        const payload = {
-            id,
-            rating,
-            review
-        }
+
         // await dispatch(deleteSpot(payload))
         // await dispatch(getCurrentSpots())
         closeModal()
