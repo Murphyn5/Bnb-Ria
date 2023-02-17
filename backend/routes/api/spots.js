@@ -203,12 +203,34 @@ router.put(
         console.log('backend', lat)
         console.log('backend', lat)
 
-        if(lat === null) {
-            lat = ''
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+
+        if(lat === '') {
+            lat = 0
         }
 
-        if(lng === null) {
-            lng = ''
+        if(lng === '') {
+            lng = 0
         }
 
         if (lat !== '') {
@@ -597,6 +619,14 @@ router.post(
 
         if(lng === null || typeof lng !== 'number') {
             lng = ''
+        }
+
+        if(lat === '') {
+            lat = 0
+        }
+
+        if(lng === '') {
+            lng = 0
         }
 
         if (lat !== '') {
