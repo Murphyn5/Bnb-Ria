@@ -65,7 +65,7 @@ const EditSpotForm = () => {
         setSpotName(spot.name)
         setPrice(spot.price)
         if(spot.country){
-            if(spot.lng === 0 && spot.lat === 0){
+            if(spot.lng === 0.0000000 && spot.lat === 0.0000000){
                 setLongitude('')
                 setLatitude('')
             }
