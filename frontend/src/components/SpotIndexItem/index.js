@@ -2,15 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import './SpotIndexItem.css'
-import { getOneSpot } from '../../store/spots';
-import { getReviews } from '../../store/reviews';
-
 const SpotIndexItem = ({ spot }) => {
-  const dispatch = useDispatch()
 
   let rating
+  let ratingType
 
-  if (spot.avgRating === 1) {
+  if (spot.avgRating === null) {
+    rating =
+    <span>
+      <i className="fas fa-star"></i>
+    </span>
+    ratingType = "New"
+  }
+
+  if (spot.avgRating === 1 ) {
     rating =
       <span>
         <i className="fas fa-star"></i>
@@ -103,7 +108,7 @@ const SpotIndexItem = ({ spot }) => {
             {spot.city}, {spot.state}
           </div>
           <div>
-            {rating}
+            {rating} {ratingType}
           </div>
         </div>
         <div className='spot-index-item-price-container'>

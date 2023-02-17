@@ -9,6 +9,7 @@ import CreateSpotForm from "./components/CreateSpotForm"
 import SpotDetail from "./components/SpotDetail";
 import SpotManageIndex from "./components/SpotManageIndex";
 import EditSpotForm from "./components/EditSpotForm";
+import ManageReviewsindex from "./components/ManageReviewsIndex";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ function App() {
             </Route>
             <Route path='/spots/:spotId'>
               <SpotDetail />
+            </Route>
+            <Route path='/reviews/current'>
+              <ManageReviewsindex />
             </Route>
           </Switch>
         )}

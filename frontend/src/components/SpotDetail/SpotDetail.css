@@ -21,6 +21,8 @@
 .spot-details-preview-image {
     width: 100%;
     height: 412px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgb(202, 202, 202);
 }
 
 .spot-details-nonPreview-image-container {
@@ -33,6 +35,8 @@
 .spot-details-nonpreview-image {
     width: 100%;
     height: 205px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgb(202, 202, 202);
 }
 
 .spot-details-information-container {

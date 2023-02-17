@@ -8,7 +8,7 @@ import CreateReviewFormModal from "../CreateReviewFormModal"
 import DeleteReviewFormModal from "../DeleteReviewFormModal"
 import EditReviewFormModal from "../EditReviewFormModal"
 import './SpotDetail.css'
-import { getReviews, getAllReviews } from "../../store/reviews"
+import { getSpotReviews, getAllSpotReviews } from "../../store/reviews"
 
 
 
@@ -19,13 +19,15 @@ const SpotDetail = () => {
 
     let spot = useSelector(state => state.spots.singleSpot)
 
-    const reviews = useSelector(getAllReviews)
+    console.log(spot)
+
+    const reviews = useSelector(getAllSpotReviews)
     const sessionUser = useSelector(state => state.session.user);
 
     useEffect(() => {
         const spotRestore = async () => {
             await dispatch(getOneSpot(spotId))
-            await dispatch(getReviews(spotId))
+            await dispatch(getSpotReviews(spotId))
         }
         spotRestore()
     }, [dispatch, spotId])
