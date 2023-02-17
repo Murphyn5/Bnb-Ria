@@ -65,10 +65,17 @@ const EditSpotForm = () => {
         setSpotName(spot.name)
         setPrice(spot.price)
         if(spot.country){
-            if(spot.lng === 0.0000000 && spot.lat === 0.0000000){
+
+            if(spot.lng.toString() === '0.0000000' && spot.lat.toString() === '0.0000000'){
                 setLongitude('')
                 setLatitude('')
             }
+
+            if(spot.lng.toString() === '0' && spot.lat.toString() === '0'){
+                setLongitude('')
+                setLatitude('')
+            }
+
             if(spot.SpotImages.length > 0) {
                 let spotImages = spot.SpotImages
                 let previewImageArray = spotImages.filter((image) => {
