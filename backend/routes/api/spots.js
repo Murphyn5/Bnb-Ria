@@ -168,7 +168,7 @@ router.put(
             return next(err)
         }
 
-        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        let { address, city, state, country, lat, lng, name, description, price } = req.body;
 
 
 
@@ -192,44 +192,11 @@ router.put(
             err.errors.push("Country is required")
         }
 
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-
-        console.log('backend', typeof lat)
-        console.log('backend', typeof lat)
-        console.log('backend', typeof lat)
-        console.log('backend', typeof lat)
-        console.log('backend', typeof lat)
-        console.log('backend', typeof lat)
-        console.log('backend', typeof lat)
-        console.log('backend', typeof lat)
-        console.log('backend', typeof lat)
-        console.log('backend', typeof lat)
-        console.log('backend', typeof lat)
-
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-        console.log('backend', lat)
-
-        if(lat === '') {
+        if(typeof lat !== 'number') {
             lat = 0
         }
 
-        if(lng === '') {
+        if(typeof lng !== 'number') {
             lng = 0
         }
 
@@ -591,7 +558,7 @@ router.post(
     '/',
     requireAuth,
     async (req, res, next) => {
-        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        let { address, city, state, country, lat, lng, name, description, price } = req.body;
 
         let err = {
             errors: []
@@ -613,19 +580,11 @@ router.post(
             err.errors.push("Country is required")
         }
 
-        if(lat === null || typeof lat !== 'number') {
-            lat = ''
-        }
-
-        if(lng === null || typeof lng !== 'number') {
-            lng = ''
-        }
-
-        if(lat === '') {
+        if(typeof lat !== 'number') {
             lat = 0
         }
 
-        if(lng === '') {
+        if(typeof lng !== 'number') {
             lng = 0
         }
 
