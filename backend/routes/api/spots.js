@@ -591,11 +591,11 @@ router.post(
             err.errors.push("Country is required")
         }
 
-        if(lat === null) {
+        if(lat === null || typeof lat !== 'number') {
             lat = ''
         }
 
-        if(lng === null) {
+        if(lng === null || typeof lng !== 'number') {
             lng = ''
         }
 
