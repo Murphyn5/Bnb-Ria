@@ -203,6 +203,28 @@ router.put(
         console.log('backend', lat)
         console.log('backend', lat)
 
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+        console.log('backend', typeof lat)
+
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+        console.log('backend', lat)
+
         if(lat === null) {
             lat = ''
         }
@@ -211,17 +233,17 @@ router.put(
             lng = ''
         }
 
-        if (lat !== '') {
-            if (isNaN(parseFloat(lat))) {
-                err.errors.push("Latitude is not valid")
-            }
-        }
+        // if (lat !== '') {
+        //     if (isNaN(parseFloat(lat))) {
+        //         err.errors.push("Latitude is not valid")
+        //     }
+        // }
 
-        if (lng !== '') {
-            if (isNaN(parseFloat(lng))) {
-                err.errors.push("Longitude is not valid")
-            }
-        }
+        // if (lng !== '') {
+        //     if (isNaN(parseFloat(lng))) {
+        //         err.errors.push("Longitude is not valid")
+        //     }
+        // }
 
         if (name) {
             if (name.length >= 50) {
