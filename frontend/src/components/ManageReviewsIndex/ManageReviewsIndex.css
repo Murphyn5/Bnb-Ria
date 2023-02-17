@@ -1,4 +1,6 @@
 .manage-reviews-container {
- margin-left: 8.1%;
- margin-right: 8.1%;
+ margin-left: 12.5%;
+ margin-right: 12.5;
+ position: relative;
+ right: 135px;
 }
