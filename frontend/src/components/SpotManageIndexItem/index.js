@@ -11,6 +11,15 @@ const SpotManageIndexItem = ({ spot }) => {
     const dispatch = useDispatch()
 
     let rating
+    let ratingType
+
+    if (spot.avgRating === null) {
+        rating =
+        <span>
+          <i className="fas fa-star"></i>
+        </span>
+        ratingType = "New"
+      }
 
     if (spot.avgRating === 1) {
         rating =
@@ -104,7 +113,7 @@ const SpotManageIndexItem = ({ spot }) => {
                     {spot.city}, {spot.state}
                 </div>
                 <div>
-                    {rating}
+                    {rating} {ratingType}
                 </div>
             </div>
             <div className='spot-manage-index-item-price-container'>

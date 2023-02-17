@@ -56,8 +56,12 @@ function ProfileButton({ user }) {
                         <li className="dropdown-li">Hello, {user.firstName}</li>
                         <li className="dropdown-li">{user.email}</li>
                         <ColoredLine />
-                        <Link className="manage-spots-link" onClick={closeMenu} to="/spots/current">
-                            Manage Spots
+                        <Link className="manage-link" onClick={closeMenu} to="/spots/current">
+                        <li className="dropdown-li" >Manage Spots</li>
+                        </Link>
+
+                        <Link className="manage-link" onClick={closeMenu} to="/reviews/current">
+                            <li className="dropdown-li">Manage Reviews</li>
                         </Link>
                         <ColoredLine />
                         <li className="log-out-button-container">
