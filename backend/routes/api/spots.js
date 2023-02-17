@@ -225,25 +225,25 @@ router.put(
         console.log('backend', lat)
         console.log('backend', lat)
 
-        if(lat === null) {
-            lat = ''
+        if(lat === '') {
+            lat = 0
         }
 
-        if(lng === null) {
-            lng = ''
+        if(lng === '') {
+            lng = 0
         }
 
-        // if (lat !== '') {
-        //     if (isNaN(parseFloat(lat))) {
-        //         err.errors.push("Latitude is not valid")
-        //     }
-        // }
+        if (lat !== '') {
+            if (isNaN(parseFloat(lat))) {
+                err.errors.push("Latitude is not valid")
+            }
+        }
 
-        // if (lng !== '') {
-        //     if (isNaN(parseFloat(lng))) {
-        //         err.errors.push("Longitude is not valid")
-        //     }
-        // }
+        if (lng !== '') {
+            if (isNaN(parseFloat(lng))) {
+                err.errors.push("Longitude is not valid")
+            }
+        }
 
         if (name) {
             if (name.length >= 50) {
@@ -619,6 +619,14 @@ router.post(
 
         if(lng === null || typeof lng !== 'number') {
             lng = ''
+        }
+
+        if(lat === '') {
+            lat = 0
+        }
+
+        if(lng === '') {
+            lng = 0
         }
 
         if (lat !== '') {
