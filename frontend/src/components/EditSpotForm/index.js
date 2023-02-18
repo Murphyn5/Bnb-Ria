@@ -127,9 +127,6 @@ const EditSpotForm = () => {
             setShowStateError(true)
         }
 
-        console.log('lat', typeof parseFloat(latitude), parseFloat(latitude))
-
-        console.log('lng', typeof parseFloat(longitude), parseFloat(longitude))
 
         if(longitude !== '' && latitude === '') {
             errors.push('latitude input error')

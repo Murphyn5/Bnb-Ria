@@ -20,6 +20,7 @@
     padding: 10px;
     border-radius: 10px;
     height: fit-content;
+    color: #00525E;
 }
 
 .spot-index-item-description-container {
@@ -36,7 +37,12 @@
     align-items: center;
 }
 
-.fa-star {
+.avg-rating-num {
+    position: relative;
+    top: 1px;
+}
+
+.medium {
     font-size: medium;
 }
 
