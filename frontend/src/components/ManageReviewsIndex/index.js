@@ -32,8 +32,9 @@ const ManageReviewsindex = () => {
     } else {
 
         return (
-            <section className="manage-reviews-container">
 
+            <section className="manage-reviews-container">
+                <h1>Manage Reviews</h1>
                 {reviews.map((review) => {
 
                     let reviewRating
