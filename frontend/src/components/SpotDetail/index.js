@@ -19,9 +19,16 @@ const SpotDetail = () => {
 
     let spot = useSelector(state => state.spots.singleSpot)
 
-    console.log(spot)
-
     const reviews = useSelector(getAllSpotReviews)
+
+    const reviewUserIdArray = reviews.map((review) => {
+        return review.User.id
+    })
+
+    console.log(reviewUserIdArray)
+
+    reviews.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+
     const sessionUser = useSelector(state => state.session.user);
 
     useEffect(() => {
@@ -106,14 +113,12 @@ const SpotDetail = () => {
             rating =
                 <span>
                     <i className="fas fa-star"></i>
-                    <i className="fas fa-star-half"></i>
                 </span>
         }
 
         if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.0') {
             rating =
                 <span>
-                    <i className="fas fa-star"></i>
                     <i className="fas fa-star"></i>
                 </span>
         }
@@ -122,16 +127,12 @@ const SpotDetail = () => {
             rating =
                 <span>
                     <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star-half"></i>
                 </span>
         }
 
         if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.0') {
             rating =
                 <span>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
                     <i className="fas fa-star"></i>
                 </span>
         }
@@ -140,9 +141,6 @@ const SpotDetail = () => {
             rating =
                 <span >
                     <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star-half"></i>
                 </span>
         }
 
@@ -150,9 +148,6 @@ const SpotDetail = () => {
             rating =
                 <span>
                     <i className="fas fa-star" ></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
                 </span>
         }
 
@@ -160,19 +155,11 @@ const SpotDetail = () => {
             rating =
                 <span>
                     <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star-half"></i>
                 </span>
         }
         if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '5.0') {
             rating =
                 <span>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
-                    <i className="fas fa-star"></i>
                     <i className="fas fa-star"></i>
                 </span>
         }
@@ -188,14 +175,12 @@ const SpotDetail = () => {
             ratingTitle =
                 <span>
                     <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star-half enlarge"></i>
                 </span>
         }
 
         if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.0') {
             ratingTitle =
                 <span>
-                    <i className="fas fa-star enlarge"></i>
                     <i className="fas fa-star enlarge"></i>
                 </span>
         }
@@ -204,16 +189,12 @@ const SpotDetail = () => {
             ratingTitle =
                 <span>
                     <i className="fas fa-star enlarge" ></i>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star-half enlarge"></i>
                 </span>
         }
 
         if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.0') {
             ratingTitle =
                 <span>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star enlarge"></i>
                     <i className="fas fa-star enlarge"></i>
                 </span>
         }
@@ -222,9 +203,6 @@ const SpotDetail = () => {
             ratingTitle =
                 <span >
                     <i className="fas fa-star enlarge" ></i>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star-half enlarge"></i>
                 </span>
         }
 
@@ -232,9 +210,6 @@ const SpotDetail = () => {
             ratingTitle =
                 <span>
                     <i className="fas fa-star enlarge" ></i>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star enlarge"></i>
                 </span>
         }
 
@@ -242,19 +217,11 @@ const SpotDetail = () => {
             ratingTitle =
                 <span>
                     <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star-half enlarge"></i>
                 </span>
         }
         if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '5.0') {
             ratingTitle =
                 <span>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star enlarge"></i>
-                    <i className="fas fa-star enlarge"></i>
                     <i className="fas fa-star enlarge"></i>
                 </span>
         }
@@ -268,7 +235,7 @@ const SpotDetail = () => {
     }
 
     const renderReviewAction = () => {
-        if (reviewType === 'New' && sessionUser) {
+        if (reviewType === 'New' && sessionUser && sessionUser.id !== spot.ownerId) {
             return (
                 <>
                     <br></br>
@@ -280,7 +247,7 @@ const SpotDetail = () => {
     }
 
     const renderReviewButton = () => {
-        if (sessionUser) {
+        if (sessionUser && sessionUser.id !== spot.ownerId && !reviewUserIdArray.includes(sessionUser.id)) {
             return (
                 <>
                     <br></br>
@@ -395,7 +362,7 @@ const SpotDetail = () => {
                 }
 
                 return (
-                    <>
+                    <div key={review.id}>
                         <br>
                         </br>
                         <div>
@@ -414,22 +381,10 @@ const SpotDetail = () => {
                         </div>
                         <br>
                         </br>
-                    </>
+                    </div>
 
                 )
             })
-        }
-    }
-
-    const fillerSpace = () => {
-        if (spot.avgRating === 1.5 || spot.avgRating === 2.5 || spot.avgRating === 3.5 || spot.avgRating === 4.5) {
-            return
-        } else {
-            return (
-                <>
-                    &nbsp;
-                </>
-            )
         }
     }
 
@@ -440,7 +395,19 @@ const SpotDetail = () => {
             )
         } else {
             return (
-                <span className="spot-details-reviews-summary-info">&nbsp; {reviewCount} {reviewType}</span>
+                <span className="spot-details-reviews-summary-info">&nbsp;&bull;&nbsp;{reviewCount} {reviewType}</span>
+            )
+        }
+    }
+
+    const isNewCheckerSmall = () => {
+        if (reviewType === 'New') {
+            return (
+                <span>{reviewType}</span>
+            )
+        } else {
+            return (
+                <span>&nbsp;&bull;&nbsp;{reviewCount} {reviewType}</span>
             )
         }
     }
@@ -482,8 +449,8 @@ const SpotDetail = () => {
                                 <div>
                                 </div>
                                 <div className="spot-details-information-button-reviews">
-                                    {rating}
-                                    <span>&nbsp; {reviewCount} {reviewType}</span>
+                                    {rating}&nbsp;{spotAvgRatingRounded()}
+                                    <span> {isNewCheckerSmall()}</span>
                                 </div>
                             </div>
 
@@ -496,7 +463,7 @@ const SpotDetail = () => {
                 <div className="spot-details-reviews-summary-info">
                     <span>
                         <span className="spot-details-reviews-summary-avgRating">
-                            {ratingTitle} {fillerSpace()}
+                            {ratingTitle} &nbsp;
                             {spotAvgRatingRounded()}
 
                         </span>

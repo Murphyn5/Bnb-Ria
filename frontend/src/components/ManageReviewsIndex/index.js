@@ -116,10 +116,10 @@ const ManageReviewsindex = () => {
                     }
 
                     return (
-                        <>
+                        <div key={review.id}>
                             <br>
                             </br>
-                            <div>
+                            <div >
                                 <div>
                                     {name} &nbsp;
                                     {reviewRating}
@@ -135,7 +135,7 @@ const ManageReviewsindex = () => {
                             </div>
                             <br>
                             </br>
-                        </>
+                        </div>
 
                     )
                 })}

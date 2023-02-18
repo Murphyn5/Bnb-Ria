@@ -12,6 +12,7 @@ const SpotManageIndexItem = ({ spot }) => {
 
     let rating
     let ratingType
+    let ratingNum
 
     if (spot.avgRating === null) {
         rating =
@@ -20,88 +21,73 @@ const SpotManageIndexItem = ({ spot }) => {
         </span>
         ratingType = "New"
       }
+      else {
+        ratingNum = <span className='avg-rating-num'>
+          {spot.avgRating.toFixed(1)}
+        </span>
+      }
 
-    if (spot.avgRating === 1) {
+      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.0') {
         rating =
-            <span>
-                <i className="fas fa-star"></i>
-            </span>
-    }
+          <span>
+            <i className="fas fa-star"></i>
+          </span>
+      }
 
-    if (spot.avgRating === 1.5) {
+      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.5') {
         rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star-half"></i>
-            </span>
-    }
+          <span>
+            <i className="fas fa-star"></i>
+          </span>
+      }
 
-    if (spot.avgRating === 2) {
+      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.0') {
         rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-            </span>
-    }
+          <span>
+            <i className="fas fa-star"></i>
+          </span>
+      }
 
-    if (spot.avgRating === 2.5) {
+      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.5') {
         rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star-half"></i>
-            </span>
-    }
+          <span>
+            <i className="fas fa-star"></i>
+          </span>
+      }
 
-    if (spot.avgRating === 3) {
+      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.0') {
         rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-            </span>
-    }
+          <span>
+            <i className="fas fa-star"></i>
+          </span>
+      }
 
-    if (spot.avgRating === 3.5) {
+      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.5') {
         rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star-half"></i>
-            </span>
-    }
+          <span>
+            <i className="fas fa-star"></i>
+          </span>
+      }
 
-    if (spot.avgRating === 4) {
+      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.0') {
         rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-            </span>
-    }
+          <span>
+            <i className="fas fa-star"></i>
+          </span>
+      }
 
-    if (spot.avgRating === 4.5) {
+      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.5') {
         rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star-half"></i>
-            </span>
-    }
-    if (spot.avgRating === 5) {
+          <span>
+            <i className="fas fa-star"></i>
+          </span>
+      }
+      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '5.0') {
         rating =
-            <span>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-                <i className="fas fa-star"></i>
-            </span>
-    }
+          <span>
+            <i className="fas fa-star"></i>
+          </span>
+      }
 
     return (
         <div className='spot-index-item-container'>
@@ -113,7 +99,7 @@ const SpotManageIndexItem = ({ spot }) => {
                     {spot.city}, {spot.state}
                 </div>
                 <div>
-                    {rating} {ratingType}
+                    {rating} {ratingType} {ratingNum}
                 </div>
             </div>
             <div className='spot-manage-index-item-price-container'>

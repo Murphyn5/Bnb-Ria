@@ -41,7 +41,9 @@ function SignupFormModal() {
       firstName.length === 0 ||
       lastName.length === 0 ||
       password.length === 0 ||
-      confirmPassword.length === 0
+      confirmPassword.length === 0 ||
+      password !== confirmPassword ||
+      password.length < 6
       ) {
       setDisabled(true)
       setSignupButtonClassName("disabled")
@@ -89,7 +91,7 @@ function SignupFormModal() {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
-              placeholder="Lastt Name"
+              placeholder="Last Name"
             />
             <input
               type="password"
