@@ -27,7 +27,15 @@ const SpotManageIndex = () => {
 
     spots.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
     if (!spots[0]) {
-        return
+        return (
+            <section className="manage-reviews-container">
+            <h1>Manage Your Spots</h1>
+            <Link to='/spots/new'>
+                        <button type="submit" className='manage-spots-create-new-spot-button accent'>Create a New Spot</button>
+                    </Link>
+            <h2>No spots to show!</h2>
+        </section>
+        )
     }
 
 

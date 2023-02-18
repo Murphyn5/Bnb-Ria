@@ -251,6 +251,10 @@ const CreateSpotForm = () => {
             setPrice(10000)
         }
 
+        if(spotName.length > 50) {
+            setSpotName('')
+        }
+
         if (latitude < -90) {
             setLatitude(-90)
         }

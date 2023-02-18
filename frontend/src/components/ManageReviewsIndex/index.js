@@ -20,16 +20,20 @@ const ManageReviewsindex = () => {
         reviewRestore()
     }, [dispatch])
 
+    console.log(reviews)
+
     if (reviews.length === 0) {
         return (
-            <>
-            </>
+            <section className="manage-reviews-container">
+                <h1>Manage Reviews</h1>
+                <h2>No reviews to show!</h2>
+            </section>
         )
     } else {
 
         return (
             <section className="manage-reviews-container">
-                <h1>Manage Reviews</h1>
+
                 {reviews.map((review) => {
 
                     let reviewRating
