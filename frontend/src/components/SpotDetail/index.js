@@ -97,138 +97,8 @@ const SpotDetail = () => {
         }
     }
 
-    let rating
-    let ratingTitle
-
-
-    if (spot.avgRating || spot.avgRating === null) {
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.0' || spot.avgRating === null) {
-            rating =
-                <span>
-                    <i className="fas fa-star"></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.5') {
-            rating =
-                <span>
-                    <i className="fas fa-star"></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.0') {
-            rating =
-                <span>
-                    <i className="fas fa-star"></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.5') {
-            rating =
-                <span>
-                    <i className="fas fa-star"></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.0') {
-            rating =
-                <span>
-                    <i className="fas fa-star"></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.5') {
-            rating =
-                <span >
-                    <i className="fas fa-star"></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.0') {
-            rating =
-                <span>
-                    <i className="fas fa-star" ></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.5') {
-            rating =
-                <span>
-                    <i className="fas fa-star"></i>
-                </span>
-        }
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '5.0') {
-            rating =
-                <span>
-                    <i className="fas fa-star"></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.0' || spot.avgRating === null) {
-            ratingTitle =
-                <span>
-                    <i className="fas fa-star enlarge"></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.5') {
-            ratingTitle =
-                <span>
-                    <i className="fas fa-star enlarge"></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.0') {
-            ratingTitle =
-                <span>
-                    <i className="fas fa-star enlarge"></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.5') {
-            ratingTitle =
-                <span>
-                    <i className="fas fa-star enlarge" ></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.0') {
-            ratingTitle =
-                <span>
-                    <i className="fas fa-star enlarge"></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.5') {
-            ratingTitle =
-                <span >
-                    <i className="fas fa-star enlarge" ></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.0') {
-            ratingTitle =
-                <span>
-                    <i className="fas fa-star enlarge" ></i>
-                </span>
-        }
-
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.5') {
-            ratingTitle =
-                <span>
-                    <i className="fas fa-star enlarge"></i>
-                </span>
-        }
-        if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '5.0') {
-            ratingTitle =
-                <span>
-                    <i className="fas fa-star enlarge"></i>
-                </span>
-        }
-
-    }
-
-
+    let rating = <span><i className="fas fa-star"></i></span>
+    let ratingTitle = <span><i className="fas fa-star enlarge"></i></span>
 
     const handleSubmit = () => {
         window.alert('Feature coming soon!')
@@ -263,6 +133,7 @@ const SpotDetail = () => {
             )
         }
     }
+    
     const spotAvgRatingRounded = () => {
         if (spot.avgRating !== null) {
             return spot.avgRating.toFixed(1)

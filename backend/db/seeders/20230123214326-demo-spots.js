@@ -44,7 +44,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -56,7 +56,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -68,7 +68,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -80,7 +80,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -92,7 +92,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -104,7 +104,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -116,7 +116,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -128,7 +128,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -140,7 +140,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -152,7 +152,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -164,7 +164,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -176,7 +176,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -188,7 +188,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -200,7 +200,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -212,7 +212,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -224,7 +224,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -236,7 +236,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       },
       {
         ownerId: 1,
@@ -248,7 +248,7 @@ module.exports = {
         lng: 670.9876543,
         name: "Dexter's Laboratory",
         description: "Get out DIDI",
-        price: 10000000.00
+        price: 1000.00
       }
     ], {});
   },

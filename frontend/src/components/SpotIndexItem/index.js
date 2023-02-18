@@ -4,82 +4,23 @@ import { useDispatch } from 'react-redux';
 import './SpotIndexItem.css'
 const SpotIndexItem = ({ spot }) => {
 
-  let rating
+  let rating =
+    <span>
+      <i className="fas fa-star medium"></i>
+    </span>
   let ratingType
   let ratingNum
 
+  if(!spot){
+    return
+  }
+
   if (spot.avgRating === null) {
-    rating =
-      <span>
-        <i className="fas fa-star medium"></i>
-      </span>
     ratingType = "New"
   } else {
     ratingNum = <span className='avg-rating-num'>
       {spot.avgRating.toFixed(1)}
     </span>
-  }
-
-  if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.0') {
-    rating =
-      <span>
-        <i className="fas fa-star medium"></i>
-      </span>
-  }
-
-  if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.5') {
-    rating =
-      <span>
-        <i className="fas fa-star medium"></i>
-      </span>
-  }
-
-  if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.0') {
-    rating =
-      <span>
-        <i className="fas fa-star medium"></i>
-      </span>
-  }
-
-  if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.5') {
-    rating =
-      <span>
-        <i className="fas fa-star medium"></i>
-      </span>
-  }
-
-  if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.0') {
-    rating =
-      <span>
-        <i className="fas fa-star medium"></i>
-      </span>
-  }
-
-  if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.5') {
-    rating =
-      <span>
-        <i className="fas fa-star medium"></i>
-      </span>
-  }
-
-  if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.0') {
-    rating =
-      <span>
-        <i className="fas fa-star medium"></i>
-      </span>
-  }
-
-  if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.5') {
-    rating =
-      <span>
-        <i className="fas fa-star medium"></i>
-      </span>
-  }
-  if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '5.0') {
-    rating =
-      <span>
-        <i className="fas fa-star medium"></i>
-      </span>
   }
 
   return (
