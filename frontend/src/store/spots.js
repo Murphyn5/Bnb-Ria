@@ -70,7 +70,7 @@ export const createSpot = (payload) => async dispatch => {
     })
     if (response.ok) {
         const spot = await response.json()
-        dispatch(addOneSpot(spot))
+        dispatch(addOneSpot({...spot, avgRating: payload.avgRating}))
         return spot
     }
 }
@@ -86,7 +86,7 @@ export const editSpot = (payload) => async dispatch => {
     })
     if (response.ok) {
         const spot = await response.json()
-        dispatch(addOneSpot(spot))
+        dispatch(addOneSpot({...spot, avgRating: payload.avgRating}))
         return spot
     }
 }

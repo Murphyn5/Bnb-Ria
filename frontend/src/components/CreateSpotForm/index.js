@@ -96,7 +96,7 @@ const CreateSpotForm = () => {
             setShowStateError(true)
         }
 
-        if(longitude !== '' && latitude === '' || longitude === '' && latitude !== '') {
+        if (longitude !== '' && latitude === '' || longitude === '' && latitude !== '') {
             errors.push('latitude input error')
             setShowLongError(true)
         }
@@ -173,8 +173,9 @@ const CreateSpotForm = () => {
             lat: latitude,
             lng: longitude,
             description,
-            price,
-            name: spotName
+            price: +parseFloat(price).toFixed(2),
+            name: spotName,
+            avgRating: null
         };
 
         let createdSpot
@@ -251,7 +252,7 @@ const CreateSpotForm = () => {
             setPrice(10000)
         }
 
-        if(spotName.length > 50) {
+        if (spotName.length > 50) {
             setSpotName('')
         }
 
@@ -271,7 +272,7 @@ const CreateSpotForm = () => {
             setLongitude(180)
         }
 
-    }, [price, latitude, longitude, country, streetAddress, city, state, description, spotName, previewImageUrl, errors])
+    }, [price, latitude, longitude, spotName])
 
     const fillerBreakDesc = () => {
         if (!showDescError) {

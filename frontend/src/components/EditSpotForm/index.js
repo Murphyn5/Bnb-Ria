@@ -55,17 +55,17 @@ const EditSpotForm = () => {
     const updatePreviewImageUrl = (e) => setPreviewImageUrl(e.target.value)
 
     useEffect(() => {
-        setCountry(spot.country)
-        setState(spot.state)
-        setStreetAddress(spot.address)
-        setCity(spot.city)
-        setLatitude(spot.lat)
-        setLongitude(spot.lng)
-        setDescription(spot.description)
-        setSpotName(spot.name)
-        setPrice(spot.price)
-        if(spot.country){
 
+        if(spot.country){
+            setCountry(spot.country)
+            setState(spot.state)
+            setStreetAddress(spot.address)
+            setCity(spot.city)
+            setLatitude(spot.lat)
+            setLongitude(spot.lng)
+            setDescription(spot.description)
+            setSpotName(spot.name)
+            setPrice(spot.price)
             if(spot.lng.toString() === '0.0000000' && spot.lat.toString() === '0.0000000'){
                 setLongitude('')
                 setLatitude('')
@@ -182,8 +182,9 @@ const EditSpotForm = () => {
             lat: latitude,
             lng: longitude,
             description,
-            price,
-            name: spotName
+            price: +parseFloat(price).toFixed(2),
+            name: spotName,
+            avgRating: spot.avgRating
         };
 
         let editedSpot
@@ -239,7 +240,7 @@ const EditSpotForm = () => {
             setLongitude(180)
         }
 
-    }, [price, latitude, longitude])
+    }, [price, latitude, longitude, spotName])
 
     const fillerBreakDesc = () => {
         if (!showDescError) {
@@ -268,6 +269,10 @@ const EditSpotForm = () => {
     let labelErrorClassName = 'edit-spot-form-label-error'
     let inputErrorClassName = 'edit-spot-form-input-error'
     let imageErrorClassName = 'create-spot-form-image-error'
+
+    if(!spot.country){
+        return
+    }
 
     return (
         <section className="new-form-holder">

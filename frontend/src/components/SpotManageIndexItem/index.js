@@ -3,91 +3,26 @@ import { Link } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
 import DeleteSpotFormModal from '../DeleteSpotFormModal';
 import './SpotManageIndexItem.css'
-import { getOneSpot } from '../../store/spots';
-import { getReviews } from '../../store/reviews';
-import { useDispatch } from 'react-redux';
 
 const SpotManageIndexItem = ({ spot }) => {
-    const dispatch = useDispatch()
-
-    let rating
+    let rating =
+        <span>
+            <i className="fas fa-star medium"></i>
+        </span>
     let ratingType
     let ratingNum
 
+    if(!spot){
+        return
+      }
+
     if (spot.avgRating === null) {
-        rating =
-        <span>
-          <i className="fas fa-star"></i>
-        </span>
         ratingType = "New"
-      }
-      else {
+    } else {
         ratingNum = <span className='avg-rating-num'>
-          {spot.avgRating.toFixed(1)}
+            {spot.avgRating.toFixed(1)}
         </span>
-      }
-
-      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.0') {
-        rating =
-          <span>
-            <i className="fas fa-star"></i>
-          </span>
-      }
-
-      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '1.5') {
-        rating =
-          <span>
-            <i className="fas fa-star"></i>
-          </span>
-      }
-
-      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.0') {
-        rating =
-          <span>
-            <i className="fas fa-star"></i>
-          </span>
-      }
-
-      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '2.5') {
-        rating =
-          <span>
-            <i className="fas fa-star"></i>
-          </span>
-      }
-
-      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.0') {
-        rating =
-          <span>
-            <i className="fas fa-star"></i>
-          </span>
-      }
-
-      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '3.5') {
-        rating =
-          <span>
-            <i className="fas fa-star"></i>
-          </span>
-      }
-
-      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.0') {
-        rating =
-          <span>
-            <i className="fas fa-star"></i>
-          </span>
-      }
-
-      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '4.5') {
-        rating =
-          <span>
-            <i className="fas fa-star"></i>
-          </span>
-      }
-      if ((Math.round(spot.avgRating * 2) / 2).toFixed(1) === '5.0') {
-        rating =
-          <span>
-            <i className="fas fa-star"></i>
-          </span>
-      }
+    }
 
     return (
         <div className='spot-index-item-container'>
@@ -109,7 +44,7 @@ const SpotManageIndexItem = ({ spot }) => {
                 </Link>
                 <OpenModalButton
                     buttonText={"Delete"}
-                    modalComponent={<DeleteSpotFormModal id={spot.id}/>}
+                    modalComponent={<DeleteSpotFormModal id={spot.id} />}
                 >
                     Delete
                 </OpenModalButton>
