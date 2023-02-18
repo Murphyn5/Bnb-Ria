@@ -182,7 +182,7 @@ const EditSpotForm = () => {
             lat: latitude,
             lng: longitude,
             description,
-            price: +parseFloat(price).toFixed(2),
+            price: Math.round(+parseFloat(price).toFixed(0)),
             name: spotName,
             avgRating: spot.avgRating
         };
