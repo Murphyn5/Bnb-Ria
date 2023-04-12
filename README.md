@@ -45,7 +45,8 @@ You will be able to test features without signing up by clicking on "Log in as D
 ## Create Spot as Logged-In User
 
 Logged-in users will be able to create a new spot.
-![create-spot-form]
+
+![Screen Shot 2023-04-12 at 4 23 23 PM 1](https://user-images.githubusercontent.com/63930644/231607223-3958eb09-a516-4e80-93eb-fed6e8fbb36a.png)
 
 [create-spot-form]: ./assets/create-spot-form.png
 
