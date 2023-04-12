@@ -1,20 +1,21 @@
-# Bnb-Ria
+# About BnB-Ria
 
-Bnb-Ria (AirBnb clone) is a comprehensive solution for discovering and sharing unique travel experiences around the world. With full CRUD functionality for spots, users can create, read, update, and delete their own listings with ease. Additionally, users can also create, read, and delete reviews to share their travel experiences with others. Whether you're seeking accommodations or looking to host your own home, our user-friendly platform provides an ideal destination for those who crave adventure and exploration.
+BnB-Ria is a web application inspired by Airbnb. [Click here to visit BnB-Ria's live site](https://BnB-Ria.onrender.com/).
 
-Live site: [Bnb-Ria](https://airbnb-clone-lnnb.onrender.com/)
-
-## Fav Icon
-![image](authenticate-me/frontend/src/components/Navigation/airbnb-11-722672.png)
+<br>
 
 ## Wiki Links
+
 - [API routes](https://github.com/Murphyn5/Bnb-RiA/wiki/API-Routes)
 - [DB Schema](https://github.com/Murphyn5/Bnb-RiA/wiki/Database-schema-diagram)
 - [Redux Store Shape](https://github.com/Murphyn5/Bnb-RiA/wiki/Store-Shape)
 - [Feature List](https://github.com/Murphyn5/Bnb-RiA/wiki/MVP-Features-&-Page-Wireframes)
 
-## Tech Stack
-### Frameworks, Platforms and Libraries:
+<br>
+
+# Tech Stack
+
+Frameworks, Platforms and Libraries:
 
 [![Javascript][javascript.js]][javascript-url]
 [![HTML][html.js]][html-url]
@@ -29,35 +30,102 @@ Database:
 
 [![PostgreSQL][postgresql.js]][postgresql-url]
 
-## Landing Page
-Bnb-Ria offers easy access to both the login and signup pages, as well as a demo user button to help users better understand how the website works.
-![image](https://media.discordapp.net/attachments/533035859214073877/1077067974118211704/image.png?width=1440&height=397)
+<br>
 
-## Future Functionality:
-- Implementing a booking system
--- The current functionality of airbnbclone does not include a feature for making reservations for a specific accommodation.
+# Features Directions
 
-- Developing a payment gateway
--- The existing version of airbnbclone lacks a payment processing feature to facilitate transactions between hosts and guests.
+## Home Page Demo User
 
-- Enhancing search functionality
--- Improving the search engine to enable users to find accommodations based on specific criteria, such as location, price range, and availability.
+You will be able to test features without signing up by clicking on "Log in as Demo User".
+![demo-user-features]
 
-- Creating a messaging system
--- Adding a messaging feature to enable communication between hosts and guests to discuss booking details and answer questions.
+[demo-user-features]: ./assets/demo-user-features.png
 
-- Improving user interface
--- Enhancing the website's user interface to provide a seamless user experience for guests and hosts.
+## Create Spot as Logged-In User
 
-- Optimizing website performance
--- Improving the website's performance by optimizing loading times and reducing server response time to enhance the user experience.
+Logged-in users will be able to create a new spot.
+![create-spot-form]
 
-## Getting Started
-To begin using airbnbclone, you have two options: downloading the zipped file or cloning the repository. Once you have done so, navigate to the root directory and run the command "npm install" to install the necessary dependencies.
+[create-spot-form]: ./assets/create-spot-form.png
 
-To start the backend server, enter the "backend" directory, run "npm install" to install its dependencies, and then execute "npm start". After the backend server is up and running, exit the backend directory and enter the "frontend" directory. Once there, run "npm install" to install the frontend's dependencies and execute "npm start" to start the frontend application.
+## Spot Details Viewing Available For Anyone
 
-By following these simple steps, you will be able to fully experience Bnb-Ria and all it has to offer.
+Spot details can be accessed by anyone with additional features for logged in users, such as writing a review for someone else's spot.
+![spot-details]
 
-## Contact Information
-- Email:
+[spot-details]: ./assets/spot-details.png
+
+## Roadmap
+
+- <input type="checkbox" checked> User Authentication
+- <input type="checkbox" checked> Spots (CRUD)
+- <input type="checkbox"> Reviews (CRUD)
+  - <input type="checkbox" checked> Create user reviews
+  - <input type="checkbox" checked> Read user reviews
+  - <input type="checkbox"> Update user reviews
+  - <input type="checkbox" checked> Delete user reviews
+- <input type="checkbox"> Spot Images (CRUD)
+  - <input type="checkbox" checked> Create spot images
+    - <input type="checkbox" checked> Create spot images in new spot form
+    - <input type="checkbox"> Create individual spot images
+  - <input type="checkbox" checked> Read spot images
+  - <input type="checkbox"> Update spot images
+  - <input type="checkbox"> Delete spot images
+    - <input type="checkbox" checked> Delete spot images during spot deletion
+    - <input type="checkbox"> Delete individual spot images
+- <input type="checkbox"> Bookings (CRUD)
+
+<br>
+
+# Get Started
+
+To run this project locally, please perform the following steps:
+
+1. Clone the repository
+   ```sh
+   git clone https://github.com/Murphyn5/Bnb-Ria.git
+   ```
+2. Install npm packages at the root directory, and in both frontend and backend folders
+   ```sh
+   npm install
+   ```
+3. Create a local database file by running the following command in the backend folder
+   ```sh
+   npm run reset-db
+   ```
+4. Start both the frontend and backend servers by opening two terminals, one for each, and running the following command
+   ```sh
+   npm start
+   ```
+5. The localhost:3000 port will be available to view and interact with the application to test out the features.
+
+<br>
+
+# Contact
+
+Email: nlimurphy@gmail.com
+
+Portfolio: https://murphyn5.github.io/
+
+LinkedIn: https://linkedin.com/in/nicholas-murphy-1167b226b
+
+<!-- References and Icons -->
+
+[html.js]: https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white
+[html-url]: https://developer.mozilla.org/en-US/docs/Web/HTML
+[css.js]: https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white
+[css-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
+[react.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[react-url]: https://reactjs.org/
+[postgresql.js]: https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white
+[postgresql-url]: https://www.postgresql.org/
+[sequelize.js]: https://img.shields.io/badge/sequelize-323330?style=for-the-badge&logo=sequelize&logoColor=blue
+[sequelize-url]: https://sequelize.org/
+[express.js]: https://img.shields.io/badge/Express.js-404D59?style=for-the-badge
+[express-url]: https://expressjs.com/
+[javascript.js]: https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E
+[javascript-url]: https://www.javascript.com/
+[redux.js]: https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white
+[redux-url]: https://redux.js.org/
+[node.js]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
+[node-url]: https://nodejs.org/en/
