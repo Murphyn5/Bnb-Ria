@@ -37,7 +37,8 @@ Database:
 ## Home Page Demo User
 
 You will be able to test features without signing up by clicking on "Log in as Demo User".
-![demo-user-features]
+
+![Screen Shot 2023-04-12 at 4 20 26 PM](https://user-images.githubusercontent.com/63930644/231606869-09299889-89fe-4fc9-b454-3b12aa705cf6.png)
 
 [demo-user-features]: ./assets/demo-user-features.png
 
