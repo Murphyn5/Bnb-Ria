@@ -53,7 +53,8 @@ Logged-in users will be able to create a new spot.
 ## Spot Details Viewing Available For Anyone
 
 Spot details can be accessed by anyone with additional features for logged in users, such as writing a review for someone else's spot.
-![spot-details]
+
+![Screen Shot 2023-04-12 at 4 25 54 PM](https://user-images.githubusercontent.com/63930644/231607439-e745f2ec-1646-4987-945b-5401dd4b4bbe.png)
 
 [spot-details]: ./assets/spot-details.png
 
