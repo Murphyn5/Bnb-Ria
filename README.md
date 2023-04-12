@@ -37,21 +37,24 @@ Database:
 ## Home Page Demo User
 
 You will be able to test features without signing up by clicking on "Log in as Demo User".
-![demo-user-features]
+
+![Screen Shot 2023-04-12 at 4 20 26 PM](https://user-images.githubusercontent.com/63930644/231606869-09299889-89fe-4fc9-b454-3b12aa705cf6.png)
 
 [demo-user-features]: ./assets/demo-user-features.png
 
 ## Create Spot as Logged-In User
 
 Logged-in users will be able to create a new spot.
-![create-spot-form]
+
+![Screen Shot 2023-04-12 at 4 23 23 PM 1](https://user-images.githubusercontent.com/63930644/231607223-3958eb09-a516-4e80-93eb-fed6e8fbb36a.png)
 
 [create-spot-form]: ./assets/create-spot-form.png
 
 ## Spot Details Viewing Available For Anyone
 
 Spot details can be accessed by anyone with additional features for logged in users, such as writing a review for someone else's spot.
-![spot-details]
+
+![Screen Shot 2023-04-12 at 4 25 54 PM](https://user-images.githubusercontent.com/63930644/231607439-e745f2ec-1646-4987-945b-5401dd4b4bbe.png)
 
 [spot-details]: ./assets/spot-details.png
 
