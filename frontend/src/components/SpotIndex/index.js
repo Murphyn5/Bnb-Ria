@@ -6,21 +6,21 @@ import './SpotIndex.css'
 
 const SpotIndex = () => {
   const dispatch = useDispatch()
-    const spots = useSelector(getAllSpots);
-    const user = useSelector(state => state.session.user)
+  const spots = useSelector(getAllSpots);
+  const user = useSelector(state => state.session.user)
 
-    useEffect(() => {
-        const spotRestore = async () => {
-            await dispatch(getSpots())
-        }
-        spotRestore()
-    }, [])
-
-
-    spots.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
-    if (!spots[0]) {
-        return
+  useEffect(() => {
+    const spotRestore = async () => {
+      await dispatch(getSpots())
     }
+    spotRestore()
+  }, [])
+
+
+  spots.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
+  if (!spots[0]) {
+    return
+  }
   spots.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
   return (
     <section>
