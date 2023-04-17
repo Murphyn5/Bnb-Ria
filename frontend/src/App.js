@@ -10,6 +10,7 @@ import SpotDetail from "./components/SpotDetail";
 import SpotManageIndex from "./components/SpotManageIndex";
 import EditSpotForm from "./components/EditSpotForm";
 import ManageReviewsindex from "./components/ManageReviewsIndex";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,23 +28,29 @@ function App() {
           <Switch>
             <Route exact path='/'>
               <SpotIndex />
+              <Footer></Footer>
             </Route>
             {sessionUser && (
               <Route path='/spots/new'>
                 <CreateSpotForm />
+                <Footer></Footer>
               </Route>
             )}
             <Route path='/spots/current'>
               <SpotManageIndex />
+              <Footer></Footer>
             </Route>
             <Route path='/spots/:spotId/edit'>
               <EditSpotForm />
+              <Footer></Footer>
             </Route>
             <Route path='/spots/:spotId'>
               <SpotDetail />
+              <Footer></Footer>
             </Route>
             <Route path='/reviews/current'>
               <ManageReviewsindex />
+              <Footer></Footer>
             </Route>
           </Switch>
         )}

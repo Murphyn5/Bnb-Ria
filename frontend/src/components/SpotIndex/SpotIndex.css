@@ -1,7 +1,9 @@
 .spots-grid {
+    /* display: flex;
+    flex-wrap: wrap; */
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
+    /* grid-template-rows: repeat(auto-fit, minmax(300px, 1fr)); */
     list-style: none;
     height: 100%;
     margin: 0 auto 0 auto;
@@ -19,14 +21,14 @@
 @media screen and (min-width: 586px) and (max-width: 900px) {
     .spots-grid {
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
 }
 
 @media screen and (max-width: 585px) {
     .spots-grid {
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
 }
 
@@ -34,7 +36,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
   }
 
   .pagination-buttons {
