@@ -64,6 +64,7 @@
     justify-content: center;
     width: 40px;
     flex-direction: column;
+    position: relative;
 }
 
 .profile-button {
@@ -87,7 +88,7 @@
 
 .profile-dropdown {
     position: absolute;
-    right: 20px;
+    right: 0;
     top: 60px;
     border: solid black 1px;
     filter: drop-shadow(5px 5px 4px #999999);
@@ -96,6 +97,7 @@
     justify-content: space-around;
     list-style: none;
     padding: 10px;
+    width: 140px;
     background-color: white;
     z-index: 1;
 }
