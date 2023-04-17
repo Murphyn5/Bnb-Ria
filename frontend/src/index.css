@@ -13,16 +13,15 @@
 
 body {
     margin: 0;
-    height: 100%;
 }
 
-html {
+/* html {
     height: 100%;
-}
+} */
 
-#root {
+/* #root {
     height: 100%;
-}
+} */
 
 .text-color-gray {
     color: #999999;
@@ -31,11 +30,9 @@ html {
 .page-content {
     position: relative;
     top: 70px;
-    height: 100%;
 }
 
 section {
-    height: 100%;
     padding: 30px;
 }
 

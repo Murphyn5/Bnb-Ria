@@ -374,22 +374,22 @@ router.get(
             },
         };
 
-        let page = req.query.page === undefined ? 1 : parseInt(req.query.page);
-        let size = req.query.size === undefined ? 20 : parseInt(req.query.size);
+        // let page = req.query.page === undefined ? 1 : parseInt(req.query.page);
+        // let size = req.query.size === undefined ? 20 : parseInt(req.query.size);
 
-        if (page < 0) err.errors.push("Page must be greater than or equal to 0")
-        if (size < 0) err.errors.push("Size must be greater than or equal to 0")
+        // if (page < 0) err.errors.push("Page must be greater than or equal to 0")
+        // if (size < 0) err.errors.push("Size must be greater than or equal to 0")
 
-        if (page > 10) page = 10
-        if (size > 20) size = 20
+        // if (page > 10) page = 10
+        // if (size > 20) size = 20
 
-        if (page >= 1 && size >= 1) {
-            query.limit = size;
-            query.offset = size * (page - 1);
-            query.order = [
-                ["createdAt", "DESC"]
-            ]
-        }
+        // if (page >= 1 && size >= 1) {
+        //     query.limit = size;
+        //     query.offset = size * (page - 1);
+        //     query.order = [
+        //         ["createdAt", "DESC"]
+        //     ]
+        // }
 
 
         if (err.errors.length > 0) {
@@ -467,9 +467,9 @@ router.get(
 
 
         return res.json({
-            Spots: spotsPOJO,
-            page,
-            size
+            Spots: spotsPOJO
+            // page,
+            // size
         })
     }
 )

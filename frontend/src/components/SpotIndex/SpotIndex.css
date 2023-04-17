@@ -1,7 +1,7 @@
 .spots-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     list-style: none;
     height: 100%;
     margin: 0 auto 0 auto;
@@ -29,3 +29,29 @@
         grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
 }
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .pagination-buttons {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    margin: 0 0.25rem 1rem 0.25rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+
+  .pagination-buttons:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .pagination-buttons:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
