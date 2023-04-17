@@ -133,7 +133,7 @@ const SpotDetail = () => {
             )
         }
     }
-    
+
     const spotAvgRatingRounded = () => {
         if (spot.avgRating !== null) {
             return spot.avgRating.toFixed(1)

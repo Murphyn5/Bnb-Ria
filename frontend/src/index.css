@@ -13,15 +13,17 @@
 
 body {
     margin: 0;
+    height: 100%;
 }
 
-/* html {
+html {
     height: 100%;
-} */
+}
 
-/* #root {
+#root {
     height: 100%;
-} */
+    background-color: #f7f7fa;
+}
 
 .text-color-gray {
     color: #999999;
@@ -30,10 +32,12 @@ body {
 .page-content {
     position: relative;
     top: 70px;
+    height: calc(100%-70px);
 }
 
 section {
     padding: 30px;
+    background-color: white;
 }
 
 a {

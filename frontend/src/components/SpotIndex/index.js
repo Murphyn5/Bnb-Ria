@@ -98,16 +98,6 @@ const SpotIndex = () => {
           Next &gt;
         </button>
       </div>
-      {/* <ul className='spots-grid'>
-        {
-          spots.map(spot => (
-            <SpotIndexItem
-              spot={spot}
-              key={spot.id}
-            />
-          ))
-        }
-      </ul> */}
     </section>
   );
 }
