@@ -11,7 +11,7 @@ const SpotIndex = () => {
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 16;
+  const itemsPerPage = 12;
 
   // Calculate start & end indices for items slice array
   const endIndex = currentPage * itemsPerPage;
