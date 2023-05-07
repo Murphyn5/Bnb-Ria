@@ -22,9 +22,11 @@ const ManageReviewsindex = () => {
 
     if (reviews.length === 0) {
         return (
-            <section className="manage-reviews-container">
-                <h1>Manage Reviews</h1>
-                <h2>No reviews to show!</h2>
+            <section >
+                <div className="manage-reviews-container">
+                    <h1>Manage Reviews</h1>
+                    <h2>No reviews to show!</h2>
+                </div>
             </section>
         )
     } else {

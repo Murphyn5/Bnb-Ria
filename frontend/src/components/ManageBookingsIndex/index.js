@@ -25,6 +25,16 @@ const BookingsCurrent = () => {
 
     bookings.sort((a, b) => Date.parse(b.startDate) - Date.parse(a.startDate))
 
+    if (bookings.length === 0) {
+        return (
+            <section>
+                <div className="manage-reviews-container">
+                    <h1>Manage Bookings</h1>
+                    <h2>No bookings to show!</h2>
+                </div>
+            </section>
+        )
+    }
     return (
         <section className="manage-reviews-container-outer">
             <div>
