@@ -11,6 +11,7 @@ import SpotManageIndex from "./components/SpotManageIndex";
 import EditSpotForm from "./components/EditSpotForm";
 import ManageReviewsindex from "./components/ManageReviewsIndex";
 import Footer from "./components/Footer";
+import BookingsCurrent from "./components/ManageBookingsIndex";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,10 @@ function App() {
               <ManageReviewsindex />
               <Footer></Footer>
             </Route>
+            <Route path="/bookings/current">
+                <BookingsCurrent />
+                <Footer></Footer>
+              </Route>
           </Switch>
         )}
       </div>

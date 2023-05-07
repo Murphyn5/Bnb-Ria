@@ -63,6 +63,10 @@ function ProfileButton({ user }) {
                         <Link className="manage-link" onClick={closeMenu} to="/reviews/current">
                             <li className="dropdown-li">Manage Reviews</li>
                         </Link>
+
+                        <Link className="manage-link" onClick={closeMenu} to="/bookings/current">
+                            <li className="dropdown-li">Manage Bookings</li>
+                        </Link>
                         <ColoredLine />
                         <li className="log-out-button-container">
                             <button onClick={logout} className="log-out-button">Log Out</button>
