@@ -59,8 +59,6 @@ const SpotDetail = () => {
             const startDate = new Date(booking.startDate.replace(/-/g, '\/'));
             startDate.setDate(startDate.getDate() + 1)
             const endDate = new Date(booking.endDate.replace(/-/g, '\/'));
-            console.log(startDate)
-            console.log(endDate)
             for (
                 let currentDate = startDate; // initial i
                 currentDate <= endDate; // while i is less than endDate

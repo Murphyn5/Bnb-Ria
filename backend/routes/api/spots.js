@@ -748,9 +748,6 @@ router.post(
 
         const { startDate, endDate } = req.body;
 
-        console.log("asdasdasd", startDate.slice(0,10))
-        console.log(endDate.slice(0,10))
-
         const bookingStartDate = new Date(startDate.slice(0,10).replace(/-/g, '\/'))
         const bookingEndDate = new Date(endDate.slice(0,10).replace(/-/g, '\/'))
 
@@ -785,9 +782,6 @@ router.post(
                     err.errors.push("Start date conflicts with an existing booking")
                 }
             }
-            console.log("PASTSTART",pastBookingStartDate)
-            console.log("END", bookingEndDate)
-            console.log('????????',  pastBookingStartDate < bookingEndDate)
 
             if (pastBookingStartDate < bookingEndDate && bookingEndDate < pastBookingEndDate || pastBookingEndDate === bookingEndDate) {
                 if (!err.errors.toString().includes("End")) {
@@ -795,7 +789,6 @@ router.post(
                 }
             }
 
-            console.log('!!!!!!!!!!!!',  pastBookingStartDate < bookingStartDate && pastBookingEndDate < bookingEndDate)
 
             if (bookingStartDate < pastBookingStartDate && pastBookingEndDate < bookingEndDate) {
                 if (!err.errors.toString().includes("within")) {
