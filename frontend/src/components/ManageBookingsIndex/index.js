@@ -36,7 +36,8 @@ const BookingsCurrent = () => {
         )
     }
     return (
-        <section className="manage-reviews-container-outer">
+        <section >
+            <div className="manage-reviews-container-outer">
             <div>
                 <h1>Manage Bookings</h1>
                 <div className="manage-reviews-cards-container">
@@ -91,6 +92,7 @@ const BookingsCurrent = () => {
                         </div>
                     ))}
                 </div>
+            </div>
             </div>
         </section>
     );
