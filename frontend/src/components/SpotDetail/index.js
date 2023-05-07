@@ -59,6 +59,8 @@ const SpotDetail = () => {
             const startDate = new Date(booking.startDate.replace(/-/g, '\/'));
             startDate.setDate(startDate.getDate() + 1)
             const endDate = new Date(booking.endDate.replace(/-/g, '\/'));
+            console.log(startDate)
+            console.log(endDate)
             for (
                 let currentDate = startDate; // initial i
                 currentDate <= endDate; // while i is less than endDate
@@ -67,10 +69,6 @@ const SpotDetail = () => {
                 bookedDates.push(new Date(currentDate)); // push each day into bookedDates to filter out
             }
 
-            if(endDates.includes(endDate.getDate() + 2)){
-                endDate.setDate(endDate.getDate() + 1)
-                bookedDates.push(endDate)
-            }
         });
         return bookedDates;
     };
