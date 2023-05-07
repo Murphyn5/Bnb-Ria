@@ -748,8 +748,11 @@ router.post(
 
         const { startDate, endDate } = req.body;
 
-        const bookingStartDate = new Date(startDate)
-        const bookingEndDate = new Date(endDate)
+        console.log("asdasdasd", startDate.slice(0,10))
+        console.log(endDate.slice(0,10))
+
+        const bookingStartDate = new Date(startDate.slice(0,10).replace(/-/g, '\/'))
+        const bookingEndDate = new Date(endDate.slice(0,10).replace(/-/g, '\/'))
 
         if (bookingEndDate <= bookingStartDate) {
             let err = {}
