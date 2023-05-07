@@ -96,11 +96,6 @@ const SpotDetail = () => {
         spotRestore()
     }, [dispatch, spotId])
 
-    useEffect(() => {
-        console.log(startDate)
-        console.log(endDate)
-    }, [startDate, endDate])
-
     if (!spot.country) {
         return
     }
@@ -180,11 +175,8 @@ const SpotDetail = () => {
             endDate,
         };
 
-        console.log(bookingData)
-
         const bookingRes = await dispatch(postBookingThunk(bookingData));
 
-        console.log(bookingRes)
         if (bookingRes.success) {
             alert("Booking has been created successfully. See you soon!");
             history.push("/");
