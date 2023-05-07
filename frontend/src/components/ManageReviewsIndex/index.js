@@ -20,8 +20,6 @@ const ManageReviewsindex = () => {
         reviewRestore()
     }, [dispatch])
 
-    console.log(reviews)
-
     if (reviews.length === 0) {
         return (
             <section className="manage-reviews-container">

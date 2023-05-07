@@ -782,9 +782,7 @@ router.post(
                     err.errors.push("Start date conflicts with an existing booking")
                 }
             }
-            console.log("PASTSTART",pastBookingStartDate)
-            console.log("END", bookingEndDate)
-            console.log('????????',  pastBookingStartDate < bookingEndDate)
+
 
             if (pastBookingStartDate < bookingEndDate && bookingEndDate < pastBookingEndDate || pastBookingEndDate === bookingEndDate) {
                 if (!err.errors.toString().includes("End")) {
@@ -792,7 +790,8 @@ router.post(
                 }
             }
 
-            if (pastBookingStartDate < bookingStartDate && pastBookingEndDate < bookingEndDate) {
+
+            if (bookingStartDate < pastBookingStartDate && pastBookingEndDate < bookingEndDate) {
                 if (!err.errors.toString().includes("within")) {
                     err.errors.push("An existing booking exists within the requested booking")
                 }
