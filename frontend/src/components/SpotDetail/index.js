@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { getOneSpot } from "../../store/spots"
 import OpenModalButton from "../OpenModalButton"
@@ -7,37 +8,98 @@ import ColoredLine from "../ColoredLine"
 import CreateReviewFormModal from "../CreateReviewFormModal"
 import DeleteReviewFormModal from "../DeleteReviewFormModal"
 import EditReviewFormModal from "../EditReviewFormModal"
+import "react-datepicker/dist/react-datepicker.css";
 import './SpotDetail.css'
 import { getSpotReviews, getAllSpotReviews } from "../../store/reviews"
+import { postBookingThunk, getBookingsThunk } from "../../store/bookings";
+import DatePicker from "react-datepicker";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
+import moment from "moment";
+
+
 
 
 
 const SpotDetail = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
-
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [err, setErr] = useState("");
     const { spotId } = useParams()
 
     let spot = useSelector(state => state.spots.singleSpot)
 
     const reviews = useSelector(getAllSpotReviews)
+    const bookings = useSelector((state) => state.bookings.bookings?.Bookings);
+    const getBookedStartDates = () => {
+
+        const bookedDates = [];
+        bookings?.forEach((booking) => {
+            const startDate = new Date(booking.startDate.replace(/-/g, '\/'));
+            const endDate = new Date(booking.endDate.replace(/-/g, '\/'));
+            for (
+                let currentDate = startDate; // initial i
+                currentDate < endDate; // while i is less than endDate
+                currentDate.setDate(currentDate.getDate() + 1) // incrementing days by 1
+            ) {
+                bookedDates.push(new Date(currentDate)); // push each day into bookedDates to filter out
+            }
+        });
+        return bookedDates;
+    };
+    const getBookedEndDates = () => {
+        const bookedDates = [];
+        const endDates = []
+        bookings?.forEach((booking) => {
+            endDates.push((new Date(booking.endDate)).getDate())
+        });
+
+        bookings?.forEach((booking) => {
+            const startDate = new Date(booking.startDate.replace(/-/g, '\/'));
+            startDate.setDate(startDate.getDate() + 1)
+            const endDate = new Date(booking.endDate.replace(/-/g, '\/'));
+            for (
+                let currentDate = startDate; // initial i
+                currentDate <= endDate; // while i is less than endDate
+                currentDate.setDate(currentDate.getDate() + 1) // incrementing days by 1
+            ) {
+                bookedDates.push(new Date(currentDate)); // push each day into bookedDates to filter out
+            }
+
+            if(endDates.includes(endDate.getDate() + 2)){
+                endDate.setDate(endDate.getDate() + 1)
+                bookedDates.push(endDate)
+            }
+        });
+        return bookedDates;
+    };
+    const bookedStartDates = getBookedStartDates();
+    const bookedEndates = getBookedEndDates();
 
     const reviewUserIdArray = reviews.map((review) => {
         return review.User.id
     })
 
-    console.log(reviewUserIdArray)
-
     reviews.sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt))
 
     const sessionUser = useSelector(state => state.session.user);
+
+    const sessionUserOwned = spot.ownerId === sessionUser?.id;
 
     useEffect(() => {
         const spotRestore = async () => {
             await dispatch(getOneSpot(spotId))
             await dispatch(getSpotReviews(spotId))
+            dispatch(getBookingsThunk(spotId));
         }
         spotRestore()
     }, [dispatch, spotId])
+
+    useEffect(() => {
+        console.log(startDate)
+        console.log(endDate)
+    }, [startDate, endDate])
 
     if (!spot.country) {
         return
@@ -100,9 +162,40 @@ const SpotDetail = () => {
     let rating = <span><i className="fas fa-star"></i></span>
     let ratingTitle = <span><i className="fas fa-star enlarge"></i></span>
 
-    const handleSubmit = () => {
-        window.alert('Feature coming soon!')
-    }
+    const handleBooking = async () => {
+        if (!sessionUser) {
+            setErr("Please log in to book a spot.");
+            return;
+        }
+
+        if (sessionUserOwned) {
+            setErr("You cannot book your own spot.");
+            return;
+        }
+
+        const bookingData = {
+            spotId: spot.id,
+            userId: sessionUser.id,
+            startDate,
+            endDate,
+        };
+
+        console.log(bookingData)
+
+        const bookingRes = await dispatch(postBookingThunk(bookingData));
+
+        console.log(bookingRes)
+        if (bookingRes.success) {
+            alert("Booking has been created successfully. See you soon!");
+            history.push("/");
+        } else {
+            if (bookingRes.error.statusCode === 403) {
+                setErr(bookingRes.error.message);
+            } else {
+                setErr("Failed to create booking. Please try again.");
+            }
+        }
+    };
 
     const renderReviewAction = () => {
         if (reviewType === 'New' && sessionUser && sessionUser.id !== spot.ownerId) {
@@ -324,8 +417,39 @@ const SpotDetail = () => {
                                     <span> {isNewCheckerSmall()}</span>
                                 </div>
                             </div>
-
-                            <button type="submit" onClick={handleSubmit} className={'spot-details-information-button enabled'}>Reserve</button>
+                            <DatePicker
+                                showIcon
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                                startDate={startDate}
+                                endDate={endDate}
+                                selectsStart
+                                minDate={new Date(Date.now() + 86400000)}
+                                placeholderText="Start Date"
+                                closeOnScroll={true}
+                                withPortal
+                                excludeDates={bookedStartDates}
+                            />
+                            <DatePicker
+                                showIcon
+                                selected={endDate}
+                                onChange={(date) => setEndDate(date)}
+                                startDate={startDate}
+                                endDate={endDate}
+                                selectsStart
+                                minDate={
+                                    startDate
+                                      ? moment(startDate).add(1, "days").toDate()
+                                      : new Date(Date.now() + 172800000)
+                                  }
+                                placeholderText="End Date"
+                                closeOnScroll={true}
+                                withPortal
+                                excludeDates={bookedEndates}
+                            />
+                            <br></br>
+                            <button type="submit" onClick={handleBooking} className={'spot-details-information-button enabled'}>Reserve</button>
+                            {err && <p style={{ color: "red" }}>{err}</p>}
                         </div>
                     </div>
                 </div>

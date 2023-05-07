@@ -1,0 +1,70 @@
+.manage-reviews-container-outer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .manage-reviews-cards-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 1216px;
+  }
+
+  .manage-reviews-card {
+    cursor: pointer;
+    border: 2px solid black;
+    padding: 10px;
+    margin: 5px 5px 5px 0;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    max-height: 500px;
+    overflow: hidden;
+    width: 270px;
+  }
+
+  .manage-reviews-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .manage-reviews-card > h4 {
+    text-decoration: underline;
+  }
+
+  .manage-reviews-review {
+    position: relative;
+    overflow: hidden;
+    max-height: 1.5em;
+    line-height: 1.5em;
+    text-overflow: ellipsis;
+    margin: 10px 0;
+  }
+
+  .manage-reviews-bottom {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .manage-reviews-img {
+    border-radius: 8px;
+    height: 200px;
+    width: 270px;
+    object-fit: cover;
+    margin-top: auto;
+  }
+
+  .manage-reviews-bottom {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 5px 0;
+  }
+
+  .manage-reviews-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+  }
