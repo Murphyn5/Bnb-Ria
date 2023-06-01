@@ -1,6 +1,6 @@
 # About BnB-Ria
 
-BnB-Ria is a web application inspired by Airbnb. [Click here to visit BnB-Ria's live site](https://BnB-Ria.onrender.com/).
+BnB-Ria is a web application inspired by Airbnb. [Click here to visit BnB-Ria's live site](https://bnb-ria-kfzn.onrender.com).
 
 <br>
 
